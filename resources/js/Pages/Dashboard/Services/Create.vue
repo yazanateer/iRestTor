@@ -91,15 +91,18 @@ const submit = () => {
                     </div>
                 </div>
 
-                <div class="form-check mb-4">
+                <div class="form-check d-flex align-items-center gap-2 mb-4 ps-1">
                     <input
                         id="is_active"
                         v-model="form.is_active"
-                        class="form-check-input"
+                        class="form-check-input m-0"
                         type="checkbox"
                     />
 
-                    <label for="is_active" class="form-check-label">
+                    <label
+                        for="is_active"
+                        class="form-check-label mb-0"
+                    >
                         {{ t('common.active') }}
                     </label>
                 </div>

@@ -4,6 +4,7 @@ import '../css/admin.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import i18n from './i18n';
 
 import { createInertiaApp } from '@inertiajs/vue3';

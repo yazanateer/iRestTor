@@ -64,7 +64,7 @@ const deleteService = (id: number) => {
                         <th>{{ t('services.duration') }}</th>
                         <th>{{ t('services.price') }}</th>
                         <th>{{ t('common.status') }}</th>
-                        <th class="text-end">{{ t('common.actions') }}</th>
+                        <th class="admin-table-actions">{{ t('common.actions') }}</th>
                     </tr>
                 </thead>
 
@@ -92,7 +92,7 @@ const deleteService = (id: number) => {
                         </td>
 
                         <td>
-                            {{ service.price ? '$' + service.price : '-' }}
+                            {{ service.price ? ' ₪ ' + service.price : '-' }}
                         </td>
 
                         <td>
@@ -100,10 +100,10 @@ const deleteService = (id: number) => {
                                 class="admin-badge"
                                 :class="service.is_active ? 'admin-badge-success' : 'admin-badge-inactive'"
                             >
-                                {{ service.is_active ? t('common.active') : t('common.inactive') }}                            </span>
+                                {{ service.is_active ? t('common.active') : t('common.inactive') }}</span>
                         </td>
 
-                        <td class="text-end">
+                        <td class="admin-table-actions">
                             <Link
                                 :href="route('dashboard.services.edit', service.id)"
                                 class="btn btn-sm btn-outline-primary me-2"

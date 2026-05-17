@@ -15,12 +15,12 @@ type Manager = {
     business_id: number;
 };
 
-const { t } = useI18n();
-
 const props = defineProps<{
     manager: Manager;
     businesses: Business[];
 }>();
+
+const { t } = useI18n();
 
 const form = useForm({
     name: props.manager.name,
@@ -45,33 +45,66 @@ const submit = () => {
         <div class="admin-card">
             <form @submit.prevent="submit">
                 <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.managers.managerName') }}</label>
-                    <input v-model="form.name" type="text" class="admin-input" />
+                    <label class="admin-label">
+                        {{ t('admin.managers.managerName') }}
+                    </label>
+
+                    <input
+                        v-model="form.name"
+                        type="text"
+                        class="admin-input"
+                    />
+
                     <div v-if="form.errors.name" class="text-danger small mt-1">
                         {{ form.errors.name }}
                     </div>
                 </div>
 
                 <div class="admin-form-group">
-                    <label class="admin-label">{{ t('common.email') }}</label>
-                    <input v-model="form.email" type="email" class="admin-input" />
+                    <label class="admin-label">
+                        {{ t('common.email') }}
+                    </label>
+
+                    <input
+                        v-model="form.email"
+                        type="email"
+                        class="admin-input"
+                    />
+
                     <div v-if="form.errors.email" class="text-danger small mt-1">
                         {{ form.errors.email }}
                     </div>
                 </div>
 
                 <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.managers.newPassword') }}</label>
-                    <input v-model="form.password" type="password" class="admin-input" />
-                    <small class="text-muted">{{ t('admin.managers.keepPasswordHint') }}</small>
+                    <label class="admin-label">
+                        {{ t('admin.managers.newPassword') }}
+                    </label>
+
+                    <input
+                        v-model="form.password"
+                        type="password"
+                        class="admin-input"
+                    />
+
+                    <small class="text-muted">
+                        {{ t('admin.managers.keepPasswordHint') }}
+                    </small>
+
                     <div v-if="form.errors.password" class="text-danger small mt-1">
                         {{ form.errors.password }}
                     </div>
                 </div>
 
                 <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.businesses.business') }}</label>
-                    <select v-model="form.business_id" class="admin-input">
+                    <label class="admin-label">
+                        {{ t('admin.businesses.business') }}
+                    </label>
+
+                    <select
+                        v-model="form.business_id"
+                        class="admin-input"
+                    >
                         <option
                             v-for="business in businesses"
                             :key="business.id"
@@ -80,17 +113,24 @@ const submit = () => {
                             {{ business.name }}
                         </option>
                     </select>
+
                     <div v-if="form.errors.business_id" class="text-danger small mt-1">
                         {{ form.errors.business_id }}
                     </div>
                 </div>
 
                 <div class="d-flex gap-2 mt-4">
-                    <button class="admin-primary-btn" :disabled="form.processing">
+                    <button
+                        class="admin-primary-btn"
+                        :disabled="form.processing"
+                    >
                         {{ t('admin.managers.updateManager') }}
                     </button>
 
-                    <Link :href="route('admin.managers.index')" class="btn btn-light">
+                    <Link
+                        :href="route('admin.managers.index')"
+                        class="btn btn-light"
+                    >
                         {{ t('common.cancel') }}
                     </Link>
                 </div>

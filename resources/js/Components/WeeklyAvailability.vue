@@ -1,4 +1,8 @@
 <script setup lang="ts">
+
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 type Day = {
     day_of_week: number;
     label: string;
@@ -10,14 +14,39 @@ type Day = {
 const props = defineProps<{
     days: Day[];
     selectedDayIndex: number | null;
+    translatedDayName: Function
 }>();
 
 const emit = defineEmits<{
     (e: 'select', index: number): void;
 }>();
 
-const SHORT_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+// const SHORT_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const { t } = useI18n();
 
+const SHORT_LABELS = computed(() => [
+    t('daysShort.sunday'),
+    t('daysShort.monday'),
+    t('daysShort.tuesday'),
+    t('daysShort.wednesday'),
+    t('daysShort.thursday'),
+    t('daysShort.friday'),
+    t('daysShort.saturday'),
+]);
+
+const translatedDayName = (day: string) => {
+    const days: Record<string, string> = {
+        Sunday: t('days.sunday'),
+        Monday: t('days.monday'),
+        Tuesday: t('days.tuesday'),
+        Wednesday: t('days.wednesday'),
+        Thursday: t('days.thursday'),
+        Friday: t('days.friday'),
+        Saturday: t('days.saturday'),
+    };
+
+    return days[day] || day;
+};
 const timeToMinutes = (time: string): number => {
     if (!time) return 0;
 
@@ -26,8 +55,23 @@ const timeToMinutes = (time: string): number => {
     return hours * 60 + minutes;
 };
 
+// const durationLabel = (day: Day): string => {
+//     if (!day.is_active) return 'Closed';
+
+//     const start = timeToMinutes(day.start_time);
+//     const end = timeToMinutes(day.end_time);
+//     const diff = end - start;
+
+//     if (diff <= 0) return '—';
+
+//     const hours = Math.floor(diff / 60);
+//     const minutes = diff % 60;
+
+//     return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+// };
+
 const durationLabel = (day: Day): string => {
-    if (!day.is_active) return 'Closed';
+    if (!day.is_active) return t('common.closed');
 
     const start = timeToMinutes(day.start_time);
     const end = timeToMinutes(day.end_time);
@@ -95,7 +139,7 @@ const barOffset = (day: Day): number => {
                 @click="emit('select', index)"
             >
                 <div class="wa-row__label">
-                    {{ day.label }}
+                    {{ props.translatedDayName(day.label) }}
                 </div>
 
                 <div class="wa-row__track">
@@ -122,7 +166,7 @@ const barOffset = (day: Day): number => {
                     </template>
 
                     <span v-else class="wa-row__closed-label">
-                        Closed
+                        {{ t('common.closed') }}
                     </span>
                 </div>
 
@@ -130,7 +174,7 @@ const barOffset = (day: Day): number => {
                     class="wa-row__badge"
                     :class="day.is_active ? 'wa-row__badge--open' : 'wa-row__badge--closed'"
                 >
-                    {{ day.is_active ? 'Open' : 'Off' }}
+                    {{ day.is_active ? t('common.open') : t('common.off') }} 
                 </div>
             </div>
         </div>

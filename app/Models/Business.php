@@ -24,6 +24,7 @@ class Business extends Model
     'name',
     'email',
     'slug',
+    'phone',
     'password',
     'role',
     'business_id',

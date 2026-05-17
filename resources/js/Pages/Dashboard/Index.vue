@@ -11,13 +11,21 @@ type Business = {
     logo?: string | null;
 };
 
-defineProps<{
+const props = defineProps<{
     business: Business;
     bookingLink: string;
 }>();
 
 const { t } = useI18n();
-
+const copyBookingLink = async () => {
+    try {
+        await navigator.clipboard.writeText(props.bookingLink);
+        alert('Copied!');
+    } catch (error) {
+        console.error(error);
+        alert('Could not copy the link');
+    }
+}
 </script>
 
 <template>
@@ -32,21 +40,21 @@ const { t } = useI18n();
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
                     <p class="text-muted mb-2">{{ t('dashboard.todayAppointments') }}</p>
-                    <h2 class="fw-bold mb-0">0</h2>
+                    <h2 class="fw-bold mb-0">12</h2>
                 </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
                     <p class="text-muted mb-2">{{ t('dashboard.customers') }}</p>
-                    <h2 class="fw-bold mb-0">0</h2>
+                    <h2 class="fw-bold mb-0">63</h2>
                 </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
                     <p class="text-muted mb-2">{{ t('dashboard.services') }}</p>
-                    <h2 class="fw-bold mb-0">0</h2>
+                    <h2 class="fw-bold mb-0">7</h2>
                 </div>
             </div>
 
@@ -74,7 +82,7 @@ const { t } = useI18n();
 
                 <button
                     class="admin-primary-btn"
-                    @click="navigator.clipboard.writeText(bookingLink)"
+                    @click="copyBookingLink"
                 >
                     <i class="bi bi-copy me-2"></i>
                     {{ t('dashboard.copyLink') }}

@@ -22,8 +22,31 @@ export default {
         name: 'Name',
         password: 'Password',
         description: 'Description',
+        console: 'IRestTor',
+        available: 'Available',
+        continue: 'Continue',
+        off: 'Off',
+
+    },
+    days: {
+        sunday: 'Sunday',
+        monday: 'Monday',
+        tuesday: 'Tuesday',
+        wednesday: 'Wednesday',
+        thursday: 'Thursday',
+        friday: 'Friday',
+        saturday: 'Saturday',
     },
 
+    daysShort: {
+        sunday: 'SUN',
+        monday: 'MON',
+        tuesday: 'TUE',
+        wednesday: 'WED',
+        thursday: 'THU',
+        friday: 'FRI',
+        saturday: 'SAT',
+    },
     admin: {
         nav: {
             dashboard: 'Dashboard',
@@ -32,18 +55,40 @@ export default {
         },
 
         platformAdmin: 'Platform Admin',
-        console: 'Slotify Admin Console',
+        console: 'IRestTor Admin Console',
         systemOnline: 'System Online',
 
         dashboard: {
-    welcome: 'Welcome, SaaS Admin',
-    description: 'From here you will manage businesses, managers, subscriptions, and platform settings.',
-},
+            welcome: 'Welcome, SaaS Admin',
+            description: 'From here you will manage businesses, managers, subscriptions, and platform settings.',
+            title: 'Admin Dashboard',
+            stats: {
+                businesses: 'Businesses',
+                managers: 'Managers',
+                activeAccounts: 'Active Accounts',
+                platformStatus: 'Platform Status',
+                online: 'Online',
+            },
+
+            overview: {
+                title: 'Platform Overview',
+                description: 'Manage businesses, managers, and the operational setup of the platform.',
+                businessManagement: 'Business Management',
+                businessManagementDescription: 'Create, edit, and manage all businesses using IRestTor.',
+                managerAccounts: 'Manager Accounts',
+                managerAccountsDescription: 'Assign managers to businesses and control access.',
+            },
+
+            quickActions: {
+                title: 'Quick Actions',
+                description: 'Start managing the platform from here.',
+            },
+        },
 
     businesses: {
         title: 'Businesses',
         management: 'Business Management',
-        managementDescription: 'Create and manage businesses using the Slotify platform.',
+        managementDescription: 'Create and manage businesses using the IRestTor platform.',
         createBusiness: 'Create Business',
         bookingLink: 'Booking Link',
         businessName: 'Business Name',
@@ -52,13 +97,14 @@ export default {
         business: 'Business',
         selectBusiness: 'Select business',
         updateBusiness: 'Update Business',
+        editBusiness: 'Update Business',
         deleteConfirm: 'Are you sure you want to delete this business?',
     },
 
     managers: {
     title: 'Managers',
     accounts: 'Manager Accounts',
-    accountsDescription: 'Create and manage business managers across Slotify.',
+    accountsDescription: 'Create and manage business managers across IRestTor.',
     createManager: 'Create Manager',
     managerName: 'Name',
     editManager: 'Edit Manager',
@@ -80,7 +126,7 @@ export default {
 
         businessDashboard: 'Business Dashboard',
         businessManager: 'Business Manager',
-        console: 'Slotify Business Console',
+        console: 'IRestTor Business Console',
         businessActive: 'Business Active',
     },
 
@@ -89,7 +135,7 @@ export default {
         createTitle: 'Create Business',
         editTitle: 'Edit Business',
         management: 'Business Management',
-        description: 'Create and manage businesses using the Slotify platform.',
+        description: 'Create and manage businesses using the IRestTor platform.',
         createBusiness: 'Create Business',
         updateBusiness: 'Update Business',
         businessName: 'Business Name',
@@ -111,7 +157,7 @@ export default {
         createTitle: 'Create Manager',
         editTitle: 'Edit Manager',
         accounts: 'Manager Accounts',
-        description: 'Create and manage business managers across Slotify.',
+        description: 'Create and manage business managers across IRestTor.',
         createManager: 'Create Manager',
         updateManager: 'Update Manager',
         managerName: 'Manager Name',
@@ -241,5 +287,20 @@ export default {
         loadingSlots: 'Loading available slots...',
         noServices: 'No services available',
         noServicesDescription: 'This business has not published bookable services yet.',
+        subtitle: 'Choose a service, select a date, and pick an available time.',
+        selectServiceDescription: 'Pick the service you want to book.',
+        stepOne: 'Step 1 of 3',
+        chooseDateDescription: 'Select the day you want to visit.',
+        stepTwo: 'Step 2 of 3',
+        availableTimesDescription: 'Pick one of the available appointment slots.',
+        stepThree: 'Step 3 of 3',
+        selectServiceAndDate: 'Select service and date',
+        timesWillAppear: 'Available times will appear here.',
+        selectTimeToContinue: 'Select a time slot to continue.',
+        pageTitle: 'Online Booking',
+        selectServiceFirst: 'Please select a service first.',
+
+
     },
+
 };

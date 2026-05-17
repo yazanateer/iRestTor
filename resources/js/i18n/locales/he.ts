@@ -22,8 +22,30 @@ export default {
         name: 'שם',
         password: 'סיסמה',
         description: 'תיאור',
+        available: 'זמין',
+        continue: 'המשך',
+        off: 'כבוי',
     },
 
+    days: {
+        sunday: 'ראשון',
+        monday: 'שני',
+        tuesday: 'שלישי',
+        wednesday: 'רביעי',
+        thursday: 'חמישי',
+        friday: 'שישי',
+        saturday: 'שבת',
+    },
+
+    daysShort: {
+        sunday: 'א׳',
+        monday: 'ב׳',
+        tuesday: 'ג׳',
+        wednesday: 'ד׳',
+        thursday: 'ה׳',
+        friday: 'ו׳',
+        saturday: 'ש׳',
+    },
     admin: {
         nav: {
             dashboard: 'לוח בקרה',
@@ -32,18 +54,38 @@ export default {
         },
 
         platformAdmin: 'מנהל פלטפורמה',
-        console: 'קונסולת מנהל Slotify',
+        console: 'קונסולת מנהל IRestTor',
         systemOnline: 'המערכת פעילה',
 
         dashboard: {
             welcome: 'ברוך הבא, מנהל SaaS',
             description: 'מכאן תנהל עסקים, מנהלים, מנויים והגדרות פלטפורמה.',
+                title: 'לוח בקרה ראשי',
+            stats: {
+                businesses: 'עסקים',
+                managers: 'מנהלים',
+                activeAccounts: 'חשבונות פעילים',
+                platformStatus: 'סטטוס הפלטפורמה',
+                online: 'פעיל',
+            },
+            overview: {
+                title: 'סקירת המערכת',
+                description: 'ניהול עסקים, מנהלים והגדרות הפלטפורמה.',
+                businessManagement: 'ניהול עסקים',
+                businessManagementDescription: 'יצירה, עריכה וניהול של כל העסקים במערכת IRestTor.',
+                managerAccounts: 'חשבונות מנהלים',
+                managerAccountsDescription: 'שיוך מנהלים לעסקים ושליטה בהרשאות הגישה.',
+            },
+            quickActions: {
+                title: 'פעולות מהירות',
+                description: 'התחל לנהל את הפלטפורמה מכאן.',
+            },
         },
 
         businesses: {
             title: 'עסקים',
             management: 'ניהול עסקים',
-            managementDescription: 'צור ונהל עסקים המשתמשים בפלטפורמת Slotify.',
+            managementDescription: 'צור ונהל עסקים המשתמשים בפלטפורמת IRestTor.',
             createBusiness: 'יצירת עסק',
             bookingLink: 'קישור הזמנה',
             businessName: 'שם העסק',
@@ -51,14 +93,15 @@ export default {
             slugHint: 'דוגמה: dr-saadi-clinic. אם ריק, ייווצר אוטומטית.',
             business: 'עסק',
             selectBusiness: 'בחר עסק',
-            updateBusiness: 'עדכון עסק',
+            updateBusiness: 'עדכן עסק',
+            editBusiness: 'עדכון עסק',
             deleteConfirm: 'האם אתה בטוח שברצונך למחוק את העסק הזה?',
         },
 
         managers: {
             title: 'מנהלים',
             accounts: 'חשבונות מנהלים',
-            accountsDescription: 'צור ונהל מנהלי עסקים ב-Slotify.',
+            accountsDescription: 'צור ונהל מנהלי עסקים ב-IRestTor.',
             createManager: 'יצירת מנהל',
             managerName: 'שם',
             editManager: 'עריכת מנהל',
@@ -80,7 +123,7 @@ export default {
 
         businessDashboard: 'לוח בקרה עסקי',
         businessManager: 'מנהל עסק',
-        console: 'קונסולת עסק Slotify',
+        console: 'קונסולת עסק IRestTor',
         businessActive: 'העסק פעיל',
     },
 
@@ -89,7 +132,7 @@ export default {
         createTitle: 'יצירת עסק',
         editTitle: 'עריכת עסק',
         management: 'ניהול עסקים',
-        description: 'צור ונהל עסקים המשתמשים בפלטפורמת Slotify.',
+        description: 'צור ונהל עסקים המשתמשים בפלטפורמת IRestTor.',
         createBusiness: 'יצירת עסק',
         updateBusiness: 'עדכון עסק',
         businessName: 'שם העסק',
@@ -111,7 +154,7 @@ export default {
         createTitle: 'יצירת מנהל',
         editTitle: 'עריכת מנהל',
         accounts: 'חשבונות מנהלים',
-        description: 'צור ונהל מנהלי עסקים ב-Slotify.',
+        description: 'צור ונהל מנהלי עסקים ב-IRestTor.',
         createManager: 'יצירת מנהל',
         updateManager: 'עדכון מנהל',
         managerName: 'שם המנהל',
@@ -241,5 +284,18 @@ export default {
         loadingSlots: 'טוען משבצות פנויות...',
         noServices: 'אין שירותים זמינים',
         noServicesDescription: 'עסק זה טרם פרסם שירותים לקביעת תורים.',
+        subtitle: 'בחר שירות, תאריך ושעה פנויה.',
+        selectServiceDescription: 'בחר את השירות שברצונך להזמין.',
+        stepOne: 'שלב 1 מתוך 3',
+        chooseDateDescription: 'בחר את היום שבו תרצה להגיע.',
+        stepTwo: 'שלב 2 מתוך 3',
+        availableTimesDescription: 'בחר אחת מהשעות הפנויות לתור.',
+        stepThree: 'שלב 3 מתוך 3',
+        selectServiceAndDate: 'בחר שירות ותאריך',
+        timesWillAppear: 'השעות הזמינות יופיעו כאן.',
+        selectTimeToContinue: 'בחר שעת תור כדי להמשיך.',
+        pageTitle: 'הזמנת תור אונליין',
+        selectServiceFirst: 'יש לבחור שירות קודם.',
+
     },
 };

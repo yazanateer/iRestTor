@@ -22,8 +22,31 @@ export default {
         name: 'الاسم',
         password: 'كلمة المرور',
         description: 'الوصف',
+        available: 'متاح',
+        continue: 'متابعة',
+        off: 'مغلق',
+
     },
 
+    days: {
+        sunday: 'الأحد',
+        monday: 'الاثنين',
+        tuesday: 'الثلاثاء',
+        wednesday: 'الأربعاء',
+        thursday: 'الخميس',
+        friday: 'الجمعة',
+        saturday: 'السبت',
+    },
+
+    daysShort: {
+        sunday: 'أحد',
+        monday: 'اثن',
+        tuesday: 'ثلا',
+        wednesday: 'أرب',
+        thursday: 'خمي',
+        friday: 'جمع',
+        saturday: 'سبت',
+    },
     admin: {
         nav: {
             dashboard: 'لوحة التحكم',
@@ -32,18 +55,38 @@ export default {
         },
 
         platformAdmin: 'مدير المنصة',
-        console: 'لوحة تحكم Slotify',
+        console: 'لوحة تحكم IRestTor',
         systemOnline: 'النظام يعمل',
 
         dashboard: {
             welcome: 'مرحباً، مدير النظام',
             description: 'من هنا يمكنك إدارة الأعمال والمديرين والاشتراكات وإعدادات المنصة.',
+                title: 'لوحة التحكم الرئيسية',
+                stats: {
+                    businesses: 'الأعمال',
+                    managers: 'المدراء',
+                    activeAccounts: 'الحسابات النشطة',
+                    platformStatus: 'حالة المنصة',
+                    online: 'نشط',
+                },
+                overview: {
+                    title: 'نظرة عامة على المنصة',
+                    description: 'إدارة الأعمال والمدراء وإعدادات المنصة.',
+                    businessManagement: 'إدارة الأعمال',
+                    businessManagementDescription: 'إنشاء وتعديل وإدارة جميع الأعمال باستخدام IRestTor.',
+                    managerAccounts: 'حسابات المدراء',
+                    managerAccountsDescription: 'تعيين المدراء للأعمال والتحكم في صلاحيات الوصول.',
+                },
+                quickActions: {
+                    title: 'إجراءات سريعة',
+                    description: 'ابدأ بإدارة المنصة من هنا.',
+                },
         },
 
         businesses: {
             title: 'الأعمال',
             management: 'إدارة الأعمال',
-            managementDescription: 'إنشاء وإدارة الأعمال التجارية التي تستخدم منصة Slotify.',
+            managementDescription: 'إنشاء وإدارة الأعمال التجارية التي تستخدم منصة IRestTor.',
             createBusiness: 'إنشاء عمل تجاري',
             bookingLink: 'رابط الحجز',
             businessName: 'اسم العمل التجاري',
@@ -52,13 +95,14 @@ export default {
             business: 'العمل التجاري',
             selectBusiness: 'اختر عملاً تجارياً',
             updateBusiness: 'تحديث العمل التجاري',
+            editBusiness: 'تحديث العمل التجاري',
             deleteConfirm: 'هل أنت متأكد أنك تريد حذف هذا العمل التجاري؟',
         },
 
         managers: {
             title: 'المديرون',
             accounts: 'حسابات المديرين',
-            accountsDescription: 'إنشاء وإدارة مديري الأعمال في Slotify.',
+            accountsDescription: 'إنشاء وإدارة مديري الأعمال في IRestTor.',
             createManager: 'إنشاء مدير',
             managerName: 'الاسم',
             editManager: 'تعديل المدير',
@@ -80,7 +124,7 @@ export default {
 
         businessDashboard: 'لوحة تحكم الأعمال',
         businessManager: 'مدير الأعمال',
-        console: 'لوحة تحكم أعمال Slotify',
+        console: 'لوحة تحكم أعمال IRestTor',
         businessActive: 'العمل التجاري نشط',
     },
 
@@ -89,7 +133,7 @@ export default {
         createTitle: 'إنشاء عمل تجاري',
         editTitle: 'تعديل العمل التجاري',
         management: 'إدارة الأعمال',
-        description: 'إنشاء وإدارة الأعمال التجارية التي تستخدم منصة Slotify.',
+        description: 'إنشاء وإدارة الأعمال التجارية التي تستخدم منصة IRestTor.',
         createBusiness: 'إنشاء عمل تجاري',
         updateBusiness: 'تحديث العمل التجاري',
         businessName: 'اسم العمل التجاري',
@@ -111,7 +155,7 @@ export default {
         createTitle: 'إنشاء مدير',
         editTitle: 'تعديل المدير',
         accounts: 'حسابات المديرين',
-        description: 'إنشاء وإدارة مديري الأعمال في Slotify.',
+        description: 'إنشاء وإدارة مديري الأعمال في IRestTor.',
         createManager: 'إنشاء مدير',
         updateManager: 'تحديث المدير',
         managerName: 'اسم المدير',
@@ -241,5 +285,20 @@ export default {
         loadingSlots: 'جارٍ تحميل الفترات المتاحة...',
         noServices: 'لا توجد خدمات متاحة',
         noServicesDescription: 'لم يقم هذا العمل التجاري بنشر أي خدمات للحجز بعد.',
+        subtitle: 'اختر خدمة، وحدد تاريخًا، ثم اختر وقتًا متاحًا.',
+        selectServiceDescription: 'اختر الخدمة التي تريد حجزها.',
+        stepOne: 'الخطوة 1 من 3',
+        chooseDateDescription: 'اختر اليوم الذي تريد زيارته فيه.',
+        stepTwo: 'الخطوة 2 من 3',
+        availableTimesDescription: 'اختر أحد المواعيد المتاحة.',
+        stepThree: 'الخطوة 3 من 3',
+        selectServiceAndDate: 'اختر الخدمة والتاريخ',
+        timesWillAppear: 'ستظهر الأوقات المتاحة هنا.',
+        selectTimeToContinue: 'اختر وقتًا للمتابعة.',
+        pageTitle: 'حجز موعد أونلاين',
+        booking: {
+        selectServiceFirst: 'يرجى اختيار الخدمة أولاً.',
+}
+
     },
 };

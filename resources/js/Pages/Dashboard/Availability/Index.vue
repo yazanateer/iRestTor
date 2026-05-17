@@ -27,6 +27,7 @@ const props = defineProps<{
     breaks: AvailabilityBreak[];
 }>();
 
+
 const form = useForm({
     days: props.days.map((day) => ({ ...day })),
     breaks: props.breaks.map((breakItem) => ({ ...breakItem })),
@@ -35,7 +36,7 @@ const form = useForm({
 
 const today = new Date();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const calYear = ref(today.getFullYear());
 const calMonth = ref(today.getMonth());
@@ -46,12 +47,45 @@ const selectedDayIndex = ref<number | null>(
 
 const saved = ref(false);
 
-const MONTHS = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
-];
+// const MONTHS = [
+//     'January', 'February', 'March', 'April', 'May', 'June',
+//     'July', 'August', 'September', 'October', 'November', 'December',
+// ];
 
-const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const MONTHS = computed(() => {
+    return Array.from({ length: 12}, (_,month) => {
+        return new Intl.DateTimeFormat(locale.value, {
+            month: 'long',
+        }).format(new Date(2026, month, 1));
+    });
+});
+
+const WEEKDAYS = computed(() => {
+    const baseDate = new Date(2026, 4, 3);
+    return Array.from({ length: 7}, (_, index) => {
+        return new Intl.DateTimeFormat(locale.value, {
+            weekday: 'short',
+        }).format(new Date(baseDate.getTime() + index * 86400000));
+    });
+});
+
+const monthNames = computed(() => MONTHS.value);
+const weekdayNames = computed(() => WEEKDAYS.value);
+
+const translatedDayName = (day: string) => {
+    const days: Record<string, string> = {
+        Sunday: t('days.sunday'),
+        Monday: t('days.monday'),
+        Tuesday: t('days.tuesday'),
+        Wednesday: t('days.wednesday'),
+        Thursday: t('days.thursday'),
+        Friday: t('days.friday'),
+        Saturday: t('days.saturday'),
+    };
+
+    return days[day] || day;
+};
+// const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const PRESETS = [
     { label: '9–5', start: '09:00', end: '17:00' },
@@ -313,7 +347,7 @@ const isBreakEndInvalid = (breakItem: AvailabilityBreak) => {
                                 <i class="bi bi-chevron-left"></i>
                             </button>
 
-                            <h3>{{ MONTHS[calMonth] }} {{ calYear }}</h3>
+                            <h3>{{ monthNames[calMonth] }} {{ calYear }}</h3>
 
                             <button type="button" @click="nextMonth">
                                 <i class="bi bi-chevron-right"></i>
@@ -322,7 +356,7 @@ const isBreakEndInvalid = (breakItem: AvailabilityBreak) => {
 
                         <div class="availability-calendar-grid">
                             <div
-                                v-for="weekday in WEEKDAYS"
+                                v-for="weekday in weekdayNames"
                                 :key="weekday"
                                 class="availability-weekday"
                             >
@@ -376,7 +410,7 @@ const isBreakEndInvalid = (breakItem: AvailabilityBreak) => {
                             <div class="availability-editor-header">
                                 <div>
                                     <span>{{ t('availability.editing') }}</span>
-                                    <h3>{{ selectedDay.label }}</h3>
+                                    <h3>{{ translatedDayName(selectedDay.label) }}</h3>
                                 </div>
 
                                 <label class="availability-switch">
@@ -504,9 +538,15 @@ const isBreakEndInvalid = (breakItem: AvailabilityBreak) => {
                             <span>{{ t('availability.clickDayToEdit') }}</span>
                         </div>
 
+                        <!-- <WeeklyAvailability
+                            :days="form.days"
+                            :selected-day-index="selectedDayIndex"
+                            @select="onSelectDay"
+                        /> -->
                         <WeeklyAvailability
                             :days="form.days"
                             :selected-day-index="selectedDayIndex"
+                            :translated-day-name="translatedDayName"
                             @select="onSelectDay"
                         />
                     </div>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
+import "../../css/Layout/manager.css"
+
 
 const page = usePage();
 const { t, locale } = useI18n();
@@ -15,12 +17,19 @@ const isActive = (routeName: string) => {
     return route().current(routeName);
 };
 
-const changeLanguage = (event: Event) => {
-    const target = event.target as HTMLSelectElement;
+const languages = [
+    { code: 'en', label: 'EN', name: 'English' },
+    { code: 'he', label: 'HE', name: 'עברית' },
+    { code: 'ar', label: 'AR', name: 'العربية' },
+];
 
-    locale.value = target.value;
+const setLanguage = (lang: string) => {
+    locale.value = lang;
+    localStorage.setItem('locale', lang);
+};
 
-    localStorage.setItem('locale', target.value);
+const currentLanguage = () => {
+    return languages.find((lang) => lang.code === locale.value) ?? languages[0];
 };
 </script>
 
@@ -29,11 +38,11 @@ const changeLanguage = (event: Event) => {
         <aside class="admin-sidebar">
             <div class="admin-brand">
                 <div class="admin-brand-icon">
-                    <img src="../../../images/logo.png" alt="Slotify" />
+                    <img src="../../../images/nobg-penguin.png" alt="IRestTor" />
                 </div>
 
                 <div>
-                    <h1>Slotify</h1>
+                    <h1>IRestTor</h1>
                     <span>{{t('manager.businessDashboard')}}</span>
                 </div>
             </div>
@@ -75,28 +84,56 @@ const changeLanguage = (event: Event) => {
         </aside>
 
         <main class="admin-main">
-            <header class="admin-topbar">
-                <div>
-                    <p class="admin-eyebrow">{{t('manager.console')}}</p>
-                    <h2>
-                        <slot name="title">{{t('manager.nav.dashboard')}}</slot>
-                    </h2>
-                </div>
+            
+      <header class="admin-topbar manager-topbar">
+    <div class="admin-topbar-left">
+        <div class="language-switcher dropdown">
+            <button
+                class="language-switcher-btn"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <i class="bi bi-globe2"></i>
+                <span>{{ currentLanguage().label }}</span>
+                <i class="bi bi-chevron-down small"></i>
+            </button>
 
-                <div class="admin-topbar-actions">
-                    <select 
-                        class="admin-language-select"
-                        :value="locale"
-                        @change="changeLanguage"
-                        >
-                            <option value="en">EN</option>
-                            <option value="he">HE</option>
-                            <option value="ar">AR</option>
-                    </select>
-                    <span class="admin-status-dot"></span>
-                    <span>{{t('manager.businessActive')}}</span>
-                </div>
-            </header>
+            <ul class="dropdown-menu language-menu">
+                <li v-for="lang in languages" :key="lang.code">
+                    <button
+                        type="button"
+                        class="dropdown-item language-menu-item"
+                        :class="{ active: locale.value === lang.code }"
+                        @click="setLanguage(lang.code)"
+                    >
+                        <span>{{ lang.name }}</span>
+
+                        <i
+                            v-if="locale.value === lang.code"
+                            class="bi bi-check-lg"
+                        ></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="manager-topbar-center">
+        <p class="admin-eyebrow">
+            {{ t('manager.console') }}
+        </p>
+
+        <h2>
+            <slot name="title">{{ t('manager.nav.dashboard') }}</slot>
+        </h2>
+    </div>
+
+    <div class="admin-topbar-actions manager-topbar-actions">
+        <span class="admin-status-dot"></span>
+        <span>{{ t('manager.businessActive') }}</span>
+    </div>
+</header>
 
             <section class="admin-content">
                 <slot />
@@ -104,17 +141,3 @@ const changeLanguage = (event: Event) => {
         </main>
     </div>
 </template>
-
-
-<style scoped>
-
-.admin-language-select {
-    border: 1px solid #e5ecf6;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 8px 12px;
-    font-weight: 700;
-    color: #071533;
-    outline: none;
-}
-</style>

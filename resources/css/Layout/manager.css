@@ -1,0 +1,128 @@
+.manager-topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    direction: ltr;
+}
+
+.admin-topbar-left {
+    position: relative;
+    z-index: 2;
+}
+
+.manager-topbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.manager-topbar-actions {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-language-select {
+    border: 1px solid #e5ecf6;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-weight: 700;
+    color: #071533;
+    outline: none;
+}
+
+.language-switcher {
+    position: relative;
+    z-index: 5;
+}
+
+.language-switcher-btn {
+    border: 1px solid #e5ecf6;
+    background: #ffffff;
+    color: #071533;
+    border-radius: 16px;
+    padding: 10px 14px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(7, 21, 51, 0.06);
+    transition: 0.25s ease;
+}
+
+.language-switcher-btn:hover {
+    border-color: #2563ff;
+    color: #2563ff;
+    background: rgba(37, 99, 255, 0.06);
+}
+
+.language-menu {
+    border: 1px solid #e5ecf6;
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 18px 45px rgba(7, 21, 51, 0.12);
+}
+
+.language-menu-item {
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+}
+
+.language-menu-item.active,
+.language-menu-item:hover {
+    background: rgba(37, 99, 255, 0.08);
+    color: #2563ff;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    vertical-align: middle;
+    padding: 24px 20px;
+}
+
+/* English */
+html[dir="ltr"] .admin-table {
+    direction: ltr;
+}
+
+html[dir="ltr"] .admin-table th,
+html[dir="ltr"] .admin-table td {
+    text-align: left;
+}
+
+/* Hebrew / Arabic */
+html[dir="rtl"] .admin-table {
+    direction: rtl;
+}
+
+html[dir="rtl"] .admin-table th,
+html[dir="rtl"] .admin-table td {
+    text-align: right;
+}
+
+/* Action buttons */
+.admin-table-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+html[dir="ltr"] .admin-table-actions {
+    justify-content: flex-end;
+}
+
+html[dir="rtl"] .admin-table-actions {
+    justify-content: flex-start;
+}

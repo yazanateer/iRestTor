@@ -12,12 +12,14 @@ type Manager = {
     id: number;
     name: string;
     email: string;
+    phone: number;
     business?: Business | null;
 }
 
-defineProps<{
+const props = defineProps<{
     managers: Manager[];
 }>();
+
 
 const { t } = useI18n();
 
@@ -60,22 +62,25 @@ const deleteManager = (id: number) => {
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>{{ t('common.name') }}</th>
-                        <th>{{ t('common.email') }}</th>
                         <th>{{ t('admin.businesses.business') }}</th>
+                        <th>{{ t('common.name') }}</th>
+                        <th>{{ t('common.phone') }}</th>
+                        <th>{{ t('common.email') }}</th>
                         <th class="text-end">{{ t('common.actions') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr v-for="manager in managers" :key="manager.id">
-                        <td>
-                            <strong>{{ manager.name }}</strong>
-                        </td>
-
-                        <td>{{ manager.email }}</td>
 
                         <td>{{ manager.business?.name || '-' }}</td>
+                        <td>
+                        {{ manager.name }}
+                        </td>
+                        <td>{{ manager.phone }}</td>
+                        <td>{{ manager.email }}</td>
+
+                        
 
                         <td class="text-end">
                             <Link
