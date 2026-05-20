@@ -26,6 +26,7 @@ export default {
         available: 'Available',
         continue: 'Continue',
         off: 'Off',
+        back: 'Back',
 
     },
     days: {
@@ -299,6 +300,13 @@ export default {
         selectTimeToContinue: 'Select a time slot to continue.',
         pageTitle: 'Online Booking',
         selectServiceFirst: 'Please select a service first.',
+        detailsDescription: 'Enter your information to confirm the appointment.',
+        fullNamePlaceholder: 'Enter your name',
+        verifyPhone: 'Verify Phone Number',
+        verifyDescription: 'Enter the verification code sent to your phone to complete the booking.',
+        verificationCode: 'Verification Code',
+        verifying: 'Verifying...',
+        verifyCode: 'Verify Code',
 
 
     },

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import BookingSuccessContent from './BookingSuccessContent.vue';
+import { useI18n } from 'vue-i18n';
+
 
 type Service = {
     id: number;
@@ -23,6 +25,8 @@ defineProps<{
     customerPhone: string;
     customerEmail: string;
 }>();
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
     (e: 'close'): void;
@@ -48,27 +52,27 @@ const emit = defineEmits<{
             <div v-if="!bookingSuccess">
                 <div class="booking-card-header">
                     <div>
-                        <h2>Your Details</h2>
-                        <p>Enter your information to confirm the appointment.</p>
+                        <h2>{{ t('booking.yourDetails') }}</h2>
+                        <p>{{ t('booking.detailsDescription') }}</p>
                     </div>
 
-                    <span class="booking-step">Final Step</span>
+                    <span class="booking-step">{{ t('booking.finalStep') }}</span>
                 </div>
 
                 <div class="booking-form-grid">
                     <div>
-                        <label class="booking-label">Full Name</label>
+                        <label class="booking-label">{{ t('booking.fullName') }}</label>
                         <input
                             :value="customerName"
                             type="text"
                             class="booking-input"
-                            placeholder="Enter your name"
+                            :placeholder="t('booking.fullNamePlaceholder')"
                             @input="emit('update:customerName', ($event.target as HTMLInputElement).value)"
                         />
                     </div>
 
                     <div>
-                        <label class="booking-label">Phone Number</label>
+                        <label class="booking-label">{{ t('booking.phoneNumber') }}</label>
                         <input
                             :value="customerPhone"
                             type="tel"
@@ -79,7 +83,7 @@ const emit = defineEmits<{
                     </div>
 
                     <div>
-                        <label class="booking-label">Email Optional</label>
+                        <label class="booking-label">{{ t('booking.emailOptional') }}</label>
                         <input
                             :value="customerEmail"
                             type="email"
@@ -91,10 +95,10 @@ const emit = defineEmits<{
                 </div>
 
                 <div class="booking-summary-box">
-                    <h3>Appointment Summary</h3>
-                    <p><strong>Service:</strong> {{ selectedService?.name }}</p>
-                    <p><strong>Date:</strong> {{ selectedDate }}</p>
-                    <p><strong>Time:</strong> {{ selectedSlot?.label }}</p>
+                    <h3>{{ t('booking.appointmentSummary') }}</h3>
+                    <p><strong>{{ t('booking.service') }}:</strong> {{ selectedService?.name }}</p>
+                    <p><strong>{{ t('booking.date') }}:</strong> {{ selectedDate }}</p>
+                    <p><strong>{{ t('booking.time') }}:</strong> {{ selectedSlot?.label }}</p>
                 </div>
 
                 <p v-if="bookingError" class="text-danger fw-semibold mt-3 mb-0">
@@ -107,7 +111,7 @@ const emit = defineEmits<{
                         class="booking-secondary-btn"
                         @click="emit('close')"
                     >
-                        Back
+                        {{ t('common.back') }}
                     </button>
 
                     <button
@@ -116,7 +120,7 @@ const emit = defineEmits<{
                         :disabled="!customerName || !customerPhone || confirming"
                         @click="emit('confirm')"
                     >
-                        {{ confirming ? 'Confirming...' : 'Confirm Appointment' }}
+                        {{ confirming ? t('booking.confirming') : t('booking.confirmAppointment') }}
                         <i class="bi bi-check2-circle"></i>
                     </button>
                 </div>

@@ -25,6 +25,7 @@ export default {
         available: 'זמין',
         continue: 'המשך',
         off: 'כבוי',
+        back: 'חזור',
     },
 
     days: {
@@ -296,6 +297,12 @@ export default {
         selectTimeToContinue: 'בחר שעת תור כדי להמשיך.',
         pageTitle: 'הזמנת תור אונליין',
         selectServiceFirst: 'יש לבחור שירות קודם.',
-
+        detailsDescription: 'הזן את הפרטים שלך כדי לאשר את התור.',
+        fullNamePlaceholder: 'הזן את השם שלך',
+        verifyPhone: 'אימות מספר טלפון',
+        verifyDescription: 'הזן את קוד האימות שנשלח לטלפון שלך כדי להשלים את ההזמנה.',
+        verificationCode: 'קוד אימות',
+        verifying: 'מאמת...',
+        verifyCode: 'אמת קוד',
     },
 };

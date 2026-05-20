@@ -4,9 +4,15 @@ import axios from 'axios';
 import { computed, ref, watch } from 'vue';
 import '@/../../resources/css/Pages/booking.css';
 import BookingDetailsModal from '@/../../resources/js/Components/Booking/BookingDetailsModal.vue';
+import BookingOtpModal from '../../Components/Booking/BookingOtpModal.vue';
 import { useI18n } from 'vue-i18n';
 
-const { t, locale } = useI18n();
+const { t, locale } = useI18n()
+
+const showOtpModal = ref(false)
+const otpCode = ref('')
+const otpLoading = ref(false)
+const otpError = ref('')
 
 type Business = {
     id: number;
@@ -109,14 +115,38 @@ const goToDetails = () => {
     currentStep.value = 'details';
 };
 
-const confirmAppointment = async () => {
-    if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
+// const confirmAppointment = async () => {
+//     if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
 
+//     bookingError.value = '';
+//     confirming.value = true;
+
+//     try {
+//         await axios.post(route('booking.appointments.store', props.business.slug), {
+//             service_id: selectedService.value.id,
+//             appointment_date: selectedDate.value,
+//             start_time: selectedSlot.value.start_time,
+//             end_time: selectedSlot.value.end_time,
+//             customer_name: customerName.value,
+//             customer_phone: customerPhone.value,
+//             customer_email: customerEmail.value || null,
+//         });
+
+//         bookingSuccess.value = true;
+//     } catch (error: any) {
+//         bookingError.value =
+//             error.response?.data?.message || t('booking.genericError');
+//     } finally {
+//         confirming.value = false;
+//     }
+// };
+
+    const requestOtp = async () => {
+    if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
     bookingError.value = '';
     confirming.value = true;
-
     try {
-        await axios.post(route('booking.appointments.store', props.business.slug), {
+        await axios.post(route('booking.verification.send', props.business.slug), {
             service_id: selectedService.value.id,
             appointment_date: selectedDate.value,
             start_time: selectedSlot.value.start_time,
@@ -125,8 +155,7 @@ const confirmAppointment = async () => {
             customer_phone: customerPhone.value,
             customer_email: customerEmail.value || null,
         });
-
-        bookingSuccess.value = true;
+        showOtpModal.value = true;
     } catch (error: any) {
         bookingError.value =
             error.response?.data?.message || t('booking.genericError');
@@ -134,6 +163,27 @@ const confirmAppointment = async () => {
         confirming.value = false;
     }
 };
+
+const verifyOtp = async () => {
+    otpError.value = '';
+    otpLoading.value = true;
+
+    try {
+        await axios.post(route('booking.verification.confirm', props.business.slug), {
+            phone: customerPhone.value,
+            code: otpCode.value,
+        });
+
+        showOtpModal.value = false;
+        bookingSuccess.value = true;
+    } catch (error: any) {
+        otpError.value =
+            error.response?.data?.message || t('booking.invalidCode');
+    } finally {
+        otpLoading.value = false;
+    }
+};
+
 
 const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -487,7 +537,16 @@ const currentLanguage = () => {
                 :selected-date="selectedDate"
                 :selected-slot="selectedSlot"
                 @close="currentStep = 'booking'"
-                @confirm="confirmAppointment"
+                @confirm="requestOtp"
+            />
+            
+            <BookingOtpModal 
+                v-if="showOtpModal"
+                v-model:code="otpCode"
+                :loading="otpLoading"
+                :error="otpError"
+                @verify="verifyOtp"
+                @close="showOtpModal = false"
             />
         </div>
     </div>

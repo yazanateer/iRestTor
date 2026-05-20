@@ -25,7 +25,7 @@ export default {
         available: 'متاح',
         continue: 'متابعة',
         off: 'مغلق',
-
+        back: 'رجوع',
     },
 
     days: {
@@ -296,9 +296,13 @@ export default {
         timesWillAppear: 'ستظهر الأوقات المتاحة هنا.',
         selectTimeToContinue: 'اختر وقتًا للمتابعة.',
         pageTitle: 'حجز موعد أونلاين',
-        booking: {
         selectServiceFirst: 'يرجى اختيار الخدمة أولاً.',
-}
-
+        detailsDescription: 'أدخل معلوماتك لتأكيد الموعد.',
+        fullNamePlaceholder: 'أدخل اسمك',
+        verifyPhone: 'تأكيد رقم الهاتف',
+        verifyDescription: 'أدخل رمز التحقق الذي تم إرساله إلى هاتفك لإكمال الحجز.',
+        verificationCode: 'رمز التحقق',
+        verifying: 'جاري التحقق...',
+        verifyCode: 'تحقق من الرمز',
     },
 };

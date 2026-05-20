@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingVerificationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,18 +20,17 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::prefix('/book/{business:slug}')
+    ->name('booking.')
+    ->group(function () {
+        Route::get('/', [BookingController::class, 'show'])->name('show');
+        Route::get('/slots', [BookingController::class, 'slots'])->name('slots');
+        Route::post('/appointments', [BookingController::class, 'store'])->name('appointments.store');
+        Route::post('/verification/send', [BookingVerificationController::class, 'send'])->name('verification.send');
+        Route::post('/verification/confirm', [BookingVerificationController::class, 'confirm'])->name('verification.confirm');
+    });
 
-Route::get('/book/{business:slug}', [BookingController::class, 'show'])
-    ->name('booking.show');
-Route::get('/book/{business:slug}/slots', [BookingController::class, 'slots'])
-    ->name('booking.slots');
-Route::post('/book/{business:slug}/appointments', [BookingController::class, 'store'])
-    ->name('booking.appointments.store');
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

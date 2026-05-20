@@ -47,11 +47,6 @@ const selectedDayIndex = ref<number | null>(
 
 const saved = ref(false);
 
-// const MONTHS = [
-//     'January', 'February', 'March', 'April', 'May', 'June',
-//     'July', 'August', 'September', 'October', 'November', 'December',
-// ];
-
 const MONTHS = computed(() => {
     return Array.from({ length: 12}, (_,month) => {
         return new Intl.DateTimeFormat(locale.value, {
@@ -85,7 +80,6 @@ const translatedDayName = (day: string) => {
 
     return days[day] || day;
 };
-// const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const PRESETS = [
     { label: '9–5', start: '09:00', end: '17:00' },
@@ -537,12 +531,6 @@ const isBreakEndInvalid = (breakItem: AvailabilityBreak) => {
                             <h3>{{ t('availability.weeklySchedule') }}</h3>
                             <span>{{ t('availability.clickDayToEdit') }}</span>
                         </div>
-
-                        <!-- <WeeklyAvailability
-                            :days="form.days"
-                            :selected-day-index="selectedDayIndex"
-                            @select="onSelectDay"
-                        /> -->
                         <WeeklyAvailability
                             :days="form.days"
                             :selected-day-index="selectedDayIndex"

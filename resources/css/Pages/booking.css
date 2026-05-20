@@ -593,3 +593,38 @@ html[dir="rtl"] .booking-language-switcher {
     right: auto;
     left: 28px;
 }
+
+.booking-success-summary {
+    max-width: 720px;
+    margin: 32px auto 0;
+    text-align: start;
+}
+
+.booking-success-summary p {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    margin-bottom: 18px;
+    align-items: center;
+}
+
+.booking-success-summary strong {
+    font-weight: 800;
+}
+
+.booking-success-summary span {
+    text-align: end;
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+@media (max-width: 576px) {
+    .booking-success-summary p {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .booking-success-summary span {
+        text-align: start;
+    }
+}
