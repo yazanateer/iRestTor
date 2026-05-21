@@ -9,11 +9,12 @@ use App\Models\Business;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Services\SmsService;
 
 
 class BookingVerificationController extends Controller
 {
-    public function send(Request $request, Business $business)
+    public function send(Request $request, Business $business, SmsService $smsService)
     {
         $validated = $request->validate([
             'service_id' => ['required', 'exists:services,id'],
@@ -66,10 +67,10 @@ class BookingVerificationController extends Controller
             'attempts' => 0,
         ]);
 
-        Log::info('Booking OTP', [
-            'phone' => $validated['customer_phone'],
-            'code' => $code,
-        ]);
+        $smsService->sendVerificationCode(
+            $validated['customer_phone'],
+            (string) $code
+        );
         return response()->json([
             'success' => true,
         ]);
@@ -82,17 +83,18 @@ class BookingVerificationController extends Controller
             'code' => ['required'],
         ]);
 
-        $verification = 
-            BookingVerification::query()
-                ->where('business_id', $business_id)
-                ->where('customer_phone', $validated['phone'])
-                ->latest()
-                ->first();
+        $verification = BookingVerification::query()
+            ->where('business_id', $business->id)
+            ->where('customer_phone', $validated['phone'])
+            ->latest()
+            ->first();
+
         if (! $verification) {
             return response()->json([
                 'message' => 'Verification not found.',
             ], 404);
         }
+
         if ($verification->isExpired()) {
             return response()->json([
                 'message' => 'Code expired.',
@@ -104,47 +106,40 @@ class BookingVerificationController extends Controller
                 'message' => 'Too many attempts.',
             ], 429);
         }
+
         $verification->increment('attempts');
 
-        if(! Hash::check(
-            $validated['code'],
-            $verification->code_hash
-        )) {
+        if (! Hash::check($validated['code'], $verification->code_hash)) {
             return response()->json([
                 'message' => 'Invalid code.',
             ], 422);
         }
 
-        $slotTaken =
-            Appointment::query()
-                ->where('business_id', $business_id)
-                ->whereDate('appointment_date', $verification->appointment_date)
-                ->where('start_time', $verification->start_time)
-                ->exists();
+        $slotTaken = Appointment::query()
+            ->where('business_id', $business->id)
+            ->whereDate('appointment_date', $verification->appointment_date)
+            ->where('start_time', $verification->start_time)
+            ->exists();
+
         if ($slotTaken) {
             return response()->json([
                 'message' => 'Slot already booked.',
-                ], 422);
+            ], 422);
         }
 
         DB::transaction(function () use ($verification, $business) {
             Appointment::create([
-                'business_id' => $business_id,
-                'service_id' =>
-                    $verification->service_id,
-                'appointment_date' =>
-                    $verification->appointment_date,
-                'start_time' =>
-                    $verification->start_time,
-                'end_time' =>
-                    $verification->end_time,
-                'customer_name' =>
-                    $verification->customer_name,
-                'customer_phone' =>
-                    $verification->customer_phone,
-                'customer_email' =>
-                    $verification->customer_email,
+                'business_id' => $business->id,
+                'service_id' => $verification->service_id,
+                'appointment_date' => $verification->appointment_date,
+                'start_time' => $verification->start_time,
+                'end_time' => $verification->end_time,
+                'customer_name' => $verification->customer_name,
+                'customer_phone' => $verification->customer_phone,
+                'customer_email' => $verification->customer_email,
+                'status' => 'confirmed',
             ]);
+
             $verification->update([
                 'verified_at' => now(),
             ]);
