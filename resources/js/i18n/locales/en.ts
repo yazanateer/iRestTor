@@ -100,6 +100,13 @@ export default {
         updateBusiness: 'Update Business',
         editBusiness: 'Update Business',
         deleteConfirm: 'Are you sure you want to delete this business?',
+        brandingSettings: 'Branding Settings',
+        publicTitle: 'Public Title',
+        publicSubtitle: 'Public Subtitle',
+        publicDescription: 'Public Description',
+        primaryColor: 'Primary Color',
+        secondaryColor: 'Secondary Color',
+        accentColor: 'Accent Color',
     },
 
     managers: {

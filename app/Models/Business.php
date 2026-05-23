@@ -10,6 +10,7 @@ use App\Models\BusinessAvailability;
 use App\Models\BusinessDateOverride;
 use App\Models\BusinessAvailabilityBreak;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -58,5 +59,10 @@ class Business extends Model
     public function availabilityBreaks()
     {
         return $this->hasMany(BusinessAvailabilityBreak::class);
+    }
+
+    public function branding() : HasOne
+    {
+        return $this->hasOne(BusinessBrandingSettings::class);
     }
 }

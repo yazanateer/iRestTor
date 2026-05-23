@@ -97,6 +97,13 @@ export default {
             updateBusiness: 'تحديث العمل التجاري',
             editBusiness: 'تحديث العمل التجاري',
             deleteConfirm: 'هل أنت متأكد أنك تريد حذف هذا العمل التجاري؟',
+            brandingSettings: 'إعدادات الهوية البصرية',
+            publicTitle: 'العنوان العام',
+            publicSubtitle: 'العنوان الفرعي العام',
+            publicDescription: 'الوصف العام',
+            primaryColor: 'اللون الأساسي',
+            secondaryColor: 'اللون الثانوي',
+            accentColor: 'لون التمييز',
         },
 
         managers: {

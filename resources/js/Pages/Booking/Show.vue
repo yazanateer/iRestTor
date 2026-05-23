@@ -14,6 +14,17 @@ const otpCode = ref('')
 const otpLoading = ref(false)
 const otpError = ref('')
 
+type Branding = {
+    logo_path?: string | null
+    cover_image_path?: string | null
+    primary_color: string;
+    secondary_color: string;
+    accent_color: string;
+    public_title?: string | null;
+    public_subtitle?: string | null;
+    public_description?: string | null;
+}
+
 type Business = {
     id: number;
     name: string;
@@ -22,6 +33,7 @@ type Business = {
     phone?: string | null;
     email?: string | null;
     address?: string | null;
+    branding?: Branding | null;
 };
 
 type Service = {
@@ -41,6 +53,7 @@ type Slot = {
 
 const props = defineProps<{
     business: Business;
+    branding: Branding;
     services: Service[];
     availabilityDays: number[];
 }>();
@@ -114,32 +127,6 @@ const goToDetails = () => {
 
     currentStep.value = 'details';
 };
-
-// const confirmAppointment = async () => {
-//     if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
-
-//     bookingError.value = '';
-//     confirming.value = true;
-
-//     try {
-//         await axios.post(route('booking.appointments.store', props.business.slug), {
-//             service_id: selectedService.value.id,
-//             appointment_date: selectedDate.value,
-//             start_time: selectedSlot.value.start_time,
-//             end_time: selectedSlot.value.end_time,
-//             customer_name: customerName.value,
-//             customer_phone: customerPhone.value,
-//             customer_email: customerEmail.value || null,
-//         });
-
-//         bookingSuccess.value = true;
-//     } catch (error: any) {
-//         bookingError.value =
-//             error.response?.data?.message || t('booking.genericError');
-//     } finally {
-//         confirming.value = false;
-//     }
-// };
 
     const requestOtp = async () => {
     if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
@@ -264,8 +251,13 @@ const currentLanguage = () => {
 
 <template>
     <Head :title="t('booking.pageTitle', { business: business.name })" />
-
-    <div class="booking-page">
+    <div class="booking-page"
+         :style="{
+             '--booking-primary': branding?.primary_color ?? '#2563ff',
+             '--booking-secondary': branding?.secondary_color ?? '#3b82f6',
+             '--booking-accent': branding?.accent_color ?? '#16a34a',
+        }"
+    >
         <div class="booking-shell">
             <div class="booking-hero">
                 <div class="booking-language-switcher dropdown">
@@ -298,14 +290,24 @@ const currentLanguage = () => {
                         </li>
                     </ul>
                 </div>
+                <div
+                    v-if="branding?.cover_image_url"
+                    class="booking-cover"
+                    :style="{ backgroundImage: `url(${branding.cover_image_url})` }"
+                ></div>
                 <div class="booking-brand">
                     <div class="booking-logo">
-                        <img
+                        <!-- <img
                             v-if="business.logo"
                             :src="business.logo"
                             :alt="business.name"
-                        />
+                        /> -->
+                        <img
+                            v-if="branding?.logo_url"
+                            :src="branding.logo_url"
+                            />
                         <span v-else>{{ business.name.charAt(0) }}</span>
+                        
                     </div>
 
                     <div>
@@ -313,10 +315,23 @@ const currentLanguage = () => {
                             {{ t('booking.onlineBooking') }}
                         </p>
 
-                        <h1>{{ business.name }}</h1>
+                        <h1>{{ 
+                                branding?.public_title
+                                || business.name 
+                            }}
+                        </h1>
 
                         <p class="booking-subtitle">
-                            {{ t('booking.subtitle') }}
+                            {{
+                                 branding?.public_subtitle
+                                 || t('booking.subtitle') 
+                            }}
+                        </p>
+                        <p
+                            v-if="branding?.public_description"
+                            class="booking-description"
+                        >
+                            {{ branding.public_description }}
                         </p>
                     </div>
                 </div>

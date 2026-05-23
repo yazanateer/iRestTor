@@ -97,6 +97,13 @@ export default {
             updateBusiness: 'עדכן עסק',
             editBusiness: 'עדכון עסק',
             deleteConfirm: 'האם אתה בטוח שברצונך למחוק את העסק הזה?',
+            brandingSettings: 'הגדרות מיתוג',
+            publicTitle: 'כותרת ציבורית',
+            publicSubtitle: 'כותרת משנה ציבורית',
+            publicDescription: 'תיאור ציבורי',
+            primaryColor: 'צבע ראשי',
+            secondaryColor: 'צבע משני',
+            accentColor: 'צבע הדגשה',
         },
 
         managers: {
@@ -148,6 +155,7 @@ export default {
         active: 'פעיל',
         inactive: 'לא פעיל',
         slugExample: 'דוגמה: dr-saadi-clinic. אם ריק, ייווצר אוטומטית.',
+        
     },
 
     managers: {

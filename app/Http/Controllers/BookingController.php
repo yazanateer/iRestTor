@@ -13,6 +13,8 @@ class BookingController extends Controller
 {
   public function show(Business $business)
     {
+        $business->load(['services', 'branding']);
+
         return Inertia::render('Booking/Show', [
             'business' => $business,
             'services' => $business->services()
@@ -22,6 +24,15 @@ class BookingController extends Controller
                 ->where('is_active', true)
                 ->pluck('day_of_week')
                 ->values(),
+            'branding' => $business->branding ? [
+            ...$business->branding->toArray(),
+            'logo_url' => $business->branding->logo_path
+                ? asset('storage/' . $business->branding->logo_path)
+                : null,
+            'cover_image_url' => $business->branding->cover_image_path
+                ? asset('storage/' . $business->branding->cover_image_path)
+                : null,
+        ] : null,
         ]);
     }
     
