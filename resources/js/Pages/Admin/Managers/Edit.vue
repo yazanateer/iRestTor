@@ -2,18 +2,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-
-type Business = {
-    id: number;
-    name: string;
-};
-
-type Manager = {
-    id: number;
-    name: string;
-    email: string;
-    business_id: number;
-};
+import type { Business, Manager } from '../../../types/global.d.ts';
 
 const props = defineProps<{
     manager: Manager;

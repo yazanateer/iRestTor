@@ -2,16 +2,8 @@
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
 import { Head, Link, router} from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n';
+import type { Service } from '../../../types/global.d.ts';
 
-type Service = {
-    id: number;
-    name: string;
-    description?: string | null;
-    duration_minutes: number;
-    price?: number | null;
-    color?: string | null;
-    is_active: boolean;
-};
 
 defineProps<{
     services: Service[];

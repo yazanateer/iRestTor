@@ -2,15 +2,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, Link, router} from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n';
-
-type Business = {
-    id: number;
-    name: string;
-    slug: string;
-    phone: string;
-    email: string;
-    is_active: boolean;
-}
+import type { Business } from '../../../types/global.d.ts';
 
 defineProps<{
     businesses: Business[];

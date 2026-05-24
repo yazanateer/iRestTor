@@ -2,22 +2,7 @@
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-
-type Service = {
-    id: number;
-    name: string;
-};
-
-type Appointment = {
-    id: number;
-    customer_name: string;
-    customer_phone: string;
-    appointment_date: string;
-    start_time: string;
-    end_time: string;
-    status: string;
-    service?: Service | null;
-};
+import type { Appointment } from '../../../types/global.d.ts';
 
 defineProps<{
     appointments: Appointment[];

@@ -1,18 +1,8 @@
 <script setup lang="ts">
 import BookingSuccessContent from './BookingSuccessContent.vue';
 import { useI18n } from 'vue-i18n';
+import type { Service, Slot } from '../../types/global.d.ts';
 
-
-type Service = {
-    id: number;
-    name: string;
-};
-
-type Slot = {
-    start_time: string;
-    end_time: string;
-    label: string;
-};
 
 defineProps<{
     bookingSuccess: boolean;

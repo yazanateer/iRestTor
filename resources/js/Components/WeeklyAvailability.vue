@@ -2,14 +2,7 @@
 
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-type Day = {
-    day_of_week: number;
-    label: string;
-    is_active: boolean;
-    start_time: string;
-    end_time: string;
-};
+import type { Day } from '../types/global.d.ts';
 
 const props = defineProps<{
     days: Day[];

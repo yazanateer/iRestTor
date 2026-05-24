@@ -5,22 +5,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import '@/../../resources/css/Pages/Dashboard/Availability/index.css'
-
-type Day = {
-    day_of_week: number;
-    label: string;
-    is_active: boolean;
-    start_time: string;
-    end_time: string;
-};
-
-type AvailabilityBreak = {
-    id?: number;
-    day_of_week: number | null;
-    date: string | null;
-    start_time: string;
-    end_time: string;
-};
+import type { Day, AvailabilityBreak } from '../../../types/global.d.ts';
 
 const props = defineProps<{
     days: Day[];

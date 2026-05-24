@@ -2,17 +2,7 @@
 
 import { useI18n } from 'vue-i18n';
 import "../../../css/Pages/booking.css"
-
-type Service = {
-    id: number;
-    name: string;
-};
-
-type Slot = {
-    start_time: string;
-    end_time: string;
-    label: string;
-};
+import type { Service, Slot } from '../../types/global.d.ts';
 
 defineProps<{
     selectedService: Service | null;

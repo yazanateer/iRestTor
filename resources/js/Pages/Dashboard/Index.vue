@@ -2,14 +2,7 @@
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-
-
-type Business = {
-    id: number;
-    name: string;
-    slug: string;
-    logo?: string | null;
-};
+import type { Business } from '../../types/global.d.ts';
 
 const props = defineProps<{
     business: Business;

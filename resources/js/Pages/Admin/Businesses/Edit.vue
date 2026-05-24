@@ -3,31 +3,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import '../../../../css/admin/business-branding.css'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-
-type Branding = {
-    logo_path?: string | null
-    cover_image_path?: string | null
-    primary_color: string
-    secondary_color: string
-    accent_color: string
-    public_title?: string | null
-    public_subtitle?: string | null
-    public_description?: string | null
-    theme_style: string
-
-}
-
-type Business = {
-    id: number
-    name: string
-    slug: string
-    phone?: string | null
-    email?: string | null
-    address?: string | null
-    timezone: string
-    is_active: boolean
-    branding?: Branding | null
-}
+import type { Branding, Business } from '../../../types/global.d.ts'; 
 
 const props = defineProps<{
     business: Business;

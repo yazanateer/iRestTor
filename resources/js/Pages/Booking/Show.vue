@@ -6,6 +6,7 @@ import '@/../../resources/css/Pages/booking.css';
 import BookingDetailsModal from '@/../../resources/js/Components/Booking/BookingDetailsModal.vue';
 import BookingOtpModal from '../../Components/Booking/BookingOtpModal.vue';
 import { useI18n } from 'vue-i18n';
+import type { Branding, Business, Service, Slot} from '../../../js/types/global.d.ts'
 
 const { t, locale } = useI18n()
 
@@ -14,42 +15,42 @@ const otpCode = ref('')
 const otpLoading = ref(false)
 const otpError = ref('')
 
-type Branding = {
-    logo_path?: string | null
-    cover_image_path?: string | null
-    primary_color: string;
-    secondary_color: string;
-    accent_color: string;
-    public_title?: string | null;
-    public_subtitle?: string | null;
-    public_description?: string | null;
-}
+// type Branding = {
+//     logo_path?: string | null
+//     cover_image_path?: string | null
+//     primary_color: string;
+//     secondary_color: string;
+//     accent_color: string;
+//     public_title?: string | null;
+//     public_subtitle?: string | null;
+//     public_description?: string | null;
+// }
 
-type Business = {
-    id: number;
-    name: string;
-    slug: string;
-    logo?: string | null;
-    phone?: string | null;
-    email?: string | null;
-    address?: string | null;
-    branding?: Branding | null;
-};
+// type Business = {
+//     id: number;
+//     name: string;
+//     slug: string;
+//     logo?: string | null;
+//     phone?: string | null;
+//     email?: string | null;
+//     address?: string | null;
+//     branding?: Branding | null;
+// };
 
-type Service = {
-    id: number;
-    name: string;
-    description?: string | null;
-    duration_minutes: number;
-    price?: number | null;
-    color?: string | null;
-};
+// type Service = {
+//     id: number;
+//     name: string;
+//     description?: string | null;
+//     duration_minutes: number;
+//     price?: number | null;
+//     color?: string | null;
+// };
 
-type Slot = {
-    start_time: string;
-    end_time: string;
-    label: string;
-};
+// type Slot = {
+//     start_time: string;
+//     end_time: string;
+//     label: string;
+// };
 
 const props = defineProps<{
     business: Business;
