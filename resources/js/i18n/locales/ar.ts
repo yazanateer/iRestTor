@@ -207,6 +207,9 @@ export default {
         noAppointments: 'لا توجد مواعيد بعد.',
         status: 'الحالة',
         confirmed: 'مؤكد',
+        actions: 'إجراءات',
+        confirm: 'تأكيد',
+        reject: 'رفض',
     },
 
     appointmentStatus: {
@@ -311,5 +314,8 @@ export default {
         verificationCode: 'رمز التحقق',
         verifying: 'جاري التحقق...',
         verifyCode: 'تحقق من الرمز',
+        requestSent: 'تم إرسال طلب الحجز',
+        requestSentMessage: 'تم إرسال طلب الحجز بنجاح. سيقوم صاحب العمل بمراجعة الطلب وستصلك رسالة تأكيد بعد الموافقة عليه.',
+        noDescription: 'لا يوجد وصف متاح',
     },
 };

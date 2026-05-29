@@ -15,43 +15,6 @@ const otpCode = ref('')
 const otpLoading = ref(false)
 const otpError = ref('')
 
-// type Branding = {
-//     logo_path?: string | null
-//     cover_image_path?: string | null
-//     primary_color: string;
-//     secondary_color: string;
-//     accent_color: string;
-//     public_title?: string | null;
-//     public_subtitle?: string | null;
-//     public_description?: string | null;
-// }
-
-// type Business = {
-//     id: number;
-//     name: string;
-//     slug: string;
-//     logo?: string | null;
-//     phone?: string | null;
-//     email?: string | null;
-//     address?: string | null;
-//     branding?: Branding | null;
-// };
-
-// type Service = {
-//     id: number;
-//     name: string;
-//     description?: string | null;
-//     duration_minutes: number;
-//     price?: number | null;
-//     color?: string | null;
-// };
-
-// type Slot = {
-//     start_time: string;
-//     end_time: string;
-//     label: string;
-// };
-
 const props = defineProps<{
     business: Business;
     branding: Branding;
@@ -71,9 +34,10 @@ const slots = ref<Slot[]>([]);
 const selectedSlot = ref<Slot | null>(null);
 const loadingSlots = ref(false);
 
-const bookingSuccess = ref(false);
-const bookingError = ref('');
-const confirming = ref(false);
+const bookingSuccess = ref(false)
+const bookingRequiresApproval = ref(false)
+const bookingError = ref('')
+const confirming = ref(false)
 
 const selectedService = computed(() => {
     return props.services.find((service) => service.id === selectedServiceId.value) ?? null;
@@ -157,21 +121,34 @@ const verifyOtp = async () => {
     otpLoading.value = true;
 
     try {
-        await axios.post(route('booking.verification.confirm', props.business.slug), {
-            phone: customerPhone.value,
-            code: otpCode.value,
-        });
+        const response = await axios.post(
+            route(
+                'booking.verification.confirm',
+                props.business.slug
+            ),
+            {
+                phone: customerPhone.value,
+                code: otpCode.value,
+            }
+        );
+
+        bookingRequiresApproval.value =
+            response.data.requires_approval ?? false;
 
         showOtpModal.value = false;
         bookingSuccess.value = true;
+
     } catch (error: any) {
+
         otpError.value =
-            error.response?.data?.message || t('booking.invalidCode');
+            error.response?.data?.message
+            || t('booking.invalidCode');
+
     } finally {
+
         otpLoading.value = false;
     }
 };
-
 
 const formatDate = (date: Date) => {
     const year = date.getFullYear();
@@ -552,6 +529,7 @@ const currentLanguage = () => {
                 :selected-service="selectedService"
                 :selected-date="selectedDate"
                 :selected-slot="selectedSlot"
+                :requires-approval="bookingRequiresApproval"
                 @close="currentStep = 'booking'"
                 @confirm="requestOtp"
             />

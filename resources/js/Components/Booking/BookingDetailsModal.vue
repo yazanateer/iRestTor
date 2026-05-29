@@ -8,6 +8,7 @@ defineProps<{
     bookingSuccess: boolean;
     bookingError: string;
     confirming: boolean;
+    requiresApproval: boolean;
     selectedService: Service | null;
     selectedDate: string;
     selectedSlot: Slot | null;
@@ -123,6 +124,7 @@ const emit = defineEmits<{
                 :selected-slot="selectedSlot"
                 :customer-name="customerName"
                 :customer-phone="customerPhone"
+                :requires-approval="requiresApproval"
             />
         </div>
     </div>

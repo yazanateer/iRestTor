@@ -210,10 +210,12 @@ export default {
         noAppointments: 'No appointments yet.',
         status: 'Status',
         confirmed: 'Confirmed',
-
+        actions: 'Actions',
+        confirm: 'Confirm',
+        reject: 'Reject',
     },
     appointmentStatus: {
-    pending: 'Pending',
+    pending: 'Pending Approval',
     confirmed: 'Confirmed',
     cancelled: 'Cancelled',
     completed: 'Completed',
@@ -314,8 +316,9 @@ export default {
         verificationCode: 'Verification Code',
         verifying: 'Verifying...',
         verifyCode: 'Verify Code',
-
-
+        requestSent: 'Booking Request Sent',
+        requestSentMessage: 'Your booking request has been sent successfully. The business will review your request and you will receive a confirmation message once it is approved.',
+        noDescription: 'No description available',
     },
 
 };

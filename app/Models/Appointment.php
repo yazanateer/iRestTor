@@ -25,7 +25,15 @@ class Appointment extends Model
         'start_time',
         'end_time',
         'status',
+        'confirmed_at',
+        'cancelled_at',
         'notes',
+    ];
+    
+    protected $casts = [
+        'appointment_date' => 'date',
+        'confirmed_at' => 'datetime',
+        'cancelled_date' => 'datetime',
     ];
     
     public function business() : BelongsTo

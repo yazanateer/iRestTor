@@ -32,6 +32,7 @@ class ServiceController extends Controller
             'price' => ['nullable', 'numeric', 'min:0'],
             'color' => ['nullable', 'string', 'max:50'],
             'is_active' => ['boolean'],
+            'confirmation_mode' => ['required', 'in:auto_confirm,requires_approval'],
         ]);
 
         $validated['business_id'] = auth()->user()->business_id;
@@ -63,6 +64,7 @@ class ServiceController extends Controller
             'price' => ['nullable', 'numeric', 'min:0'],
             'color' => ['nullable', 'string', 'max:50'],
             'is_active' => ['boolean'],
+            'confirmation_mode' => ['required', 'in:auto_confirm,requires_approval'],
         ]);
 
         $service->update($validated);

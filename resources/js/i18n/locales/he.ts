@@ -208,10 +208,13 @@ export default {
         noAppointments: 'אין תורים עדיין.',
         status: 'סטטוס',
         confirmed: 'מאושר',
+        actions: 'פעולות',
+        confirm: 'אישור',
+        reject: 'דחייה',
     },
 
     appointmentStatus: {
-        pending: 'ממתין',
+        pending: 'ממתין לאישור',
         confirmed: 'מאושר',
         cancelled: 'בוטל',
         completed: 'הושלם',
@@ -312,5 +315,8 @@ export default {
         verificationCode: 'קוד אימות',
         verifying: 'מאמת...',
         verifyCode: 'אמת קוד',
+        requestSent: 'בקשת התור נשלחה',
+        requestSentMessage: 'בקשת התור שלך נשלחה בהצלחה. בית העסק יעבור על הבקשה וישלח לך הודעת אישור לאחר אישורה.',
+        noDescription: 'אין תיאור זמין',
     },
 };

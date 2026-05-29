@@ -10,6 +10,7 @@ defineProps<{
     selectedSlot: Slot | null;
     customerName: string;
     customerPhone: string;
+    requiresApproval: boolean
 }>();
 
 const { t } = useI18n();
@@ -22,10 +23,20 @@ const { t } = useI18n();
             style="font-size: 56px; color: #16a34a;"
         ></i>
 
-        <h2 class="mt-3">{{ t('booking.appointmentConfirmed') }}</h2>
+        <h2>
+            {{
+                requiresApproval
+                    ? t('booking.requestSent')
+                    : t('booking.appointmentConfirmed')
+            }}
+        </h2>
 
         <p class="text-muted">
-            {{ t('booking.successMessage') }}
+            {{
+                requiresApproval
+                    ? t('booking.requestSentMessage')
+                    : t('booking.successMessage')
+            }}
         </p>
 
         <div class="booking-summary-box booking-success-summary">

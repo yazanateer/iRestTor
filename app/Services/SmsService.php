@@ -39,4 +39,25 @@ class SmsService
         ]);
 
     }
+
+    public function sendMessage(string $phone, string $message): void
+    {
+        $response = Http::withToken(config('services.sms.token'))
+            ->acceptJson()
+            ->post(config('services.sms.url'), [
+                'api_key' => config('services.sms.api_key'),
+                'to' => $phone,
+                'message' => $message,
+            ]);
+
+        if (! $response->successful()) {
+            Log::error('SMS send failed', [
+                'phone' => $phone,
+                'status' => $response->status(),
+                'response' => $response->json(),
+            ]);
+
+            throw new \RuntimeException('Failed to send SMS.');
+        }
+    }
 }

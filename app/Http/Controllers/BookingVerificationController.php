@@ -126,8 +126,9 @@ class BookingVerificationController extends Controller
                 'message' => 'Slot already booked.',
             ], 422);
         }
-
-        DB::transaction(function () use ($verification, $business) {
+        $service = $verification->service;
+        $status = $service->confirmation_mode === 'requires_approval' ? 'pending_approval' : 'confirmed';
+        DB::transaction(function () use ($verification, $business, $status) {
             Appointment::create([
                 'business_id' => $business->id,
                 'service_id' => $verification->service_id,
@@ -137,7 +138,8 @@ class BookingVerificationController extends Controller
                 'customer_name' => $verification->customer_name,
                 'customer_phone' => $verification->customer_phone,
                 'customer_email' => $verification->customer_email,
-                'status' => 'confirmed',
+                'status' => $status,
+                'confirmed_at' => $status === 'confirmed' ? now() : null,
             ]);
 
             $verification->update([
@@ -147,6 +149,8 @@ class BookingVerificationController extends Controller
 
         return response()->json([
             'success' => true,
+            'status' => $status,
+            'requires_approval' => $status === 'pending_approval',
         ]);
     }
 }

@@ -10,6 +10,7 @@ const form = useForm({
     price: '',
     color: '#2563ff',
     is_active: true,
+    confirmation_mode: 'auto_confirm',
 });
 
 const { t } = useI18n();
@@ -90,6 +91,25 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
+
+                <div class="admin-form-group">
+                <label class="admin-label">
+                    Confirmation Mode
+                </label>
+
+                <select
+                    v-model="form.confirmation_mode"
+                    class="admin-input"
+                >
+                    <option value="auto_confirm">
+                        Auto confirm after phone verification
+                    </option>
+
+                    <option value="requires_approval">
+                        Require manager approval
+                    </option>
+                </select>
+            </div>
 
                 <div class="form-check d-flex align-items-center gap-2 mb-4 ps-1">
                     <input

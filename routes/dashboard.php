@@ -28,5 +28,10 @@ Route::middleware(['auth', 'manager'])
             ->name('availability.update');
         Route::get('/appointments', [AppointmentController::class, 'index'])
             ->name('appointments.index');
+        Route::patch('/appointments/{appointment}/confirm', [AppointmentController::class, 'confirm'])
+            ->name('appointments.confirm');
+        Route::patch('/appointments/{appointment}/reject', [AppointmentController::class, 'reject'])
+            ->name('appointments.reject');
     });
+
 

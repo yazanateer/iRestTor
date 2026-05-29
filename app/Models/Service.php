@@ -23,6 +23,7 @@ class Service extends Model
         'price',
         'color',
         'is_active',
+        'confirmation_mode',
     ];
 
 

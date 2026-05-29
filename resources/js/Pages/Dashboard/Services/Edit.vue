@@ -17,6 +17,7 @@ const form = useForm({
     price: props.service.price ?? '',
     color: props.service.color ?? '#2563ff',
     is_active: props.service.is_active,
+    confirmation_mode: props.service?.confirmation_mode ?? 'auto_confirm'
 });
 
 const submit = () => {
@@ -112,7 +113,24 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
+                <div class="admin-form-group">
+                <label class="admin-label">
+                    Confirmation Mode
+                </label>
 
+                <select
+                    v-model="form.confirmation_mode"
+                    class="admin-input"
+                >
+                    <option value="auto_confirm">
+                        Auto confirm after phone verification
+                    </option>
+
+                    <option value="requires_approval">
+                        Require manager approval
+                    </option>
+                </select>
+            </div>
                 <div class="form-check mb-4">
                     <input
                         id="is_active"

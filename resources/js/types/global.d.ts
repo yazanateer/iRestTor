@@ -32,6 +32,7 @@ export type Service = {
     price?: number | null;
     color?: string | null;
     is_active: boolean;
+    confirmation_mode: 'auto_confirm' | 'requires_approval'
 };
 
 export type Manager = {
