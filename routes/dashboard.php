@@ -5,14 +5,39 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\AvailabilityController;
 use App\Http\Controllers\Dashboard\AppointmentController;
+use App\Models\Appointment;
+use App\Models\Service;
 
 Route::middleware(['auth', 'manager'])
     ->get('/dashboard', function() {
         $user = auth()->user();
+        $business = $user->business;
 
         return Inertia::render('Dashboard/Index', [
-            'business' => $user->business,
-            'bookingLink' => url('/book/' . $user->business->slug),
+            'business' => $business,
+            'bookingLink' => url('/book/' . $business->slug),
+            'stats' => [
+                'todayAppointments' => Appointment::where('business_id', $business->id)
+                    ->whereDate('appointment_date', today())
+                    ->count(),
+                'pendingRequests' => Appointment::where('business_id', $business->id)
+                    ->where('status', 'pending_approval')
+                    ->count(),
+                'weekAppointments' => Appointment::where('business_id', $business->id)
+                    ->whereBetween('appointment_date', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek(),
+                    ])
+                    ->count(),
+                'totalServices' => Service::where('business_id', $business->id)
+                    ->count(),
+                'todayAppointmentsList' => Appointment::query()
+                    ->with('service')
+                    ->where('business_id', $business->id)
+                    ->whereDate('appointment_date', today())
+                    ->orderBy('start_time')
+                    ->get(),
+            ],
         ]);
     })
     ->name('dashboard');

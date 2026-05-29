@@ -1,21 +1,85 @@
 <script setup lang="ts">
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { Appointment } from '../../../types/global.d.ts';
+import "../../../../css/Pages/appointments.css"
+import AppointmentDetailsModal from "../Appointments/AppointmentDetailsModal.vue"
 
-defineProps<{
-    appointments: Appointment[];
-}>();
+type PaginationLink = {
+    url: string | null
+    label: string
+    active: boolean
+}
+
+type PaginatedAppointments = {
+    data: Appointment[]
+    links: PaginationLink[]
+}
+
+const paginationLabel = (label: string) => {
+    if (label.includes('Previous')) {
+        return t('pagination.previous');
+    }
+
+    if (label.includes('Next')) {
+        return t('pagination.next');
+    }
+
+    return label;
+};
+
+const props = defineProps<{
+    appointments: PaginatedAppointments
+    filters: {
+        status: string
+        search: string
+    }
+    counts: {
+        all: number;
+        pending_approval: number;
+        confirmed: number;
+        cancelled: number;
+    };
+}>()
+
+const search = ref(props.filters.search ?? '');
+
+let searchTimeout: ReturnType<typeof setTimeout>;
+
+watch(search, (value) => {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+        router.get(
+            route('dashboard.appointments.index'),
+            {
+                status: props.filters.status,
+                search: value,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+            }
+        );
+    }, 400);
+});
 
 const { t } = useI18n();
 
+
 const confirmAppointment = (appointmentId: number) => {
-    router.patch(route('dashboard.appointments.confirm', appointmentId));
+    router.patch(route('dashboard.appointments.confirm', appointmentId), {}, {
+        onSuccess: () => closeAppointment(),
+    });
 };
 
 const rejectAppointment = (appointmentId: number) => {
-    router.patch(route('dashboard.appointments.reject', appointmentId));
+    router.patch(route('dashboard.appointments.reject', appointmentId), {}, {
+        onSuccess: () => closeAppointment(),
+    });
 };
 
 const getStatusLabel = (status: string) => {
@@ -32,6 +96,16 @@ const getStatusLabel = (status: string) => {
         default:
             return status;
     }
+};
+
+const selectedAppointment = ref<Appointment | null>(null);
+
+const openAppointment = (appointment: Appointment) => {
+    selectedAppointment.value = appointment;
+};
+
+const closeAppointment = () => {
+    selectedAppointment.value = null;
 };
 
 const formatDate = (date: string) => {
@@ -60,6 +134,59 @@ const formatTime = (time: string) => {
         </div>
 
         <div class="admin-card">
+            <div class="appointments-toolbar mb-4">
+                <div class="appointments-search">
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        v-model="search"
+                        type="text"
+                        :placeholder="t('appointments.searchPlaceholder')"
+                    />
+                </div>
+
+                <div class="appointments-filters">
+                    <button
+                        type="button"
+                        class="appointment-filter"
+                        :class="{ 'active-all': filters.status === 'all' }"
+                        @click="router.get(route('dashboard.appointments.index'), { status: 'all', search })"
+                    >
+                        {{ t('appointments.filters.all') }}
+                        <span class="count count-all">{{ counts.all }}</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="appointment-filter"
+                        :class="{ 'active-pending': filters.status === 'pending_approval' }"
+                        @click="router.get(route('dashboard.appointments.index'), { status: 'pending_approval', search })"
+                    >
+                        {{ t('appointments.filters.pending') }}
+                        <span class="count count-pending">{{ counts.pending_approval }}</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="appointment-filter"
+                        :class="{ 'active-confirmed': filters.status === 'confirmed' }"
+                        @click="router.get(route('dashboard.appointments.index'), { status: 'confirmed', search })"
+                    >
+                        {{ t('appointments.filters.confirmed') }}
+                        <span class="count count-confirmed">{{ counts.confirmed }}</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="appointment-filter"
+                        :class="{ 'active-cancelled': filters.status === 'cancelled' }"
+                        @click="router.get(route('dashboard.appointments.index'), { status: 'cancelled', search })"
+                    >
+                        {{ t('appointments.filters.cancelled') }}
+                        <span class="count count-cancelled">{{ counts.cancelled }}</span>
+                    </button>
+                </div>
+            </div>
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -73,7 +200,10 @@ const formatTime = (time: string) => {
                 </thead>
 
                 <tbody>
-                    <tr v-for="appointment in appointments" :key="appointment.id">
+                    <tr v-for="appointment in appointments.data" 
+                        :key="appointment.id" 
+                        class="appointment-row"
+                        @click="openAppointment(appointment)">
                         <td>
                             <strong>{{ appointment.customer_name }}</strong>
                             <div class="text-muted small">
@@ -129,13 +259,36 @@ const formatTime = (time: string) => {
                     </td>
                     </tr>
 
-                    <tr v-if="appointments.length === 0">
+                    <tr v-if="appointments.data.length === 0">
                         <td colspan="5" class="text-center text-muted py-4">
                         {{ t('appointments.noAppointments') }}
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center gap-2 mt-4 flex-wrap">
+                <button
+                    v-for="link in appointments.links"
+                    :key="link.label"
+                    type="button"
+                    class="btn btn-sm"
+                    :class="link.active ? 'btn-primary' : 'btn-light'"
+                    :disabled="!link.url"
+                    @click="link.url && router.visit(link.url, {
+                        preserveScroll: true,
+                        preserveState: true,
+                    })"
+                >
+                {{ paginationLabel(link.label) }}
+                </button>
+            </div>
+            <AppointmentDetailsModal
+                v-if="selectedAppointment"
+                :appointment="selectedAppointment"
+                @close="closeAppointment"
+                @confirm="confirmAppointment"
+                @reject="rejectAppointment"
+            />
         </div>
     </ManagerLayout>
 </template>

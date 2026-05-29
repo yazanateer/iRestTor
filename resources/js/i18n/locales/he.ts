@@ -211,8 +211,20 @@ export default {
         actions: 'פעולות',
         confirm: 'אישור',
         reject: 'דחייה',
-    },
+        searchPlaceholder: 'חיפוש לפי שם לקוח או טלפון',
 
+        filters: {
+        all: 'הכל',
+        pending: 'ממתינים',
+        confirmed: 'מאושרים',
+        cancelled: 'מבוטלים',
+    },
+},
+
+pagination: {
+    previous: 'הקודם',
+    next: 'הבא',
+},
     appointmentStatus: {
         pending: 'ממתין לאישור',
         confirmed: 'מאושר',
@@ -267,6 +279,12 @@ export default {
         setAvailabilityDescription: 'הגדר שעות עבודה וחלונות זמן לתורים.',
         whatsappAutomation: 'אוטומציה בוואטסאפ',
         whatsappAutomationDescription: 'אוטומציה של אישורים ותזכורות.',
+        pendingRequests: 'בקשות ממתינות',
+        thisWeek: 'השבוע',
+        totalServices: 'סה״כ שירותים',
+        todaySchedule: "לוח הזמנים להיום",
+        todayScheduleDescription: "התורים שנקבעו להיום.",
+        noTodayAppointments: "לא נקבעו תורים להיום.",
     },
 
     booking: {

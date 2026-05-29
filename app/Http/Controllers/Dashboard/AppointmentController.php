@@ -10,17 +10,87 @@ use App\Services\SmsService;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $status = $request->query('status', 'all');
+        $search = $request->query('search');
+
         $businessId = auth()->user()->business_id;
 
+        $baseQuery = Appointment::query()
+            ->where('business_id', $businessId);
+
+        $counts = [
+            'all' => (clone $baseQuery)->count(),
+            'pending_approval' => (clone $baseQuery)->where('status', 'pending_approval')->count(),
+            'confirmed' => (clone $baseQuery)->where('status', 'confirmed')->count(),
+            'cancelled' => (clone $baseQuery)->where('status', 'cancelled')->count(),
+        ];
+
+        $query = Appointment::query()
+            ->with('service')
+            ->where('business_id', $businessId);
+
+        if ($status !== 'all') {
+            $query->where('status', $status);
+        }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('customer_name', 'like', "%{$search}%")
+                ->orWhere('customer_phone', 'like', "%{$search}%");
+            });
+        }
+
+        $appointments = $query
+            ->orderByRaw("
+                CASE
+                    WHEN status = 'pending_approval' THEN 0
+                    ELSE 1
+                END
+            ")
+            ->orderBy('appointment_date')
+            ->orderBy('start_time')
+            ->paginate(10)
+            ->withQueryString();
+
         return Inertia::render('Dashboard/Appointments/Index', [
-            'appointments' => Appointment::with('service')
-                ->where('business_id', $businessId)
-                ->latest('appointment_date')
-                ->get(),
+            'appointments' => $appointments,
+            'filters' => [
+                'status' => $status,
+                'search' => $search,
+            ],
+            'counts' => $counts,
         ]);
     }
+
+    // public function index(Request $request)
+    // {
+    //     $status = $request->query('status', 'all');
+    //     $query = Appointment::query()
+    //         ->with('service')
+    //         ->where('business_id', auth()->user()->business_id);
+    //     if ($status !== 'all') {
+    //         $query->where('status', $status);
+    //     }
+    //     $appointments = $query
+    //         ->orderByRaw("
+    //             CASE
+    //                 WHEN status = 'pending_approval' THEN 0
+    //                 ELSE 1
+    //             END
+    //         ")
+    //         ->orderBy('appointment_date')
+    //         ->orderBy('start_time')
+    //         ->paginate(10)
+    //         ->withQueryString();
+    //     return Inertia::render('Dashboard/Appointments/Index', [
+    //         'appointments' => $appointments,
+    //         'filters' => [
+    //             'status' => $status,
+    //         ],
+    //     ]);
+    // }
 
     public function confirm(Appointment $appointment, SmsService $smsService)
     {

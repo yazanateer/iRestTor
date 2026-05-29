@@ -213,7 +213,22 @@ export default {
         actions: 'Actions',
         confirm: 'Confirm',
         reject: 'Reject',
+        searchPlaceholder: 'Search by customer name or phone',
+
+        filters: {
+        all: 'All',
+        pending: 'Pending',
+        confirmed: 'Confirmed',
+        cancelled: 'Cancelled',
+        },
     },
+
+    pagination: {
+    previous: 'Previous',
+    next: 'Next',
+},
+
+
     appointmentStatus: {
     pending: 'Pending Approval',
     confirmed: 'Confirmed',
@@ -268,6 +283,12 @@ export default {
         setAvailabilityDescription: 'Configure working hours and appointment slots.',
         whatsappAutomation: 'WhatsApp Automation',
         whatsappAutomationDescription: 'Automate confirmations and reminders.',
+        pendingRequests: 'Pending Requests',
+        thisWeek: 'This Week',
+        totalServices: 'Total Services',
+        todaySchedule: "Today's Schedule",
+        todayScheduleDescription: "Appointments scheduled for today.",
+        noTodayAppointments: "No appointments scheduled for today.",
     },
 
     booking: {

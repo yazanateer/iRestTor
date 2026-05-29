@@ -2,11 +2,18 @@
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import type { Business } from '../../types/global.d.ts';
+import type { Business, Appointment } from '../../types/global.d.ts';
 
 const props = defineProps<{
-    business: Business;
-    bookingLink: string;
+    business: Business
+    bookingLink: string
+    stats: {
+        todayAppointments: number
+        pendingRequests: number
+        weekAppointments: number
+        totalServices: number
+    }
+    todayAppointmentsList: Appointment[]
 }>();
 
 const { t } = useI18n();
@@ -19,6 +26,8 @@ const copyBookingLink = async () => {
         alert('Could not copy the link');
     }
 }
+
+const formatTime = (time: string) => time.slice(0, 5);
 </script>
 
 <template>
@@ -33,21 +42,27 @@ const copyBookingLink = async () => {
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
                     <p class="text-muted mb-2">{{ t('dashboard.todayAppointments') }}</p>
-                    <h2 class="fw-bold mb-0">12</h2>
+                    <h2 class="fw-bold mb-0">{{ stats.todayAppointments }}</h2>
                 </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
-                    <p class="text-muted mb-2">{{ t('dashboard.customers') }}</p>
-                    <h2 class="fw-bold mb-0">63</h2>
+                    <p class="text-muted mb-2">{{ t('dashboard.pendingRequests') }}</p>
+                    <h2 class="fw-bold mb-0">{{ stats.pendingRequests }}</h2>
                 </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
                 <div class="admin-card">
-                    <p class="text-muted mb-2">{{ t('dashboard.services') }}</p>
-                    <h2 class="fw-bold mb-0">7</h2>
+                   <p class="text-muted mb-2">{{ t('dashboard.thisWeek') }}</p>
+                    <h2 class="fw-bold mb-0">{{ stats.weekAppointments }}</h2>              
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="admin-card">
+                    <p class="text-muted mb-2">{{ t('dashboard.totalServices') }}</p>
+                    <h2 class="fw-bold mb-0">{{ stats.totalServices }}</h2>
                 </div>
             </div>
 
@@ -60,6 +75,47 @@ const copyBookingLink = async () => {
                         <strong>{{ t('common.active') }}</strong>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h4 class="fw-bold mb-1">
+                        {{ t('dashboard.todaySchedule') }}
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        {{ t('dashboard.todayScheduleDescription') }}
+                    </p>
+                </div>
+            </div>
+
+            <div v-if="todayAppointmentsList && todayAppointmentsList.length > 0" class="d-flex flex-column gap-3">
+                <div
+                    v-for="appointment in todayAppointmentsList"
+                    :key="appointment.id"
+                    class="p-3 rounded-4 d-flex justify-content-between align-items-center"
+                    style="background: #f8fbff; border: 1px solid #e5ecf6;"
+                >
+                    <div>
+                        <strong>{{ appointment.customer_name }}</strong>
+
+                        <div class="text-muted small">
+                            {{ appointment.service?.name || '-' }}
+                        </div>
+                    </div>
+
+                    <div class="fw-bold">
+                        {{ formatTime(appointment.start_time) }}
+                        -
+                        {{ formatTime(appointment.end_time) }}
+                    </div>
+                </div>
+            </div>
+
+            <div v-else class="text-muted py-3">
+                {{ t('dashboard.noTodayAppointments') }}
             </div>
         </div>
 

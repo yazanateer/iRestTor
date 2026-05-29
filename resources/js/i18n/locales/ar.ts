@@ -210,8 +210,20 @@ export default {
         actions: 'إجراءات',
         confirm: 'تأكيد',
         reject: 'رفض',
-    },
+        searchPlaceholder: 'البحث حسب اسم العميل أو رقم الهاتف',
 
+        filters: {
+        all: 'الكل',
+        pending: 'قيد الانتظار',
+        confirmed: 'مؤكدة',
+        cancelled: 'ملغاة',
+    },
+},
+
+pagination: {
+    previous: 'السابق',
+    next: 'التالي',
+},
     appointmentStatus: {
         pending: 'قيد الانتظار',
         confirmed: 'مؤكد',
@@ -266,6 +278,12 @@ export default {
         setAvailabilityDescription: 'إعداد ساعات العمل وفترات المواعيد.',
         whatsappAutomation: 'أتمتة واتساب',
         whatsappAutomationDescription: 'أتمتة التأكيدات والتذكيرات.',
+        pendingRequests: 'الطلبات المعلقة',
+        thisWeek: 'هذا الأسبوع',
+        totalServices: 'إجمالي الخدمات',
+        todaySchedule: "جدول مواعيد اليوم",
+        todayScheduleDescription: "المواعيد المجدولة لليوم.",
+        noTodayAppointments: "لا توجد مواعيد مجدولة لليوم.",
     },
 
     booking: {

@@ -76,4 +76,7 @@ export type Appointment = {
     end_time: string;
     status: string;
     service?: Service | null;
+    created_at: string;
+    confirmed_at: string | null;
+    cancelled_at: string | null;
 };
