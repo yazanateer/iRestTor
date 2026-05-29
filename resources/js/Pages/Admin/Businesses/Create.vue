@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import '../../../../css/admin/business-branding.css'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-
+import { computed } from 'vue';
+import BusinessBookingPreview from '../../../Components/Booking/BusinessBookingPreview.vue';
+import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue'
 const form = useForm({
+    logo: null as File | null,
+    cover_image: null as File | null,
+
     name: '',
     slug: '',
     phone: '',
@@ -11,13 +17,31 @@ const form = useForm({
     address: '',
     timezone: 'Asia/Jerusalem',
     is_active: true,
+
+    primary_color: '#2563ff',
+    secondary_color: '#3b82f6',
+    accent_color: '#16a34a',
+    public_title: '',
+    public_subtitle: '',
+    public_description: '',
+    theme_style: 'default',
 });
 
 const submit = () => {
-    form.post(route('admin.businesses.store'));
+    form.post(route('admin.businesses.store'), {
+        forceFormData: true,
+    });
 };
 
 const { t } = useI18n();
+
+const logoPreview = computed(() => {
+     return form.logo ? URL.createObjectURL(form.logo) : null
+})
+
+const coverPreview = computed(() => {
+     return form.cover_image ? URL.createObjectURL(form.cover_image) : null
+})
 </script>
 
 <template>
@@ -144,7 +168,13 @@ const { t } = useI18n();
                     >
                         {{ t('common.active') }}
                     </label>
-                    </div>
+                </div>
+
+                <BusinessBrandingForm
+                    :form="form"
+                    :logo-preview="logoPreview"
+                    :cover-preview="coverPreview"
+                />
 
                 <div class="d-flex gap-2 mt-4">
                     <button

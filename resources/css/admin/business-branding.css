@@ -40,3 +40,82 @@
     font-weight:600;
     color:#2563ff;
 }
+
+.branding-preview {
+    margin-top: 28px;
+    border: 1px solid #e5ecf6;
+    border-radius: 24px;
+    padding: 18px;
+    background:
+        radial-gradient(circle at top right, color-mix(in srgb, var(--preview-primary) 25%, transparent), transparent 45%),
+        #ffffff;
+}
+
+.branding-preview-cover {
+    height: 140px;
+    border-radius: 18px;
+    background:
+        linear-gradient(135deg, var(--preview-primary), var(--preview-secondary));
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 18px;
+}
+
+.branding-preview-body {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.branding-preview-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid #e5ecf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-weight: 900;
+    color: var(--preview-primary);
+}
+
+.branding-preview-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
+}
+
+.branding-preview-body small {
+    color: var(--preview-primary);
+    font-weight: 800;
+    letter-spacing: .1em;
+}
+
+.branding-preview-body h4 {
+    margin: 2px 0;
+    font-weight: 900;
+}
+
+.branding-preview-body p {
+    margin: 0;
+    color: #6b7890;
+}
+
+.branding-preview-btn {
+    margin-top: 18px;
+    border: 0;
+    border-radius: 14px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, var(--preview-primary), var(--preview-secondary));
+    color: white;
+    font-weight: 800;
+}
+
+.business-preview-page {
+    height: 620px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

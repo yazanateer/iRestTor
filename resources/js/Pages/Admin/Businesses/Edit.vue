@@ -4,12 +4,21 @@ import '../../../../css/admin/business-branding.css'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import type { Branding, Business } from '../../../types/global.d.ts'; 
+import { computed } from 'vue';
+import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue';
 
 const props = defineProps<{
     business: Business;
 }>();
 
 const { t } = useI18n();
+ const logoPreview = computed(() => {
+    return form.logo ? URL.createObjectURL(form.logo) : null;
+});
+
+const coverPreview = computed(() => {
+    return form.cover_image ? URL.createObjectURL(form.cover_image) : null;
+});
 
 const form = useForm({
 
@@ -23,7 +32,7 @@ const form = useForm({
     timezone: props.business.timezone,
     is_active: props.business.is_active,
 
-    primary_color: props.business.branding?.primary_color ?? '#25633ff',
+    primary_color: props.business.branding?.primary_color ?? '#2563ff',
     secondary_color: props.business.branding?.secondary_color ?? '#3b82f6',
     accent_color: props.business.branding?.accent_color ?? '#16a34a',
     public_title: props.business.branding?.public_title ?? '',
@@ -174,148 +183,15 @@ const submit = () => {
                         {{ t('common.active') }}
                     </label>
                 </div>
-                <hr class="my-4" />
-                <h5 class="fw-bold mb-3">
-                    {{ t('admin.businesses.brandingSettings') }}
-                </h5>
+               <BusinessBrandingForm
+                    :form="form"
+                    :logo-preview="logoPreview"
+                    :cover-preview="coverPreview"
+                    :logo-url="props.business.branding?.logo_url ?? null"
+                    :cover-url="props.business.branding?.cover_image_url ?? null"
+                />
 
-                <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.businesses.publicTitle') }}</label>
-                    <input v-model="form.public_title" type="text" class="admin-input" />
-                </div>
 
-                <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.businesses.publicSubtitle') }}</label>
-                    <input v-model="form.public_subtitle" type="text" class="admin-input" />
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-label">
-                        Logo
-                    </label>
-
-                    <label class="branding-upload-card">
-
-                        <input
-                            type="file"
-                            class="d-none"
-                            accept="image/*"
-                            @input="
-                            form.logo =
-                            ($event.target as HTMLInputElement)
-                            .files?.[0] ?? null
-                            "
-                        />
-
-                        <div class="branding-upload-content">
-
-                            <i
-                                class="
-                                bi
-                                bi-cloud-arrow-up
-                                branding-upload-icon
-                                "
-                            ></i>
-
-                            <div>
-
-                                <h6>
-                                    Upload Logo
-                                </h6>
-
-                                <small>
-                                    PNG, JPG up to 2MB
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                        <span
-                            v-if="form.logo"
-                            class="branding-file-name"
-                        >
-                            {{ form.logo.name }}
-                        </span>
-
-                    </label>
-                </div>
-
-                <div class="admin-form-group">
-                    <label class="admin-label">
-                    Cover Image
-                    </label>
-                    <label class="branding-upload-card">
-                    <input
-                    type="file"
-                    class="d-none"
-                    accept="image/*"
-                    @input="
-                    form.cover_image=
-                    ($event.target as HTMLInputElement)
-                    .files?.[0] ?? null
-                    "
-                    />
-                    <div
-                        class="branding-upload-content"
-                    >
-
-                    <i
-                        class="
-                        bi
-                        bi-image
-                        branding-upload-icon
-                        "
-                    />
-
-                    <div>
-                        <h6> Upload Cover </h6>
-                        <small> Recommended 1600×500 </small>
-                    </div>
-                </div>
-
-                    <span
-                    v-if="form.cover_image"
-                    class="branding-file-name"
-                    >
-
-                    {{ form.cover_image.name }}
-
-                    </span>
-
-                    </label>
-
-                    </div>
-                <div class="admin-form-group">
-                    <label class="admin-label">{{ t('admin.businesses.publicDescription') }}</label>
-                    <textarea
-                        v-model="form.public_description"
-                        class="admin-input"
-                        style="height: 120px; padding-top: 14px;"
-                    ></textarea>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="admin-form-group">
-                            <label class="admin-label">{{ t('admin.businesses.primaryColor') }}</label>
-                            <input v-model="form.primary_color" type="color" class="form-control form-control-color" />
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="admin-form-group">
-                            <label class="admin-label">{{ t('admin.businesses.secondaryColor') }}</label>
-                            <input v-model="form.secondary_color" type="color" class="form-control form-control-color" />
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="admin-form-group">
-                            <label class="admin-label">{{ t('admin.businesses.accentColor') }}</label>
-                            <input v-model="form.accent_color" type="color" class="form-control form-control-color" />
-                        </div>
-                    </div>
-                </div>
                 <div class="d-flex gap-2 mt-4">
                     <button
                         class="admin-primary-btn"

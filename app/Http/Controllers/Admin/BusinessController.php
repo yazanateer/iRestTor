@@ -32,25 +32,125 @@ class BusinessController extends Controller
         'address' => ['nullable', 'string', 'max:255'],
         'timezone' => ['required', 'string', 'max:255'],
         'is_active' => ['boolean'],
+
+        // Branding
+        'primary_color' => ['required', 'string', 'max:20'],
+        'secondary_color' => ['required', 'string', 'max:20'],
+        'accent_color' => ['required', 'string', 'max:20'],
+
+        'public_title' => ['nullable', 'string', 'max:255'],
+        'public_subtitle' => ['nullable', 'string', 'max:255'],
+        'public_description' => ['nullable', 'string'],
+
+        'theme_style' => ['required', 'string', 'max:50'],
+
+        'logo' => ['nullable', 'image', 'max:2048'],
+        'cover_image' => ['nullable', 'image', 'max:4096'],
     ]);
 
-    $validated['slug'] = filled($validated['slug'] ?? null)
+    $validated['slug'] =
+        filled($validated['slug'] ?? null)
         ? Str::slug($validated['slug'])
         : Str::slug($validated['name']);
 
-    Business::create($validated);
+    $business = Business::create([
+        'name' => $validated['name'],
+        'slug' => $validated['slug'],
+        'phone' => $validated['phone'] ?? null,
+        'email' => $validated['email'] ?? null,
+        'address' => $validated['address'] ?? null,
+        'timezone' => $validated['timezone'],
+        'is_active' => $validated['is_active'] ?? true,
+    ]);
+
+    $logoPath = null;
+    $coverImagePath = null;
+
+    if ($request->hasFile('logo')) {
+        $logoPath =
+            $request
+            ->file('logo')
+            ->store(
+                'business-branding/logos',
+                'public'
+            );
+    }
+
+    if ($request->hasFile('cover_image')) {
+
+        $coverImagePath =
+            $request
+            ->file('cover_image')
+            ->store(
+                'business-branding/covers',
+                'public'
+            );
+    }
+
+    $business->branding()->create([
+
+        'primary_color' =>
+            $validated['primary_color'],
+
+        'secondary_color' =>
+            $validated['secondary_color'],
+
+        'accent_color' =>
+            $validated['accent_color'],
+
+        'public_title' =>
+            $validated['public_title']
+            ?? null,
+
+        'public_subtitle' =>
+            $validated['public_subtitle']
+            ?? null,
+
+        'public_description' =>
+            $validated['public_description']
+            ?? null,
+
+        'theme_style' =>
+            $validated['theme_style'],
+
+        'logo_path' =>
+            $logoPath,
+
+        'cover_image_path' =>
+            $coverImagePath,
+    ]);
 
     return redirect()
-        ->route('admin.businesses.index')
-        ->with('success', 'Business created successfully.');
+        ->route(
+            'admin.businesses.index'
+        )
+        ->with(
+            'success',
+            'Business created successfully.'
+        );
     }
 
     public function edit(Business $business)
     {
-        $business->load('branding');
-        return Inertia::render('Admin/Businesses/Edit', [
-            'business' => $business,
-        ]);
+    $business->load('branding');
+
+    return Inertia::render('Admin/Businesses/Edit', [
+        'business' => [
+            ...$business->toArray(),
+
+            'branding' => $business->branding ? [
+                ...$business->branding->toArray(),
+
+                'logo_url' => $business->branding->logo_path
+                    ? asset('storage/' . $business->branding->logo_path)
+                    : null,
+
+                'cover_image_url' => $business->branding->cover_image_path
+                    ? asset('storage/' . $business->branding->cover_image_path)
+                    : null,
+            ] : null,
+        ],
+    ]);
     }
 
     public function update(Request $request, Business $business)
