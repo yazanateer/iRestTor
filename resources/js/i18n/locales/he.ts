@@ -337,4 +337,16 @@ pagination: {
         requestSentMessage: 'בקשת התור שלך נשלחה בהצלחה. בית העסק יעבור על הבקשה וישלח לך הודעת אישור לאחר אישורה.',
         noDescription: 'אין תיאור זמין',
     },
+    
+    schedule: {
+        title: "לוח זמנים",
+        dailyPlanner: "מתכנן יומי",
+        subtitle: "צפה בפגישות ובפעילות היומית עבור התאריך שנבחר.",
+        appointments: "פגישות",
+        pendingRequests: "בקשות ממתינות",
+        selectedDay: "היום הנבחר",
+        appointmentCount: "פגישות",
+        noAppointmentsTitle: "אין פגישות ביום זה",
+        noAppointmentsDescription: "בחר תאריך אחר או המתן להזמנות חדשות.",
+    },
 };

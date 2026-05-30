@@ -342,4 +342,16 @@ export default {
         noDescription: 'No description available',
     },
 
+    schedule: {
+        title: "Schedule",
+        dailyPlanner: "Daily Planner",
+        subtitle: "View appointments and daily activity for your selected date.",
+        appointments: "Appointments",
+        pendingRequests: "Pending Requests",
+        selectedDay: "Selected Day",
+        appointmentCount: "appointments",
+        noAppointmentsTitle: "No appointments for this day",
+        noAppointmentsDescription: "Select another date or wait for new bookings.",
+    },
+
 };

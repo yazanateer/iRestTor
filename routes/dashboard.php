@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\AvailabilityController;
 use App\Http\Controllers\Dashboard\AppointmentController;
+use App\Http\Controllers\Dashboard\ScheduleController;
 use App\Models\Appointment;
 use App\Models\Service;
 
@@ -19,6 +20,7 @@ Route::middleware(['auth', 'manager'])
             'stats' => [
                 'todayAppointments' => Appointment::where('business_id', $business->id)
                     ->whereDate('appointment_date', today())
+                    ->where('status', '!=', 'cancelled')
                     ->count(),
                 'pendingRequests' => Appointment::where('business_id', $business->id)
                     ->where('status', 'pending_approval')
@@ -31,14 +33,15 @@ Route::middleware(['auth', 'manager'])
                     ->count(),
                 'totalServices' => Service::where('business_id', $business->id)
                     ->count(),
-                'todayAppointmentsList' => Appointment::query()
-                    ->with('service')
-                    ->where('business_id', $business->id)
-                    ->whereDate('appointment_date', today())
-                    ->orderBy('start_time')
-                    ->get(),
             ],
-        ]);
+            'todayAppointmentsList' => Appointment::query()
+                ->with('service')
+                ->where('business_id', $business->id)
+                ->whereDate('appointment_date', today())
+                ->where('status', '!=', 'cancelled')
+                ->orderBy('start_time')
+                ->get(),
+            ]);
     })
     ->name('dashboard');
 
@@ -57,6 +60,8 @@ Route::middleware(['auth', 'manager'])
             ->name('appointments.confirm');
         Route::patch('/appointments/{appointment}/reject', [AppointmentController::class, 'reject'])
             ->name('appointments.reject');
+        Route::get('/schedule', [ScheduleController::class, 'index'])
+            ->name('schedule.index');
     });
 
 

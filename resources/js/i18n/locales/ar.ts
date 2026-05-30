@@ -336,4 +336,16 @@ pagination: {
         requestSentMessage: 'تم إرسال طلب الحجز بنجاح. سيقوم صاحب العمل بمراجعة الطلب وستصلك رسالة تأكيد بعد الموافقة عليه.',
         noDescription: 'لا يوجد وصف متاح',
     },
+
+    schedule: {
+        title: "الجدول الزمني",
+        dailyPlanner: "المخطط اليومي",
+        subtitle: "اعرض المواعيد والنشاط اليومي للتاريخ المحدد.",
+        appointments: "المواعيد",
+        pendingRequests: "طلبات قيد الانتظار",
+        selectedDay: "اليوم المحدد",
+        appointmentCount: "موعد",
+        noAppointmentsTitle: "لا توجد مواعيد لهذا اليوم",
+        noAppointmentsDescription: "اختر تاريخاً آخر أو انتظر حجوزات جديدة.",
+    },
 };
