@@ -354,4 +354,98 @@ export default {
         noAppointmentsDescription: "Select another date or wait for new bookings.",
     },
 
+    landing: {
+  meta: {
+    title: 'IRestTOR - Smart Appointment Booking System',
+  },
+  nav: {
+    subtitle: 'AI Booking OS',
+    login: 'Login',
+    cta: 'Start Now',
+  },
+  hero: {
+    eyebrow: 'IRestTOR Booking Platform',
+    title: 'A smart appointment system for modern businesses',
+    description:
+      'IRestTOR helps businesses manage services, availability, bookings, approvals, and customer notifications from one clean dashboard.',
+    primaryCta: 'Request a Demo',
+    secondaryCta: 'Explore Features',
+  },
+  preview: {
+    cover: 'Booking Page Preview',
+    eyebrow: 'Online Booking',
+    description: 'A branded booking page where customers can choose a service, date, and available time slot.',
+    service: 'Medical Consultation',
+    continue: 'Continue',
+  },
+  features: {
+    eyebrow: 'Platform Features',
+    title: 'Everything needed to manage appointments online',
+    description: 'From service setup to SMS confirmations, IRestTOR gives every business a professional booking experience.',
+    items: {
+      bookingLink: {
+        title: 'Personal Booking Link',
+        description: 'Every business gets a dedicated booking link to share with customers.',
+      },
+      availability: {
+        title: 'Smart Availability',
+        description: 'Configure working hours, open days, and available appointment slots.',
+      },
+      services: {
+        title: 'Service Management',
+        description: 'Create services with duration, price, color, and confirmation mode.',
+      },
+      notifications: {
+        title: 'SMS Notifications',
+        description: 'Notify customers when appointments are confirmed or rejected.',
+      },
+      approval: {
+        title: 'Approval Workflow',
+        description: 'Choose between automatic confirmation or manager approval.',
+      },
+      dashboard: {
+        title: 'Business Dashboard',
+        description: 'Track daily appointments, pending requests, services, and schedules.',
+      },
+    },
+  },
+  howItWorks: {
+    eyebrow: 'How It Works',
+    title: 'Launch a booking page in simple steps',
+    description: 'IRestTOR keeps the setup simple for business owners and smooth for customers.',
+    steps: {
+      business: {
+        title: 'Create the business',
+        description: 'Add business details, branding, colors, logo, and public booking content.',
+      },
+      availability: {
+        title: 'Set services and availability',
+        description: 'Define what customers can book and when appointments are available.',
+      },
+      share: {
+        title: 'Share the booking link',
+        description: 'Customers open the link, choose a service, verify their phone, and book.',
+      },
+    },
+  },
+  businesses: {
+    eyebrow: 'Suitable For',
+    title: 'Built for service-based businesses',
+    items: {
+      clinics: 'Clinics',
+      salons: 'Beauty Salons',
+      barbers: 'Barbers',
+      lawyers: 'Lawyers',
+      consultants: 'Consultants',
+      coaches: 'Coaches',
+    },
+  },
+  cta: {
+    eyebrow: 'Start With IRestTOR',
+    title: 'Ready to manage appointments smarter?',
+    description: 'Give your business a professional booking page and manage everything from one dashboard.',
+    whatsapp: 'Contact Us on WhatsApp',
+  },
+}
+
 };
