@@ -26,7 +26,7 @@
   justify-content: space-between;
   gap: 24px;
 }
-
+/* 
 .brand {
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
   text-decoration: none;
   font-size: 28px;
   font-weight: 900;
-}
+} */
 
 .brand-mark {
   width: 46px;
@@ -447,14 +447,19 @@
 }
 
 .feature-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  background: #eff6ff;
-  display: grid;
-  place-items: center;
-  font-size: 26px;
-  margin-bottom: 28px;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: #f4f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.feature-icon i {
+    font-size: 30px;
+    color: #2563eb;
 }
 
 .feature-card h3 {
@@ -539,7 +544,7 @@
 }
 
 /* Pricing */
-.pricing-section {
+/* .pricing-section {
   background: #f8fafc;
 }
 
@@ -609,7 +614,7 @@
 .pricing-btn {
   width: 100%;
   justify-content: center;
-}
+} */
 
 /* Contact */
 .contact-section {
@@ -721,4 +726,310 @@
   .contact-form {
     padding: 34px 24px;
   }
+}
+
+.phone-showcase {
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  align-items: center;
+  gap: 80px;
+}
+
+.phone-content {
+  max-width: 560px;
+}
+
+.section-mini {
+  color: #2563eb;
+  font-weight: 900;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.phone-content h2 {
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.05;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  color: #0f172a;
+}
+
+.phone-content p {
+  color: #64748b;
+  font-size: 21px;
+  line-height: 1.7;
+}
+
+.showcase-points {
+  display: grid;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.showcase-points div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.showcase-points i {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+
+.iphone-frame {
+  width: 390px;
+  height: 780px;
+  background: #0f172a;
+  border-radius: 58px;
+  padding: 14px;
+  position: relative;
+  box-shadow:
+    0 40px 90px rgba(15, 23, 42, 0.28),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+.iphone-notch {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #0f172a;
+  border-radius: 0 0 20px 20px;
+  z-index: 5;
+}
+
+.iphone-screen {
+  height: 100%;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+  border-radius: 46px;
+  overflow: hidden;
+  padding: 28px 18px 20px;
+}
+
+.phone-browser-bar {
+  margin: 18px auto 20px;
+  background: #ffffff;
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #64748b;
+}
+
+.phone-browser-bar i {
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.phone-cover {
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: #ffffff;
+  border-radius: 28px;
+  padding: 26px 18px;
+  margin-bottom: 18px;
+}
+
+.phone-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #2563eb;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 950;
+  margin-bottom: 18px;
+}
+
+.phone-cover h3 {
+  font-size: 28px;
+  font-weight: 950;
+  margin: 0 0 6px;
+}
+
+.phone-cover p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.phone-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 2px 10px;
+}
+
+.phone-step small {
+  color: #2563eb;
+  font-weight: 900;
+  font-size: 11px;
+}
+
+.phone-step h4 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.phone-step span {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.phone-service-card {
+  background: #ffffff;
+  border: 1px solid #dbe4f0;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phone-service-card.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.phone-service-card strong {
+  display: block;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.phone-service-card small {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.phone-service-card span {
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.phone-dates,
+.phone-times {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.phone-dates button,
+.phone-times button {
+  border: 1px solid #dbe4f0;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 12px 6px;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.phone-dates button.active,
+.phone-times button.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.phone-dates small {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.phone-dates strong {
+  font-size: 22px;
+}
+
+.phone-times button {
+  font-size: 13px;
+}
+
+.phone-continue {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 15px;
+  margin-top: 18px;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: #ffffff;
+  font-weight: 950;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 992px) {
+  .phone-showcase {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .showcase-points div {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .iphone-frame {
+    width: 330px;
+    height: 700px;
+    border-radius: 48px;
+  }
+
+  .iphone-screen {
+    border-radius: 38px;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand span {
+  font-size: 28px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1;
 }

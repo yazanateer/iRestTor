@@ -1,96 +1,70 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-
+import '../../../css/Pages/landing/landing.css'
+import PhoneBookingMockup from '../../Components/Landing/PhoneBookingMockup.vue'
+import PricingSection from '../../Components/Landing/PricingSection.vue'
+import landingNavbar from '../../Components/Landing/landingNavbar.vue'
+import { computed } from 'vue'
 const { t, locale } = useI18n()
 
+
+const switchLanguage = (lang: 'en' | 'he' | 'ar') => {
+  locale.value = lang
+  localStorage.setItem('locale', lang)
+  document.documentElement.lang = lang
+  document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl'
+}
 const features = [
-  {
-    icon: '🔗',
-    title: 'קישור אישי להזמנת תורים',
-    description: 'כל עסק מקבל קישור אישי שאפשר לשלוח ללקוחות בוואטסאפ, באינסטגרם או באתר.',
-  },
-  {
-    icon: '📅',
-    title: 'לוח זמינות חכם',
-    description: 'הגדירו ימי עבודה, שעות פעילות וזמנים זמינים להזמנה בצורה פשוטה וברורה.',
-  },
-  {
-    icon: '🔐',
-    title: 'אימות OTP ב-SMS',
-    description: 'כל לקוח מאמת את מספר הטלפון לפני קביעת התור, כדי להפחית הזמנות מזויפות.',
-  },
-  {
-    icon: '✅',
-    title: 'אישור או דחיית תורים',
-    description: 'בחרו אם תורים יאושרו אוטומטית או ימתינו לאישור מנהל העסק.',
-  },
-  {
-    icon: '🌍',
-    title: 'תמיכה ב-3 שפות',
-    description: 'עברית, ערבית ואנגלית — כדי שכל לקוח יוכל להזמין בשפה שנוחה לו.',
-  },
-  {
-    icon: '📊',
-    title: 'דאשבורד ניהול לעסק',
-    description: 'ניהול שירותים, תורים, זמינות, בקשות ממתינות ולוח יומי במקום אחד.',
-  },
+  { key: 'personalBookingLink', icon: 'bi-link-45deg' },
+  { key: 'availabilityCalendar', icon: 'bi-calendar-week' },
+  { key: 'otpVerification', icon: 'bi-shield-lock' },
+  { key: 'approvalWorkflow', icon: 'bi-check2-circle' },
+  { key: 'multiLanguage', icon: 'bi-globe2' },
+  { key: 'businessDashboard', icon: 'bi-bar-chart' },
 ]
 
 const businessTypes = [
-  'קליניקות',
-  'מספרות',
-  'סלוני יופי',
-  'עורכי דין',
-  'יועצים',
-  'מאמנים',
+  'clinics',
+  'beautySalons',
+  'barbershops',
+  'lawFirms',
+  'consultants',
+  'coaches',
+  'more'
 ]
 
 const pricingFeatures = [
-  'קישור אישי להזמנת תורים',
-  'ניהול שירותים ללא הגבלה',
-  'ניהול זמינות ושעות עבודה',
-  'אימות לקוחות באמצעות OTP',
-  'אישור ודחיית תורים',
-  'דאשבורד עסקי מלא',
-  'תמיכה בעברית, ערבית ואנגלית',
+  'personalBookingPage',
+  'unlimitedServices',
+  'availabilityManagement',
+  'smsOtpVerification',
+  'appointmentApprovals',
+  'businessDashboard',
+  'multiLanguage',
 ]
+
+const businessTypeOptions = [
+  'select',
+  'clinic',
+  'barbershop',
+  'beautySalon',
+  'consulting',
+  'other',
+]
+
+const arrow = computed(() =>
+  ['he', 'ar'].includes(locale.value) ? '←' : '→'
+)
+
 </script>
 
 <template>
-  <Head title="IRestTOR - Smart Appointment Booking" />
+  <Head :title="t('landing.meta.title')" />
 
-  <main class="landing-page" :dir="locale === 'he' || locale === 'ar' ? 'rtl' : 'ltr'">
+  <main class="landing-page" :dir="locale === 'en' ? 'ltr' : 'rtl'">
     <!-- Navbar -->
-    <header class="site-header">
-      <div class="container landing-nav">
-        <Link href="/" class="brand">
-          <div class="brand-mark">T</div>
-          <span>IRestTOR</span>
-        </Link>
-
-        <nav class="nav-links">
-          <a href="#features">יתרונות</a>
-          <a href="#how">איך זה עובד</a>
-          <a href="#pricing">מחיר</a>
-        </nav>
-
-        <div class="nav-actions">
-          <div class="language-switcher">
-            <button>AR</button>
-            <button>EN</button>
-            <button class="active">HE</button>
-          </div>
-
-          <Link href="/login" class="login-link">כניסה</Link>
-
-          <a href="#contact" class="primary-nav-btn">
-            צרו קשר
-            <span>←</span>
-          </a>
-        </div>
-      </div>
-    </header>
+    <landingNavbar />
 
     <!-- Hero -->
     <section class="hero-section">
@@ -99,144 +73,59 @@ const pricingFeatures = [
       <div class="container text-center hero-content">
         <div class="hero-badge">
           <span></span>
-          חדש · בעברית, אנגלית וערבית
+          {{ t('landing.hero.badge') }}
         </div>
 
         <h1>
-          מערכת ניהול התורים שלכם,
+          {{ t('landing.hero.titleLineOne') }}
           <br />
-          מוכנה תוך דקות
+          {{ t('landing.hero.titleLineTwo') }}
         </h1>
 
         <p>
-          בלי טלפונים. בלי הודעות מבולגנות. בלי כאב ראש.
-          לקוחות קובעים תור לבד, ואתם מנהלים הכול ממקום אחד.
+          {{ t('landing.hero.description') }}
         </p>
 
         <div class="hero-actions">
           <a href="#contact" class="main-cta">
-            ניסיון חינם · 14 יום
-            <span>←</span>
+            {{ t('landing.hero.primaryCta') }}
+            <span>{{ arrow }}</span>
           </a>
 
           <a href="#demo" class="secondary-cta">
             <span>▶</span>
-            צפייה בהדגמה
+            {{ t('landing.hero.secondaryCta') }}
           </a>
         </div>
       </div>
     </section>
 
     <!-- Product mockup -->
-    <section id="demo" class="mockup-section">
-      <div class="container">
-        <div class="browser-mockup">
-          <div class="browser-top">
-            <div class="browser-status">
-              live
-              <span></span>
-            </div>
-
-            <div class="browser-url">
-              iresttor.com/book/clinic-x
-            </div>
-
-            <div class="browser-dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-
-          <div class="mockup-body">
-            <div class="mockup-left">
-              <div class="booking-card active">
-                <div>
-                  <strong>בדיקת ייעוץ</strong>
-                  <small>30 דקות</small>
-                </div>
-                <span>₪120</span>
-              </div>
-
-              <div class="date-row">
-                <div class="date-card active">
-                  <small>Mon</small>
-                  <strong>24</strong>
-                  <span>Available</span>
-                </div>
-
-                <div class="date-card">
-                  <small>Tue</small>
-                  <strong>25</strong>
-                  <span>Available</span>
-                </div>
-
-                <div class="date-card">
-                  <small>Wed</small>
-                  <strong>26</strong>
-                  <span>Available</span>
-                </div>
-              </div>
-
-              <div class="time-row">
-                <button class="active">09:00</button>
-                <button>10:30</button>
-                <button>12:00</button>
-              </div>
-
-              <button class="mockup-continue">המשך להזמנה ←</button>
-            </div>
-
-            <div class="mockup-right">
-              <div class="business-avatar">C</div>
-              <h3>ClinicX</h3>
-              <p>פתוח היום · 09:00–17:00</p>
-
-              <div class="side-stat active">
-                <span>תורים היום</span>
-                <strong>12</strong>
-              </div>
-
-              <div class="side-stat">
-                <span>בקשות ממתינות</span>
-                <strong>3</strong>
-              </div>
-
-              <div class="side-stat">
-                <span>שירותים פעילים</span>
-                <strong>8</strong>
-              </div>
-            </div>
-
-            <div class="floating-confirmation">
-              <small>אימות הושלם</small>
-              <strong>OTP · #1247 ✓</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <PhoneBookingMockup />
 
     <!-- Features -->
     <section id="features" class="section-block">
       <div class="container">
         <div class="section-heading text-center">
-          <span>כל מה שעסק צריך</span>
+          <span>{{ t('landing.features.eyebrow') }}</span>
           <h2>
-            הכלים הכבדים — מוכנים מראש.
+            {{ t('landing.features.titleLineOne') }}
             <br />
-            <strong>אתם רק מנהלים.</strong>
+            <strong>{{ t('landing.features.titleLineTwo') }}</strong>
           </h2>
           <p>
-            מערכת אחת שמרכזת את כל תהליך קביעת התורים, מהקישור הראשון ועד אישור ההגעה.
+            {{ t('landing.features.description') }}
           </p>
         </div>
 
         <div class="features-grid">
-          <article v-for="feature in features" :key="feature.title" class="feature-card">
-            <div class="feature-icon">{{ feature.icon }}</div>
-            <h3>{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
+          <article v-for="feature in features" :key="feature.key" class="feature-card">
+            <div class="feature-icon">
+                <i :class="['bi', feature.icon]"></i>
+            </div>
+            
+            <h3>{{ t(`landing.features.items.${feature.key}.title`) }}</h3>
+            <p>{{ t(`landing.features.items.${feature.key}.description`) }}</p>
           </article>
         </div>
       </div>
@@ -246,27 +135,27 @@ const pricingFeatures = [
     <section id="how" class="how-section">
       <div class="container">
         <div class="section-heading text-center">
-          <span>איך זה עובד</span>
-          <h2>שלושה צעדים. בלי הפתעות.</h2>
+          <span>{{ t('landing.howItWorks.eyebrow') }}</span>
+          <h2>{{ t('landing.howItWorks.title') }}</h2>
         </div>
 
         <div class="steps-line">
           <div class="step-item">
             <div class="step-number">01</div>
-            <h3>נרשמים</h3>
-            <p>פותחים עסק במערכת ומגדירים שם, לוגו, צבעים ופרטי התקשרות.</p>
+            <h3>{{ t('landing.howItWorks.steps.create.title') }}</h3>
+            <p>{{ t('landing.howItWorks.steps.create.description') }}</p>
           </div>
 
           <div class="step-item">
             <div class="step-number">02</div>
-            <h3>מוסיפים שירותים</h3>
-            <p>מגדירים שירותים, משך טיפול, מחיר, זמינות ואופן אישור התור.</p>
+            <h3>{{ t('landing.howItWorks.steps.services.title') }}</h3>
+            <p>{{ t('landing.howItWorks.steps.services.description') }}</p>
           </div>
 
           <div class="step-item">
             <div class="step-number">03</div>
-            <h3>משתפים קישור</h3>
-            <p>שולחים ללקוחות קישור אישי והם קובעים תור בעצמם בזמן שנוח להם.</p>
+            <h3>{{ t('landing.howItWorks.steps.share.title') }}</h3>
+            <p>{{ t('landing.howItWorks.steps.share.description') }}</p>
           </div>
         </div>
       </div>
@@ -275,103 +164,68 @@ const pricingFeatures = [
     <!-- Suitable businesses -->
     <section class="businesses-section">
       <div class="container text-center">
-        <span class="mini-label">מתאים ל...</span>
-        <h2>עסק קטן, צוות גדול, קליניקה או נותן שירות.</h2>
-        <p>IRestTOR מתאים לעסקים שמקבלים לקוחות לפי תורים.</p>
+        <span class="mini-label">{{ t('landing.businesses.eyebrow') }}</span>
+        <h2>{{ t('landing.businesses.title') }}</h2>
+        <p>{{ t('landing.businesses.description') }}</p>
 
         <div class="business-pills">
           <div v-for="type in businessTypes" :key="type" class="business-pill">
-            {{ type }}
+            {{ t(`landing.businesses.items.${type}`) }}
           </div>
         </div>
       </div>
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="pricing-section">
-      <div class="container">
-        <div class="section-heading text-center">
-          <span>מחיר</span>
-          <h2>
-            מחיר אחד, ברור.
-            <strong>הכל כלול.</strong>
-          </h2>
-          <p>תוכנית פשוטה בלי כאב ראש ובלי הפתעות.</p>
-        </div>
-
-        <div class="pricing-card">
-          <div class="popular-badge">כל היתרונות כלולים</div>
-
-          <h3>IRestTOR</h3>
-          <p>כל מה שצריך כדי לנהל תורים בצורה מקצועית.</p>
-
-          <div class="price">
-            ₪249
-            <span>/ חודש</span>
-          </div>
-
-          <ul>
-            <li v-for="item in pricingFeatures" :key="item">
-              <span>✓</span>
-              {{ item }}
-            </li>
-          </ul>
-
-          <a href="#contact" class="pricing-btn">
-            התחילו עכשיו · 14 יום חינם
-            <span>←</span>
-          </a>
-        </div>
-      </div>
-    </section>
+     <PricingSection />
 
     <!-- Contact -->
     <section id="contact" class="contact-section">
       <div class="container">
         <div class="contact-heading text-center">
-          <span>צרו קשר</span>
-          <h2>מוכנים להפסיק לנהל תורים בהודעות?</h2>
-          <p>השאירו פרטים ונחזור אליכם בהקדם.</p>
+          <span>{{ t('landing.contact.eyebrow') }}</span>
+          <h2>{{ t('landing.contact.title') }}</h2>
+          <p>{{ t('landing.contact.description') }}</p>
         </div>
 
         <form class="contact-form">
           <div class="row g-3">
             <div class="col-md-6">
-              <label>שם מלא</label>
-              <input type="text" placeholder="ישראל ישראלי" />
+              <label>{{ t('landing.contact.fields.fullName') }}</label>
+              <input type="text" :placeholder="t('landing.contact.placeholders.fullName')" />
             </div>
 
             <div class="col-md-6">
-              <label>שם העסק</label>
-              <input type="text" placeholder="הקליניקה שלי" />
+              <label>{{ t('landing.contact.fields.businessName') }}</label>
+              <input type="text" :placeholder="t('landing.contact.placeholders.businessName')" />
             </div>
 
             <div class="col-md-6">
-              <label>טלפון</label>
-              <input type="text" placeholder="054-123-4567" />
+              <label>{{ t('landing.contact.fields.phone') }}</label>
+              <input type="text" :placeholder="t('landing.contact.placeholders.phone')" />
             </div>
 
             <div class="col-md-6">
-              <label>סוג העסק</label>
+              <label>{{ t('landing.contact.fields.businessType') }}</label>
               <select>
-                <option>בחרו...</option>
-                <option>קליניקה</option>
-                <option>מספרה</option>
-                <option>סלון יופי</option>
-                <option>ייעוץ</option>
-                <option>אחר</option>
+                <option v-for="option in businessTypeOptions" :key="option">
+                  {{ t(`landing.contact.businessTypes.${option}`) }}
+                </option>
               </select>
             </div>
 
             <div class="col-12">
-              <label>ספרו לנו קצת על העסק</label>
-              <textarea rows="4" placeholder="כמה תורים אתם מקבלים ביום?"></textarea>
+              <label>{{ t('landing.contact.fields.message') }}</label>
+              <textarea
+                rows="4"
+                :placeholder="t('landing.contact.placeholders.message')"
+              ></textarea>
             </div>
 
             <div class="col-12">
               <button type="button">
-                שליחת פרטים
-                <span>←</span>
+                {{ t('landing.contact.cta') }}
+                <span>{{ arrow }}</span>
               </button>
             </div>
           </div>

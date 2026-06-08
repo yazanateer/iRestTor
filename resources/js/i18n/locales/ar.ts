@@ -348,4 +348,313 @@ pagination: {
         noAppointmentsTitle: "لا توجد مواعيد لهذا اليوم",
         noAppointmentsDescription: "اختر تاريخاً آخر أو انتظر حجوزات جديدة.",
     },
+
+  landing: {
+    meta: {
+      title: 'IRestTOR - نظام ذكي لإدارة المواعيد',
+    },
+
+    brand: {
+      name: 'IRestTOR',
+    },
+
+    languages: {
+      ar: 'AR',
+      en: 'EN',
+      he: 'HE',
+    },
+
+    nav: {
+      features: 'المميزات',
+      howItWorks: 'كيف يعمل',
+      pricing: 'الأسعار',
+      login: 'تسجيل الدخول',
+      bookDemo: 'احجز عرضاً تجريبياً',
+    },
+
+    hero: {
+      badge: 'حجز أونلاين • توفير الوقت • تذكيرات تلقائية',
+      titleLineOne: 'نظام إدارة المواعيد الخاص بك،',
+      titleLineTwo: 'جاهز خلال دقائق',
+      description:
+        'بدون مكالمات هاتفية. بدون رسائل فوضوية. بدون مشاكل في جدولة المواعيد. دع العملاء يحجزون عبر الإنترنت بينما تدير كل شيء من لوحة تحكم واحدة.',
+      primaryCta: 'ابدأ تجربة مجانية · 14 يوماً',
+      secondaryCta: 'شاهد العرض التوضيحي',
+    },
+
+    mockup: {
+      live: 'مباشر',
+      url: 'iresttor.com/book/clinic-x',
+      serviceName: 'استشارة',
+      duration: '30 دقيقة',
+      price: '₪120',
+      available: 'متاح',
+      continueBooking: 'متابعة الحجز',
+      businessName: 'ClinicX',
+      openToday: 'مفتوح اليوم · 09:00–17:00',
+      verificationCompleted: 'تم التحقق بنجاح',
+      otpCode: 'OTP · #1247 ✓',
+
+      days: {
+        mon: 'الإثنين',
+        tue: 'الثلاثاء',
+        wed: 'الأربعاء',
+      },
+
+      stats: {
+        todayAppointments: 'مواعيد اليوم',
+        pendingRequests: 'طلبات بانتظار الموافقة',
+        activeServices: 'الخدمات النشطة',
+      },
+    },
+
+    features: {
+      eyebrow: 'كل ما يحتاجه عملك',
+      titleLineOne: 'أدوات قوية.',
+      titleLineTwo: 'جاهزة من اليوم الأول.',
+      description:
+        'كل ما تحتاجه لإدارة المواعيد والعملاء والجداول والحجوزات في مكان واحد.',
+
+      items: {
+        personalBookingLink: {
+          title: 'رابط حجز شخصي',
+          description:
+            'يحصل كل نشاط تجاري على صفحة حجز خاصة يمكن مشاركتها عبر واتساب أو إنستغرام أو الموقع الإلكتروني أو وسائل التواصل الاجتماعي.',
+        },
+
+        availabilityCalendar: {
+          title: 'تقويم توفر ذكي',
+          description:
+            'حدد أيام العمل وساعات الدوام وفترات الاستراحة وأوقات الحجز بسهولة.',
+        },
+
+        otpVerification: {
+          title: ' التحقق بالرسائل النصية SMS',  
+          description:
+            'يقوم العملاء بالتحقق من رقم الهاتف قبل الحجز لتقليل الحجوزات الوهمية وعدم الحضور.',
+        },
+
+        approvalWorkflow: {
+          title: 'تأكيد تلقائي أو يدوي',
+          description:
+            'اختر ما إذا كانت المواعيد تُؤكد تلقائياً أو تحتاج إلى موافقة المدير.',
+        },
+
+        multiLanguage: {
+          title: 'دعم متعدد اللغات',
+          description:
+            'دعم العربية والإنجليزية والعبرية للشركات التي تخدم عملاء متنوعين.',
+        },
+
+        businessDashboard: {
+          title: 'لوحة تحكم للأعمال',
+          description:
+            'إدارة المواعيد والخدمات والجداول والطلبات والعمليات اليومية من مكان واحد.',
+        },
+      },
+    },
+
+    howItWorks: {
+      eyebrow: 'كيف يعمل',
+      title: 'ثلاث خطوات بسيطة',
+
+      steps: {
+        create: {
+          title: 'أنشئ نشاطك التجاري',
+          description:
+            'أضف اسم النشاط والشعار والألوان وساعات العمل وتفضيلات الحجز.',
+        },
+
+        services: {
+          title: 'أضف الخدمات',
+          description:
+            'قم بإعداد الخدمات والمدة والسعر والتوفر وإعدادات الموافقة على المواعيد.',
+        },
+
+        share: {
+          title: 'شارك رابط الحجز',
+          description:
+            'أرسل رابط الحجز للعملاء ودعهم يحجزون مواعيدهم عبر الإنترنت.',
+        },
+      },
+    },
+
+    businesses: {
+      eyebrow: 'مناسب لـ',
+      title: 'العيادات، صالونات التجميل، المستشارين وأعمال الخدمات.',
+      description:
+        'تم تصميم IRestTOR للشركات التي تستقبل العملاء من خلال المواعيد.',
+
+      items: {
+        clinics: 'العيادات',
+        beautySalons: 'صالونات التجميل',
+        barbershops: 'الحلاقون',
+        lawFirms: 'مكاتب المحاماة',
+        consultants: 'المستشارون',
+        coaches: 'المدربون',
+        more: 'واخرى...',
+      },
+    },
+
+    pricing: {
+      eyebrow: 'الأسعار',
+      titleLineOne: 'خطة واحدة بسيطة.',
+      titleLineTwo: 'كل شيء مشمول.',
+      description: 'نظام احترافي لإدارة المواعيد بدون رسوم خفية.',
+      badge: 'كل شيء مشمول',
+      cardDescription: 'كل ما تحتاجه لإدارة المواعيد بشكل احترافي.',
+      price: '₪249',
+      period: '/ شهرياً',
+      cta: 'ابدأ تجربة مجانية · 14 يوماً',
+
+      features: {
+        personalBookingPage: 'صفحة حجز شخصية',
+        unlimitedServices: 'خدمات غير محدودة',
+        availabilityManagement: 'إدارة التوفر',
+        smsOtpVerification: 'التحقق عبر OTP بالرسائل النصية',
+        appointmentApprovals: 'الموافقة على المواعيد',
+        businessDashboard: 'لوحة تحكم للأعمال',
+        multiLanguage: 'دعم العربية والإنجليزية والعبرية',
+      },
+    },
+
+    contact: {
+      eyebrow: 'تواصل معنا',
+      title: 'هل أنت مستعد للتوقف عن إدارة المواعيد عبر الرسائل؟',
+      description:
+        'اترك بياناتك وسيتواصل معك فريقنا في أقرب وقت ممكن.',
+      cta: 'طلب عرض تجريبي',
+
+      fields: {
+        fullName: 'الاسم الكامل',
+        businessName: 'اسم النشاط التجاري',
+        phone: 'رقم الهاتف',
+        businessType: 'نوع النشاط',
+        message: 'أخبرنا عن نشاطك التجاري',
+      },
+
+      placeholders: {
+        fullName: 'محمد أحمد',
+        businessName: 'عيادتي الخاصة',
+        phone: '054-720-0199',
+        message: 'كم موعداً تستقبل يومياً؟',
+      },
+
+      businessTypes: {
+        select: 'اختر...',
+        clinic: 'عيادة',
+        barbershop: 'صالون حلاقة',
+        beautySalon: 'صالون تجميل',
+        consulting: 'استشارات',
+        other: 'أخرى',
+      },
+    },
+
+    mockupShowcase: {
+        eyebrow: 'تجربة حجز مباشرة',
+        title: 'عملاؤك يحجزون المواعيد من هواتفهم خلال ثوانٍ.',
+        description:
+            'يوفر IRestTOR لكل نشاط تجاري صفحة حجز مواعيد احترافية ومتوافقة مع الهواتف، حيث يمكن للعملاء اختيار الخدمة والتاريخ والوقت وتأكيد الموعد بسهولة.',
+        points: {
+            bookingLink: 'شارك رابط حجز شخصي واحد',
+            mobileFirst: 'مصمم خصيصًا لمستخدمي الهواتف',
+            otp: 'حجز آمن مع التحقق عبر OTP',
+        },
+        },
+
+        mockupPhone: {
+        stepOne: 'الخطوة 1 من 3',
+        chooseService: 'اختر الخدمة',
+        stepTwo: 'الخطوة 2 من 3',
+        chooseDate: 'اختر التاريخ',
+        stepThree: 'الخطوة 3 من 3',
+        availableTimes: 'الأوقات المتاحة',
+        },
+
+        pricing: {
+  eyebrow: 'الأسعار',
+  titleLineOne: 'اختر الخطة التي',
+  titleLineTwo: 'تناسب عملك.',
+  description:
+    'ابدأ بالحجوزات عبر الإنترنت وقم بالترقية مع نمو نشاطك التجاري.',
+
+  period: '/ شهرياً',
+  cta: 'ابدأ التجربة المجانية',
+features: {
+  unlimitedAppointments: 'مواعيد غير محدودة',
+  smsOtpVerification: 'التحقق عبر الرسائل النصية',
+  onlineBookingPage: 'صفحة حجز إلكترونية',
+  availabilityCalendar: 'إدارة التوفر',
+  automaticConfirmation: 'تأكيد المواعيد تلقائياً',
+  businessDashboard: 'لوحة تحكم للأعمال',
+
+  whatsappReminders: 'تذكيرات WhatsApp',
+  whatsappNotifications: 'إشعارات WhatsApp',
+  approvalWorkflow: 'نظام الموافقة على المواعيد',
+  approveRejectAppointments: 'الموافقة أو رفض المواعيد',
+  customerNotifications: 'إشعارات للعملاء',
+
+  everythingProfessional: 'كل ما في Professional',
+  multipleStaff: 'عدة موظفين',
+  multipleLocations: 'عدة فروع',
+  teamScheduling: 'إدارة جداول الفريق',
+  advancedReporting: 'تقارير متقدمة',
+  prioritySupport: 'دعم أولوية',
+},
+
+  basic: {
+    name: 'Basic',
+
+    subtitle:
+      'مثالية للأعمال الصغيرة التي تحتاج إلى نظام حجز بسيط عبر الإنترنت.',
+
+    features: [
+      'مواعيد غير محدودة',
+      'التحقق عبر OTP بالرسائل النصية',
+      'صفحة حجز إلكترونية',
+      'إدارة التوفر',
+      'تأكيد المواعيد تلقائياً',
+      'لوحة تحكم للأعمال',
+    ],
+  },
+
+  premium: {
+    badge: 'الأكثر شعبية',
+
+    name: 'Premium',
+
+    subtitle:
+      'قلل من حالات عدم الحضور واحصل على تحكم كامل في الموافقة على المواعيد.',
+
+    features: [
+      'مواعيد غير محدودة',
+      'التحقق عبر OTP بالرسائل النصية',
+      'تذكيرات WhatsApp',
+      'إشعارات WhatsApp',
+      'نظام الموافقة على المواعيد',
+      'الموافقة أو رفض المواعيد',
+      'لوحة تحكم للأعمال',
+      'إشعارات للعملاء',
+    ],
+  },
+
+  business: {
+    name: 'Business',
+
+    subtitle:
+      'أدوات متقدمة للعيادات والفرق والأعمال المتنامية.',
+
+    features: [
+      'كل ما في Professional',
+      'عدة موظفين',
+      'عدة فروع',
+      'إدارة جداول الفريق',
+      'تقارير متقدمة',
+      'دعم أولوية',
+    ],
+  },
+},
+
+
+  },
 };

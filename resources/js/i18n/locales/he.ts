@@ -349,4 +349,314 @@ pagination: {
         noAppointmentsTitle: "אין פגישות ביום זה",
         noAppointmentsDescription: "בחר תאריך אחר או המתן להזמנות חדשות.",
     },
+
+  landing: {
+    meta: {
+      title: 'IRestTOR - מערכת חכמה לניהול תורים',
+    },
+
+    brand: {
+      name: 'IRestTOR',
+    },
+
+    languages: {
+      ar: 'AR',
+      en: 'EN',
+      he: 'HE',
+    },
+
+    nav: {
+      features: 'יתרונות',
+      howItWorks: 'איך זה עובד',
+      pricing: 'מחיר',
+      login: 'כניסה',
+      bookDemo: 'קביעת דמו',
+    },
+
+    hero: {
+      badge: 'קביעת תורים אונליין • חיסכון בזמן • תזכורות אוטומטיות',
+      titleLineOne: 'מערכת ניהול התורים שלך,',
+      titleLineTwo: 'מוכנה תוך דקות',
+      description:
+        'בלי טלפונים. בלי הודעות מבולגנות. בלי כאב ראש. הלקוחות קובעים תור אונליין, ואתה מנהל הכול מדאשבורד אחד.',
+      primaryCta: 'התחל ניסיון חינם · 14 יום',
+      secondaryCta: 'צפה בדמו',
+    },
+
+    mockup: {
+      live: 'פעיל',
+      url: 'iresttor.com/book/clinic-x',
+      serviceName: 'ייעוץ',
+      duration: '30 דק׳',
+      price: '₪120',
+      available: 'זמין',
+      continueBooking: 'המשך להזמנה',
+      businessName: 'ClinicX',
+      openToday: 'פתוח היום · 09:00–17:00',
+      verificationCompleted: 'האימות הושלם',
+      otpCode: 'OTP · #1247 ✓',
+
+      days: {
+        mon: 'ב׳',
+        tue: 'ג׳',
+        wed: 'ד׳',
+      },
+
+      stats: {
+        todayAppointments: 'תורים היום',
+        pendingRequests: 'בקשות ממתינות',
+        activeServices: 'שירותים פעילים',
+      },
+    },
+
+    features: {
+      eyebrow: 'כל מה שהעסק שלך צריך',
+      titleLineOne: 'כלים חזקים.',
+      titleLineTwo: 'מוכנים מהיום הראשון.',
+      description:
+        'כל מה שצריך כדי לנהל תורים, לקוחות, זמינות והזמנות במקום אחד.',
+
+      items: {
+        personalBookingLink: {
+          title: 'קישור אישי להזמנת תורים',
+          description:
+            'כל עסק מקבל דף הזמנות אישי שאפשר לשתף בוואטסאפ, אינסטגרם, אתר או רשתות חברתיות.',
+        },
+
+        availabilityCalendar: {
+          title: 'יומן זמינות חכם',
+          description:
+            'הגדר ימי עבודה, שעות פעילות, הפסקות וזמינות לתורים בצורה פשוטה.',
+        },
+
+        otpVerification: {
+          title: 'אימות ב-SMS',
+          description:
+            'לקוחות מאמתים את מספר הטלפון לפני קביעת תור כדי להפחית הזמנות מזויפות ואי-הגעה.',
+        },
+
+        approvalWorkflow: {
+          title: 'אישור ידני או אוטומטי',
+          description:
+            'בחר אם תורים יאושרו אוטומטית או ימתינו לאישור מנהל העסק.',
+        },
+
+        multiLanguage: {
+          title: 'תמיכה בריבוי שפות',
+          description:
+            'תמיכה בעברית, ערבית ואנגלית לעסקים שמשרתים מגוון לקוחות.',
+        },
+
+        businessDashboard: {
+          title: 'דאשבורד עסקי',
+          description:
+            'נהל תורים, שירותים, לוחות זמנים, בקשות ופעילות יומית ממקום אחד.',
+        },
+      },
+    },
+
+    howItWorks: {
+      eyebrow: 'איך זה עובד',
+      title: 'שלושה צעדים פשוטים',
+
+      steps: {
+        create: {
+          title: 'יוצרים את העסק',
+          description:
+            'מוסיפים שם עסק, לוגו, צבעים, שעות עבודה והעדפות להזמנות.',
+        },
+
+        services: {
+          title: 'מוסיפים שירותים',
+          description:
+            'מגדירים שירותים, משך זמן, מחיר, זמינות והגדרות אישור תור.',
+        },
+
+        share: {
+          title: 'משתפים את קישור ההזמנה',
+          description:
+            'שולחים ללקוחות את הקישור האישי והם קובעים תור אונליין.',
+        },
+      },
+    },
+
+    businesses: {
+      eyebrow: 'מתאים ל',
+      title: 'קליניקות, מספרות, יועצים ועסקי שירות.',
+      description: 'IRestTOR מיועד לעסקים שמקבלים לקוחות לפי תורים.',
+
+      items: {
+        clinics: 'קליניקות',
+        beautySalons: 'סלוני יופי',
+        barbershops: 'מספרות',
+        lawFirms: 'משרדי עורכי דין',
+        consultants: 'יועצים',
+        coaches: 'מאמנים',
+        more: 'ועוד...',
+      },
+    },
+
+    pricing: {
+      eyebrow: 'מחיר',
+      titleLineOne: 'תוכנית אחת פשוטה.',
+      titleLineTwo: 'הכול כלול.',
+      description: 'מערכת מקצועית לניהול תורים בלי עלויות נסתרות.',
+      badge: 'הכול כלול',
+      cardDescription: 'כל מה שצריך כדי לנהל תורים בצורה מקצועית.',
+      price: '₪249',
+      period: '/ חודש',
+      cta: 'התחל ניסיון חינם · 14 יום',
+
+      features: {
+        personalBookingPage: 'דף הזמנות אישי',
+        unlimitedServices: 'שירותים ללא הגבלה',
+        availabilityManagement: 'ניהול זמינות',
+        smsOtpVerification: 'אימות OTP ב-SMS',
+        appointmentApprovals: 'אישור תורים',
+        businessDashboard: 'דאשבורד עסקי',
+        multiLanguage: 'תמיכה בעברית, ערבית ואנגלית',
+      },
+    },
+
+    contact: {
+      eyebrow: 'צרו קשר',
+      title: 'מוכנים להפסיק לנהל תורים דרך הודעות?',
+      description: 'השאירו פרטים והצוות שלנו יחזור אליכם בהקדם.',
+      cta: 'בקשת דמו',
+
+      fields: {
+        fullName: 'שם מלא',
+        businessName: 'שם העסק',
+        phone: 'מספר טלפון',
+        businessType: 'סוג העסק',
+        message: 'ספרו לנו על העסק',
+      },
+
+      placeholders: {
+        fullName: 'אמיר אמיר',
+        businessName: 'הקליניקה שלי',
+        phone: '054-720-0199',
+        message: 'כמה תורים אתם מקבלים ביום?',
+      },
+
+      businessTypes: {
+        select: 'בחר...',
+        clinic: 'קליניקה',
+        barbershop: 'מספרה',
+        beautySalon: 'סלון יופי',
+        consulting: 'ייעוץ',
+        other: 'אחר',
+      },
+    },
+
+    mockupShowcase: {
+        eyebrow: 'חוויית הזמנת תורים חיה',
+        title: 'הלקוחות שלכם קובעים תור מהטלפון תוך שניות.',
+        description:
+            'IRestTOR מעניקה לכל עסק עמוד הזמנת תורים מותאם לנייד, שבו הלקוחות יכולים לבחור שירות, תאריך, שעה ולאשר את התור בקלות.',
+        points: {
+            bookingLink: 'קישור אישי אחד להזמנת תורים',
+            mobileFirst: 'מותאם במיוחד למשתמשי מובייל',
+            otp: 'הזמנה מאובטחת עם אימות OTP',
+        },
+        },
+
+        mockupPhone: {
+        stepOne: 'שלב 1 מתוך 3',
+        chooseService: 'בחירת שירות',
+        stepTwo: 'שלב 2 מתוך 3',
+        chooseDate: 'בחירת תאריך',
+        stepThree: 'שלב 3 מתוך 3',
+        availableTimes: 'שעות זמינות',
+        },
+
+        pricing: {
+          eyebrow: 'מחירים',
+          titleLineOne: 'בחרו את התוכנית',
+          titleLineTwo: 'המתאימה לעסק שלכם.',
+          description:
+            'התחילו עם מערכת הזמנות אונליין ושדרגו ככל שהעסק גדל.',
+
+          period: '/ חודש',
+          cta: 'התחילו ניסיון חינם',
+
+          features: {
+            unlimitedAppointments: 'תורים ללא הגבלה',
+            smsOtpVerification: 'אימות באמצעות SMS',
+            onlineBookingPage: 'עמוד הזמנות אונליין',
+            availabilityCalendar: 'ניהול זמינות',
+            automaticConfirmation: 'אישור תורים אוטומטי',
+            businessDashboard: 'דאשבורד עסקי',
+
+            whatsappReminders: 'תזכורות WhatsApp',
+            whatsappNotifications: 'התראות WhatsApp',
+            approvalWorkflow: 'מערכת אישור תורים',
+            approveRejectAppointments: 'אישור או דחיית תורים',
+            customerNotifications: 'התראות ללקוחות',
+
+            everythingProfessional: 'כל מה שבתוכנית Professional',
+            multipleStaff: 'מספר עובדים',
+            multipleLocations: 'מספר סניפים',
+            teamScheduling: 'ניהול יומנים לצוות',
+            advancedReporting: 'דוחות מתקדמים',
+            prioritySupport: 'תמיכה בעדיפות גבוהה',
+          },
+
+
+
+
+          basic: {
+            name: 'Basic',
+
+            subtitle:
+              'מתאים לעסקים קטנים שצריכים מערכת פשוטה להזמנת תורים.',
+
+            features: [
+              'תורים ללא הגבלה',
+              'אימות SMS באמצעות OTP',
+              'עמוד הזמנות אונליין',
+              'ניהול זמינות',
+              'אישור תורים אוטומטי',
+              'דאשבורד עסקי',
+            ],
+  },
+
+  premium: {
+    badge: 'הפופולרי ביותר',
+
+    name: 'Premium',
+
+    subtitle:
+      'צמצום אי-הגעה ושליטה מלאה על אישור התורים.',
+
+    features: [
+      'תורים ללא הגבלה',
+      'אימות SMS באמצעות OTP',
+      'תזכורות WhatsApp',
+      'התראות WhatsApp',
+      'מערכת אישור תורים',
+      'אישור או דחיית תורים',
+      'דאשבורד עסקי',
+      'התראות ללקוחות',
+    ],
+  },
+
+  business: {
+    name: 'Business',
+
+    subtitle:
+      'כלים מתקדמים למרפאות, צוותים ועסקים בצמיחה.',
+
+    features: [
+      'כל מה שבתוכנית Professional',
+      'מספר עובדים',
+      'מספר סניפים',
+      'ניהול יומנים לצוות',
+      'דוחות מתקדמים',
+      'תמיכה בעדיפות גבוהה',
+    ],
+  },
+},
+  },
+
 };
