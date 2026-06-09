@@ -2,7 +2,8 @@
 import { computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-import logo from '../../../../images/icon-logo.png'
+import logo from '../../../../images/logo-tor.png'
+import '../../../css/Pages/Landing/navbar.css'
 
 type Locale = 'en' | 'he' | 'ar'
 
@@ -24,16 +25,15 @@ const arrow = computed(() => {
 <template>
     <header class="site-header">
       <div class="container landing-nav">
-        <!-- <Link href="/" class="brand">
-          <div class="brand-mark">T</div>
-          <span>{{ t('landing.brand.name') }}</span>
-        </Link> -->
+        <Link href="/" class="brand">
+        <img
+          :src="logo"
+          alt="IRestTOR"
+          class="brand-logo"
+        />
+        <span>{{ t('landing.brand.name') }}</span>
+      </Link>
 
-   <Link href="/" class="brand">
-  
-
-  <span>{{ t('landing.brand.name') }}</span>
-</Link>
 
         <nav class="nav-links">
           <a href="#features">{{ t('landing.nav.features') }}</a>
