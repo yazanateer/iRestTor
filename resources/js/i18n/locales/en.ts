@@ -107,6 +107,8 @@ export default {
         primaryColor: 'Primary Color',
         secondaryColor: 'Secondary Color',
         accentColor: 'Accent Color',
+        plan: 'Plan',
+        selectPlan: 'Select plan'
     },
 
     managers: {
@@ -197,6 +199,11 @@ export default {
         noServices: 'No services created yet.',
         deleteConfirm: 'Are you sure you want to delete this service?',
         editService: 'Update Service',
+        confirmationMode: 'Confirmation Mode',
+        autoConfirmAfterPhoneVerification: 'Auto confirm after phone verification',
+        requireManagerApproval: 'Require manager approval',
+        premiumFeature: 'Premium feature',
+        approvalWorkflowPremiumHint: 'Manager approval workflow is available in the Premium plan.',
     },
 
     appointments: {

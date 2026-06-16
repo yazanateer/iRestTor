@@ -104,6 +104,8 @@ export default {
             primaryColor: 'צבע ראשי',
             secondaryColor: 'צבע משני',
             accentColor: 'צבע הדגשה',
+            plan: 'תוכנית',
+           selectPlan: 'בחר/י תוכנית'
         },
 
         managers: {
@@ -195,6 +197,11 @@ export default {
         noServices: 'לא נוצרו שירותים עדיין.',
         deleteConfirm: 'האם אתה בטוח שברצונך למחוק את השירות הזה?',
         editService: 'עדכון שירות',
+        confirmationMode: 'מצב אישור',
+        autoConfirmAfterPhoneVerification: 'אישור אוטומטי לאחר אימות טלפון',
+        requireManagerApproval: 'נדרש אישור מנהל',
+        premiumFeature: 'תכונת פרימיום',
+        approvalWorkflowPremiumHint: 'תהליך אישור תורים על ידי מנהל זמין בתוכנית Premium בלבד.',
     },
 
     appointments: {

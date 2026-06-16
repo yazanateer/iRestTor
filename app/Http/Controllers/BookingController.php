@@ -12,9 +12,9 @@ use Carbon\Carbon;
 class BookingController extends Controller
 {
   public function show(Business $business)
-    {
+    {   
+        $this->ensureBusinessIsActive($business);
         $business->load(['services', 'branding']);
-
         return Inertia::render('Booking/Show', [
             'business' => $business,
             'services' => $business->services()
@@ -38,107 +38,111 @@ class BookingController extends Controller
     
     public function slots(Request $request, Business $business)
     {
-    $validated = $request->validate([
-        'service_id' => ['required', 'exists:services,id'],
-        'date' => ['required', 'date'],
-    ]);
+        $this->ensureBusinessIsActive($business);
 
-    $service = $business->services()
-        ->where('id', $validated['service_id'])
-        ->where('is_active', true)
-        ->firstOrFail();
+        $validated = $request->validate([
+            'service_id' => ['required', 'exists:services,id'],
+            'date' => ['required', 'date'],
+        ]);
 
-    $date = Carbon::parse($validated['date']);
-    $dayOfWeek = $date->dayOfWeek; // 0 Sunday - 6 Saturday
-
-    // 1. Resolve business working hours
-    $dateOverride = $business->dateOverrides()
-        ->where('date', $date->toDateString())
-        ->first();
-
-    if ($dateOverride) {
-        if (! $dateOverride->is_active) {
-            return response()->json([
-                'slots' => [],
-            ]);
-        }
-
-        $businessStart = Carbon::parse($date->toDateString() . ' ' . $dateOverride->start_time);
-        $businessEnd = Carbon::parse($date->toDateString() . ' ' . $dateOverride->end_time);
-    } else {
-        $availability = $business->availabilities()
-            ->where('day_of_week', $dayOfWeek)
+        $service = $business->services()
+            ->where('id', $validated['service_id'])
             ->where('is_active', true)
+            ->firstOrFail();
+
+        $date = Carbon::parse($validated['date']);
+        $dayOfWeek = $date->dayOfWeek; // 0 Sunday - 6 Saturday
+
+        // 1. Resolve business working hours
+        $dateOverride = $business->dateOverrides()
+            ->where('date', $date->toDateString())
             ->first();
 
-        if (! $availability) {
-            return response()->json([
-                'slots' => [],
-            ]);
+        if ($dateOverride) {
+            if (! $dateOverride->is_active) {
+                return response()->json([
+                    'slots' => [],
+                ]);
+            }
+
+            $businessStart = Carbon::parse($date->toDateString() . ' ' . $dateOverride->start_time);
+            $businessEnd = Carbon::parse($date->toDateString() . ' ' . $dateOverride->end_time);
+        } else {
+            $availability = $business->availabilities()
+                ->where('day_of_week', $dayOfWeek)
+                ->where('is_active', true)
+                ->first();
+
+            if (! $availability) {
+                return response()->json([
+                    'slots' => [],
+                ]);
+            }
+
+            $businessStart = Carbon::parse($date->toDateString() . ' ' . $availability->start_time);
+            $businessEnd = Carbon::parse($date->toDateString() . ' ' . $availability->end_time);
         }
 
-        $businessStart = Carbon::parse($date->toDateString() . ' ' . $availability->start_time);
-        $businessEnd = Carbon::parse($date->toDateString() . ' ' . $availability->end_time);
-    }
+        // 2. Get existing appointments
+        $existingAppointments = Appointment::where('business_id', $business->id)
+            ->where('appointment_date', $date->toDateString())
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->get(['start_time', 'end_time']);
 
-    // 2. Get existing appointments
-    $existingAppointments = Appointment::where('business_id', $business->id)
-        ->where('appointment_date', $date->toDateString())
-        ->whereIn('status', ['pending', 'confirmed'])
-        ->get(['start_time', 'end_time']);
+        // 3. Get breaks
+        $breaks = $business->availabilityBreaks()
+            ->where(function ($query) use ($date, $dayOfWeek) {
+                $query->where('date', $date->toDateString())
+                    ->orWhere(function ($query) use ($dayOfWeek) {
+                        $query->whereNull('date')
+                            ->where('day_of_week', $dayOfWeek);
+                    });
+            })
+            ->get();
 
-    // 3. Get breaks
-    $breaks = $business->availabilityBreaks()
-        ->where(function ($query) use ($date, $dayOfWeek) {
-            $query->where('date', $date->toDateString())
-                ->orWhere(function ($query) use ($dayOfWeek) {
-                    $query->whereNull('date')
-                        ->where('day_of_week', $dayOfWeek);
-                });
-        })
-        ->get();
+        // 4. Generate slots
+        $slots = [];
+        $start = $businessStart->copy();
+        $end = $businessEnd->copy();
 
-    // 4. Generate slots
-    $slots = [];
-    $start = $businessStart->copy();
-    $end = $businessEnd->copy();
+        while ($start->copy()->addMinutes($service->duration_minutes)->lte($end)) {
+            $slotStart = $start->copy();
+            $slotEnd = $start->copy()->addMinutes($service->duration_minutes);
 
-    while ($start->copy()->addMinutes($service->duration_minutes)->lte($end)) {
-        $slotStart = $start->copy();
-        $slotEnd = $start->copy()->addMinutes($service->duration_minutes);
+            $hasAppointmentConflict = $existingAppointments->contains(function ($appointment) use ($slotStart, $slotEnd, $date) {
+                $appointmentStart = Carbon::parse($date->toDateString() . ' ' . $appointment->start_time);
+                $appointmentEnd = Carbon::parse($date->toDateString() . ' ' . $appointment->end_time);
 
-        $hasAppointmentConflict = $existingAppointments->contains(function ($appointment) use ($slotStart, $slotEnd, $date) {
-            $appointmentStart = Carbon::parse($date->toDateString() . ' ' . $appointment->start_time);
-            $appointmentEnd = Carbon::parse($date->toDateString() . ' ' . $appointment->end_time);
+                return $slotStart->lt($appointmentEnd) && $slotEnd->gt($appointmentStart);
+            });
 
-            return $slotStart->lt($appointmentEnd) && $slotEnd->gt($appointmentStart);
-        });
+            $hasBreakConflict = $breaks->contains(function ($break) use ($slotStart, $slotEnd, $date) {
+                $breakStart = Carbon::parse($date->toDateString() . ' ' . $break->start_time);
+                $breakEnd = Carbon::parse($date->toDateString() . ' ' . $break->end_time);
 
-        $hasBreakConflict = $breaks->contains(function ($break) use ($slotStart, $slotEnd, $date) {
-            $breakStart = Carbon::parse($date->toDateString() . ' ' . $break->start_time);
-            $breakEnd = Carbon::parse($date->toDateString() . ' ' . $break->end_time);
+                return $slotStart->lt($breakEnd) && $slotEnd->gt($breakStart);
+            });
 
-            return $slotStart->lt($breakEnd) && $slotEnd->gt($breakStart);
-        });
+            if (! $hasAppointmentConflict && ! $hasBreakConflict) {
+                $slots[] = [
+                    'start_time' => $slotStart->format('H:i'),
+                    'end_time' => $slotEnd->format('H:i'),
+                    'label' => $slotStart->format('H:i') . ' - ' . $slotEnd->format('H:i'),
+                ];
+            }
 
-        if (! $hasAppointmentConflict && ! $hasBreakConflict) {
-            $slots[] = [
-                'start_time' => $slotStart->format('H:i'),
-                'end_time' => $slotEnd->format('H:i'),
-                'label' => $slotStart->format('H:i') . ' - ' . $slotEnd->format('H:i'),
-            ];
+            $start->addMinutes($service->duration_minutes);
         }
 
-        $start->addMinutes($service->duration_minutes);
-    }
-
-    return response()->json([
-        'slots' => $slots,
-    ]);
+        return response()->json([
+            'slots' => $slots,
+        ]);
 }
 
     public function store(Request $request, Business $business)
     {
+        $this->ensureBusinessIsActive($business);
+
         $validated = $request->validate([
             'service_id' => ['required', 'exists:services,id'],
             'appointment_date' => ['required', 'date'],
@@ -198,5 +202,10 @@ class BookingController extends Controller
             'message' => 'Appointment booked successfully.',
             'appointment' => $appointment->load('service'),
         ]);
+    }
+
+    private function ensureBusinessIsActive(Business $business): void
+    {
+        abort_if(! $business->isActive(), 404);
     }
 }

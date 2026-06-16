@@ -104,6 +104,8 @@ export default {
             primaryColor: 'اللون الأساسي',
             secondaryColor: 'اللون الثانوي',
             accentColor: 'لون التمييز',
+            plan: 'الخطة',
+            selectPlan: 'اختر الخطة',
         },
 
         managers: {
@@ -194,6 +196,11 @@ export default {
         noServices: 'لم يتم إنشاء أي خدمات بعد.',
         deleteConfirm: 'هل أنت متأكد أنك تريد حذف هذه الخدمة؟',
         editService: 'تحديث الخدمة',
+        confirmationMode: 'طريقة التأكيد',
+        autoConfirmAfterPhoneVerification: 'تأكيد تلقائي بعد التحقق من رقم الهاتف',
+        requireManagerApproval: 'يتطلب موافقة المدير',
+        premiumFeature: 'ميزة Premium',
+        approvalWorkflowPremiumHint: 'ميزة الموافقة على المواعيد من قبل المدير متاحة فقط ضمن خطة Premium.',
     },
 
     appointments: {

@@ -20,6 +20,7 @@ export type Business = {
     email?: string | null
     address?: string | null
     timezone: string
+    plan_id: number
     is_active: boolean
     branding?: Branding | null
 }
@@ -80,3 +81,10 @@ export type Appointment = {
     confirmed_at: string | null;
     cancelled_at: string | null;
 };
+
+export type Plan = {
+    id: number
+    name: string
+    slug: string
+    price: string | number
+}

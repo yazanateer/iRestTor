@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -11,15 +12,20 @@ use Illuminate\Support\Str;
 class BusinessController extends Controller
 {
     public function index()
-    {
+        {  
         return Inertia::render('Admin/Businesses/Index', [
             'businesses' => Business::latest()->get(),
         ]);
     }
 
     public function create()
-    {
-        return Inertia::render('Admin/Businesses/Create');
+    {   
+        $plans = Plan::query()
+            ->where('is_active', true)
+            ->get();
+        return Inertia::render('Admin/Businesses/Create', [
+            'plans' => $plans
+        ]);
     }
 
     public function store(Request $request)
@@ -32,7 +38,7 @@ class BusinessController extends Controller
         'address' => ['nullable', 'string', 'max:255'],
         'timezone' => ['required', 'string', 'max:255'],
         'is_active' => ['boolean'],
-
+        'plan_id' => ['required', 'exists:plans,id'],
         // Branding
         'primary_color' => ['required', 'string', 'max:20'],
         'secondary_color' => ['required', 'string', 'max:20'],
@@ -61,6 +67,7 @@ class BusinessController extends Controller
         'address' => $validated['address'] ?? null,
         'timezone' => $validated['timezone'],
         'is_active' => $validated['is_active'] ?? true,
+        'plan_id' => $request->plan_id,
     ]);
 
     $logoPath = null;
@@ -133,7 +140,9 @@ class BusinessController extends Controller
     public function edit(Business $business)
     {
     $business->load('branding');
-
+     $plans = Plan::query()
+            ->where('is_active', true)
+            ->get();
     return Inertia::render('Admin/Businesses/Edit', [
         'business' => [
             ...$business->toArray(),
@@ -150,6 +159,7 @@ class BusinessController extends Controller
                     : null,
             ] : null,
         ],
+        'plans' => $plans
     ]);
     }
 
@@ -163,6 +173,7 @@ class BusinessController extends Controller
             'address' => ['nullable', 'string', 'max:255'],
             'timezone' => ['required', 'string', 'max:255'],
             'is_active' => ['boolean'],
+            'plan_id' => ['required', 'exists:plans,id'],
             'primary_color' => ['required', 'string', 'max:20'],
             'secondary_color' => ['required', 'string', 'max:20'],
             'accent_color' => ['required', 'string', 'max:20'],

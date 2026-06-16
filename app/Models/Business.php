@@ -11,10 +11,9 @@ use App\Models\BusinessDateOverride;
 use App\Models\BusinessAvailabilityBreak;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-
 
 
 class Business extends Model
@@ -29,6 +28,7 @@ class Business extends Model
     'password',
     'role',
     'business_id',
+    'plan_id',
     ];
 
     public function users() : HasMany
@@ -53,7 +53,12 @@ class Business extends Model
 
     public function dateOverrides()
     {
-    return $this->hasMany(BusinessDateOverride::class);
+        return $this->hasMany(BusinessDateOverride::class);
+    }
+
+    public function isActive(): bool
+    {
+        return (bool) $this->is_active;
     }
 
     public function availabilityBreaks()
@@ -64,5 +69,30 @@ class Business extends Model
     public function branding() : HasOne
     {
         return $this->hasOne(BusinessBrandingSettings::class);
+    }
+
+    public function plan() : BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function isPremium(): bool
+    {
+        return $this->plan?->slug === 'premium';
+    }
+
+    public function canUseApprovalWorkflow(): bool
+    {
+        return $this->isPremium();
+    }
+
+    public function canUseWhatsapp(): bool
+    {
+        return $this->isPremium();
+    }
+
+    public function canUseReminders(): bool
+    {
+        return $this->isPremium();
     }
 }

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import AdminLayout from '@/Layouts/AdminLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue'
 import '../../../../css/admin/business-branding.css'
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { useI18n } from 'vue-i18n';
-import { computed } from 'vue';
-import BusinessBookingPreview from '../../../Components/Booking/BusinessBookingPreview.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue'
+import type { Plan } from '../../../types/global.d.ts'
 const form = useForm({
     logo: null as File | null,
     cover_image: null as File | null,
@@ -17,6 +17,7 @@ const form = useForm({
     address: '',
     timezone: 'Asia/Jerusalem',
     is_active: true,
+    plan_id: '',
 
     primary_color: '#2563ff',
     secondary_color: '#3b82f6',
@@ -26,6 +27,10 @@ const form = useForm({
     public_description: '',
     theme_style: 'default',
 });
+
+const porps = defineProps<{
+    plans: Plan[]
+}>()
 
 const submit = () => {
     form.post(route('admin.businesses.store'), {
@@ -153,7 +158,32 @@ const coverPreview = computed(() => {
                         {{ form.errors.timezone }}
                     </div>
                 </div>
+                <div class="admin-form-group">
+                    <label class="admin-label">
+                        {{ t('admin.businesses.plan') }}
+                    </label>
 
+                    <select
+                        v-model="form.plan_id"
+                        class="admin-input"
+                    >
+                        <option value="">
+                        {{ t('admin.businesses.selectPlan') }}
+                        </option>
+
+                        <option
+                        v-for="plan in plans"
+                        :key="plan.id"
+                        :value="plan.id"
+                        >
+                        {{ plan.name }} - ₪{{ plan.price }}
+                        </option>
+                    </select>
+
+                    <div v-if="form.errors.plan_id" class="text-danger small mt-1">
+                        {{ form.errors.plan_id }}
+                    </div>
+                    </div>
                 <div class="form-check d-flex align-items-center gap-2 mb-4 ps-1">
                     <input
                         id="is_active"

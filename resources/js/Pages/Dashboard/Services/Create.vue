@@ -1,23 +1,33 @@
 <script setup lang="ts">
-import ManagerLayout from '@/Layouts/ManagerLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { useI18n } from 'vue-i18n';
+import ManagerLayout from '@/Layouts/ManagerLayout.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
+
+const props = defineProps<{
+  features: {
+    approvalWorkflow: boolean
+  }
+}>()
+
+const { t } = useI18n()
 
 const form = useForm({
-    name: '',
-    description: '',
-    duration_minutes: 30,
-    price: '',
-    color: '#2563ff',
-    is_active: true,
-    confirmation_mode: 'auto_confirm',
-});
-
-const { t } = useI18n();
+  name: '',
+  description: '',
+  duration_minutes: 30,
+  price: '',
+  color: '#2563ff',
+  is_active: true,
+  confirmation_mode: 'auto_confirm',
+})
 
 const submit = () => {
-    form.post(route('dashboard.services.store'));
-};
+  if (!props.features.approvalWorkflow) {
+    form.confirmation_mode = 'auto_confirm'
+  }
+
+  form.post(route('dashboard.services.store'))
+}
 </script>
 
 <template>
@@ -91,26 +101,36 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
-
                 <div class="admin-form-group">
-                <label class="admin-label">
-                    Confirmation Mode
-                </label>
+                    <label class="admin-label">
+                        {{ t('services.confirmationMode') }}
+                    </label>
 
-                <select
-                    v-model="form.confirmation_mode"
-                    class="admin-input"
-                >
-                    <option value="auto_confirm">
-                        Auto confirm after phone verification
-                    </option>
+                    <select
+                        v-model="form.confirmation_mode"
+                        class="admin-input"
+                    >
+                        <option value="auto_confirm">
+                        {{ t('services.autoConfirmAfterPhoneVerification') }}
+                        </option>
 
-                    <option value="requires_approval">
-                        Require manager approval
-                    </option>
-                </select>
-            </div>
+                        <option
+                        value="requires_approval"
+                        :disabled="!props.features.approvalWorkflow"
+                        >
+                        {{ t('services.requireManagerApproval') }}
+                        </option>
+                    </select>
 
+                    <div
+                        v-if="!props.features.approvalWorkflow"
+                        class="alert alert-primary mt-3 mb-0"
+                    >
+                        <strong>{{ t('services.premiumFeature') }}</strong>
+                        <br />
+                        {{ t('services.approvalWorkflowPremiumHint') }}
+                    </div>
+                    </div>
                 <div class="form-check d-flex align-items-center gap-2 mb-4 ps-1">
                     <input
                         id="is_active"

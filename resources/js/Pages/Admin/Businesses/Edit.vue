@@ -3,12 +3,13 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import '../../../../css/admin/business-branding.css'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import type { Branding, Business } from '../../../types/global.d.ts'; 
+import type { Branding, Business, Plan } from '../../../types/global.d.ts'; 
 import { computed } from 'vue';
 import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue';
 
 const props = defineProps<{
-    business: Business;
+    business: Business
+    plans: Plan[]
 }>();
 
 const { t } = useI18n();
@@ -30,6 +31,7 @@ const form = useForm({
     email: props.business.email ?? '',
     address: props.business.address ?? '',
     timezone: props.business.timezone,
+    plan_id: props.business.plan_id ?? '',
     is_active: props.business.is_active,
 
     primary_color: props.business.branding?.primary_color ?? '#2563ff',
@@ -167,7 +169,32 @@ const submit = () => {
                         {{ form.errors.timezone }}
                     </div>
                 </div>
+                    <div class="admin-form-group">
+                    <label class="admin-label">
+                        {{ t('admin.businesses.plan') }}
+                    </label>
 
+                    <select
+                        v-model="form.plan_id"
+                        class="admin-input"
+                    >
+                        <option value="">
+                        {{ t('admin.businesses.selectPlan') }}
+                        </option>
+
+                        <option
+                        v-for="plan in props.plans"
+                        :key="plan.id"
+                        :value="plan.id"
+                        >
+                        {{ plan.name }} - ₪{{ plan.price }}
+                        </option>
+                    </select>
+
+                    <div v-if="form.errors.plan_id" class="text-danger small mt-1">
+                        {{ form.errors.plan_id }}
+                    </div>
+                    </div>
                 <div class="form-check d-flex align-items-center gap-2 mb-4 ps-1">
                     <input
                         id="is_active"

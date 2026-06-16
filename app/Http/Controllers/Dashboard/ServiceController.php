@@ -20,11 +20,21 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return Inertia::render('Dashboard/Services/Create');
+        $business = auth()->user()->business;
+        $business->loadMissing('plan');
+
+        return Inertia::render('Dashboard/Services/Create', [
+            'features' => [
+                'approvalWorkflow' => $business->canUseApprovalWorkflow(),
+            ],
+        ]);
     }
 
     public function store(Request $request)
     {
+        $business = auth()->user()->business;
+        $business->loadMissing('plan');
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -35,7 +45,11 @@ class ServiceController extends Controller
             'confirmation_mode' => ['required', 'in:auto_confirm,requires_approval'],
         ]);
 
-        $validated['business_id'] = auth()->user()->business_id;
+        if (! $business->canUseApprovalWorkflow()) {
+            $validated['confirmation_mode'] = 'auto_confirm';
+        }
+
+        $validated['business_id'] = $business->id;
 
         Service::create($validated);
 
@@ -48,14 +62,23 @@ class ServiceController extends Controller
     {
         $this->authorizeBusinessService($service);
 
+        $business = auth()->user()->business;
+        $business->loadMissing('plan');
+
         return Inertia::render('Dashboard/Services/Edit', [
             'service' => $service,
+            'features' => [
+                'approvalWorkflow' => $business->canUseApprovalWorkflow(),
+            ],
         ]);
     }
 
     public function update(Request $request, Service $service)
     {
         $this->authorizeBusinessService($service);
+
+        $business = auth()->user()->business;
+        $business->loadMissing('plan');
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -67,6 +90,10 @@ class ServiceController extends Controller
             'confirmation_mode' => ['required', 'in:auto_confirm,requires_approval'],
         ]);
 
+        if (! $business->canUseApprovalWorkflow()) {
+            $validated['confirmation_mode'] = 'auto_confirm';
+        }
+
         $service->update($validated);
 
         return redirect()
@@ -77,6 +104,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $this->authorizeBusinessService($service);
+
         $service->delete();
 
         return redirect()
@@ -84,7 +112,7 @@ class ServiceController extends Controller
             ->with('success', 'Service deleted successfully.');
     }
 
-    private function authorizeBusinessService(Service $service) : void
+    private function authorizeBusinessService(Service $service): void
     {
         abort_if($service->business_id !== auth()->user()->business_id, 403);
     }
