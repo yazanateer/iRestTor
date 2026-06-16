@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-import '../../../css/Pages/landing/landing.css'
+import '../../../css/Pages/Landing/landing.css'
 import PhoneBookingMockup from '../../Components/Landing/PhoneBookingMockup.vue'
 import PricingSection from '../../Components/Landing/PricingSection.vue'
 import landingNavbar from '../../Components/Landing/landingNavbar.vue'
