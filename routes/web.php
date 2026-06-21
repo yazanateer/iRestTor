@@ -4,12 +4,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingVerificationController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ContactRequestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [LandingPageController::class, 'index'])
     ->name('landing');
+
+Route::post('/contact-requests', [ContactRequestController::class, 'store'])
+    ->name('contact-requests.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

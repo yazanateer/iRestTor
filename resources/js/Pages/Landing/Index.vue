@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import '../../../css/Pages/Landing/landing.css'
 import PhoneBookingMockup from '../../Components/Landing/PhoneBookingMockup.vue'
 import PricingSection from '../../Components/Landing/PricingSection.vue'
 import landingNavbar from '../../Components/Landing/landingNavbar.vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import ContactSuccessCard from '../../Components/UI/ContactSuccessCard.vue'
+
+
 const { t, locale } = useI18n()
 
+const page = usePage()
+const successMessage = computed(
+  () => page.props.flash?.success
+)
 
 const switchLanguage = (lang: 'en' | 'he' | 'ar') => {
   locale.value = lang
@@ -25,13 +33,13 @@ const features = [
 ]
 
 const businessTypes = [
-  'clinics',
-  'beautySalons',
-  'barbershops',
-  'lawFirms',
-  'consultants',
-  'coaches',
-  'more'
+  { key: 'clinics', icon: 'bi-hospital' },
+  { key: 'beautySalons', icon: 'bi-flower2' },
+  { key: 'barbershops', icon: 'bi-scissors' },
+  { key: 'lawFirms', icon: 'bi-bank' },
+  { key: 'consultants', icon: 'bi-briefcase' },
+  { key: 'coaches', icon: 'bi-trophy' },
+  { key: 'more', icon: 'bi-plus-circle' },
 ]
 
 const pricingFeatures = [
@@ -53,10 +61,30 @@ const businessTypeOptions = [
   'other',
 ]
 
+
+
 const arrow = computed(() =>
   ['he', 'ar'].includes(locale.value) ? '←' : '→'
 )
 
+const contactForm = useForm({
+    full_name: '',
+    business_name: '',
+    phone: '',
+    business_type: '',
+    message: '',
+})
+
+const isContactSubmitted = ref(false)
+const submitContactForm = () => {
+  contactForm.post(route('contact-requests.store'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      contactForm.reset()
+      isContactSubmitted.value = true
+    },
+  })
+}
 </script>
 
 <template>
@@ -169,11 +197,19 @@ const arrow = computed(() =>
         <p>{{ t('landing.businesses.description') }}</p>
 
         <div class="business-pills">
-          <div v-for="type in businessTypes" :key="type" class="business-pill">
-            {{ t(`landing.businesses.items.${type}`) }}
-          </div>
+        <div
+          v-for="type in businessTypes"
+          :key="type.key"
+          class="business-pill"
+        >
+          <i :class="['bi', type.icon]"></i>
+          <span>
+            {{ t(`landing.businesses.items.${type.key}`) }}
+          </span>
         </div>
       </div>
+      </div>
+      
     </section>
 
     <!-- Pricing -->
@@ -188,48 +224,68 @@ const arrow = computed(() =>
           <p>{{ t('landing.contact.description') }}</p>
         </div>
 
-        <form class="contact-form">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label>{{ t('landing.contact.fields.fullName') }}</label>
-              <input type="text" :placeholder="t('landing.contact.placeholders.fullName')" />
+        <ContactSuccessCard v-if="isContactSubmitted" />
+        <form
+          v-else
+          class="contact-form"
+          @submit.prevent="submitContactForm"
+        >
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label>{{ t('landing.contact.fields.fullName') }}</label>
+                <input
+                  v-model="contactForm.full_name"
+                  type="text"
+                  :placeholder="t('landing.contact.placeholders.fullName')"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>{{ t('landing.contact.fields.businessName') }}</label>
+                <input
+                  v-model="contactForm.business_name"
+                  type="text"
+                  :placeholder="t('landing.contact.placeholders.businessName')"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>{{ t('landing.contact.fields.phone') }}</label>
+                <input
+                  v-model="contactForm.phone"
+                  type="text"
+                  :placeholder="t('landing.contact.placeholders.phone')"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>{{ t('landing.contact.fields.businessType') }}</label>
+                <select v-model="contactForm.business_type">
+                  <option
+                    v-for="option in businessTypeOptions"
+                    :key="option"
+                    :value="option"
+                  >
+                    {{ t(`landing.contact.businessTypes.${option}`) }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label>{{ t('landing.contact.fields.message') }}</label>
+                <textarea
+                  v-model="contactForm.message"
+                  rows="4"
+                  :placeholder="t('landing.contact.placeholders.message')"
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <button
+                  type="submit"
+                  :disabled="contactForm.processing"
+                >
+                  {{ t('landing.contact.cta') }}
+                  <span>{{ arrow }}</span>
+                </button>
+              </div>
             </div>
-
-            <div class="col-md-6">
-              <label>{{ t('landing.contact.fields.businessName') }}</label>
-              <input type="text" :placeholder="t('landing.contact.placeholders.businessName')" />
-            </div>
-
-            <div class="col-md-6">
-              <label>{{ t('landing.contact.fields.phone') }}</label>
-              <input type="text" :placeholder="t('landing.contact.placeholders.phone')" />
-            </div>
-
-            <div class="col-md-6">
-              <label>{{ t('landing.contact.fields.businessType') }}</label>
-              <select>
-                <option v-for="option in businessTypeOptions" :key="option">
-                  {{ t(`landing.contact.businessTypes.${option}`) }}
-                </option>
-              </select>
-            </div>
-
-            <div class="col-12">
-              <label>{{ t('landing.contact.fields.message') }}</label>
-              <textarea
-                rows="4"
-                :placeholder="t('landing.contact.placeholders.message')"
-              ></textarea>
-            </div>
-
-            <div class="col-12">
-              <button type="button">
-                {{ t('landing.contact.cta') }}
-                <span>{{ arrow }}</span>
-              </button>
-            </div>
-          </div>
-        </form>
+          </form>
       </div>
     </section>
   </main>
