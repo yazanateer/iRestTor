@@ -26,6 +26,9 @@ export default {
         continue: 'متابعة',
         off: 'مغلق',
         back: 'رجوع',
+        business: 'النشاط التجاري',
+        sentAt: 'تاريخ الإرسال',
+        type: 'النوع',
     },
 
     days: {
@@ -48,10 +51,32 @@ export default {
         saturday: 'سبت',
     },
     admin: {
+
+      contactRequests: {
+        title: 'طلبات التواصل',
+        management: 'إدارة طلبات التواصل',
+        managementDescription: 'عرض أصحاب الأعمال الذين طلبوا عرضاً تجريبياً من صفحة الهبوط.',
+        empty: 'لا توجد طلبات تواصل حالياً.',
+
+        statuses: {
+        new: 'جديد',
+        in_progress: 'قيد المتابعة',
+        converted: 'أصبح عميلاً',
+        closed: 'مغلق',
+    },
+
+    actions: {
+        inProgress: 'قيد المتابعة',
+        convert: 'تحويل لعميل',
+        close: 'إغلاق',
+    },
+    
+    },
         nav: {
             dashboard: 'لوحة التحكم',
             businesses: 'الأعمال',
             managers: 'المديرون',
+            contactRequests: 'طلبات التواصل',
         },
 
         platformAdmin: 'مدير المنصة',

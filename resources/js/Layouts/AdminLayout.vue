@@ -9,6 +9,8 @@ const navItems = [
     { labelKey: 'admin.nav.dashboard', routeName: 'admin.dashboard', icon: 'bi-grid-1x2' },
     { labelKey: 'admin.nav.businesses', routeName: 'admin.businesses.index', icon: 'bi-building' },
     { labelKey: 'admin.nav.managers', routeName: 'admin.managers.index', icon: 'bi-person-badge' },
+    { labelKey: 'admin.nav.contactRequests', routeName: 'admin.contact-requests.index', icon: 'bi-envelope-paper' },
+
 ];
 
 const isActive = (routeName: string) => {

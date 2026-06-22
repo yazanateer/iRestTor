@@ -27,7 +27,9 @@ export default {
         continue: 'Continue',
         off: 'Off',
         back: 'Back',
-
+        business: 'Business',
+        sentAt: 'Sent At',
+        type: 'Type',
     },
     days: {
         sunday: 'Sunday',
@@ -49,10 +51,33 @@ export default {
         saturday: 'SAT',
     },
     admin: {
+
+      contactRequests: {
+        title: 'Contact Requests',
+        management: 'Lead Requests',
+        managementDescription: 'View businesses that requested a demo from the landing page.',
+        empty: 'No contact requests yet.',
+
+         statuses: {
+        new: 'New',
+        in_progress: 'In Progress',
+        converted: 'Converted',
+        closed: 'Closed',
+    },
+
+    actions: {
+        inProgress: 'In Progress',
+        convert: 'Convert',
+        close: 'Close',
+    },
+    
+       },
+
         nav: {
             dashboard: 'Dashboard',
             businesses: 'Businesses',
             managers: 'Managers',
+            contactRequests: 'Contact Requests',
         },
 
         platformAdmin: 'Platform Admin',

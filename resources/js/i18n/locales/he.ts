@@ -26,6 +26,10 @@ export default {
         continue: 'המשך',
         off: 'כבוי',
         back: 'חזור',
+        business: 'עסק',
+        sentAt: 'נשלח',
+        type: 'סוג',
+
     },
 
     days: {
@@ -48,10 +52,32 @@ export default {
         saturday: 'ש׳',
     },
     admin: {
+
+      contactRequests: {
+      title: 'פניות',
+      management: 'ניהול פניות',
+      managementDescription: 'צפייה בעסקים שביקשו הדגמה דרך דף הנחיתה.',
+      empty: 'אין פניות כרגע.',
+
+       statuses: {
+        new: 'חדש',
+        in_progress: 'בטיפול',
+        converted: 'הומר ללקוח',
+        closed: 'נסגר',
+    },
+
+    actions: {
+        inProgress: 'העבר לטיפול',
+        convert: 'המר ללקוח',
+        close: 'סגור',
+    },
+    
+      },
         nav: {
             dashboard: 'לוח בקרה',
             businesses: 'עסקים',
             managers: 'מנהלים',
+            contactRequests: 'פניות',
         },
 
         platformAdmin: 'מנהל פלטפורמה',
