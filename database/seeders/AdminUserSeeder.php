@@ -15,10 +15,10 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@slotify.com'],
+            ['email' => env('ADMIN_EMAIL')],
             [
-                'name' => 'Slotify Admin',
-                'password' => Hash::make('password'),
+                'name' => env('ADMIN_NAME', 'Admin'),
+                'password' => Hash::make(env('ADMIN_PASSWORD')),
                 'role' => 'admin',
                 'business_id' => null
             ]
