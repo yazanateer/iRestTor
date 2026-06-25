@@ -71,7 +71,7 @@ export default {
         convert: 'המר ללקוח',
         close: 'סגור',
     },
-    
+
       },
         nav: {
             dashboard: 'לוח בקרה',
@@ -131,7 +131,8 @@ export default {
             secondaryColor: 'צבע משני',
             accentColor: 'צבע הדגשה',
             plan: 'תוכנית',
-           selectPlan: 'בחר/י תוכנית'
+           selectPlan: 'בחר/י תוכנית',
+           empty: 'לא נמצאו עסקים.',
         },
 
         managers: {

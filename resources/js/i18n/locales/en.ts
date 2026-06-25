@@ -70,7 +70,7 @@ export default {
         convert: 'Convert',
         close: 'Close',
     },
-    
+
        },
 
         nav: {
@@ -133,7 +133,8 @@ export default {
         secondaryColor: 'Secondary Color',
         accentColor: 'Accent Color',
         plan: 'Plan',
-        selectPlan: 'Select plan'
+        selectPlan: 'Select plan',
+        empty: 'No businesses found.', 
     },
 
     managers: {

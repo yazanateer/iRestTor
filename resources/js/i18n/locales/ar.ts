@@ -70,7 +70,7 @@ export default {
         convert: 'تحويل لعميل',
         close: 'إغلاق',
     },
-    
+
     },
         nav: {
             dashboard: 'لوحة التحكم',
@@ -131,6 +131,7 @@ export default {
             accentColor: 'لون التمييز',
             plan: 'الخطة',
             selectPlan: 'اختر الخطة',
+            empty: 'لا توجد أعمال حالياً.',
         },
 
         managers: {

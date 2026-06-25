@@ -647,3 +647,113 @@
     background-repeat: no-repeat;
     margin-bottom: 28px;
 }
+
+@media (max-width: 768px) {
+  .booking-page {
+    padding: 16px;
+  }
+
+  .booking-shell {
+    max-width: 100%;
+  }
+
+  .booking-card {
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .booking-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .booking-card-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .booking-card-header p {
+    font-size: 0.95rem;
+  }
+
+  .booking-step {
+    width: 100%;
+    text-align: center;
+  }
+
+  .booking-date-carousel {
+    display: block;
+  }
+
+  .booking-date-arrow {
+    display: none;
+  }
+
+  .booking-date-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .booking-date-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .booking-date-option {
+    min-width: 135px;
+    flex: 0 0 135px;
+    scroll-snap-align: start;
+  }
+
+  .booking-slots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .booking-slot {
+    justify-content: center;
+    padding: 14px 10px;
+    font-size: 0.95rem;
+  }
+
+  .booking-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .booking-primary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .booking-service {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .booking-service-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 420px) {
+  .booking-card {
+    padding: 18px;
+  }
+
+  .booking-date-option {
+    min-width: 120px;
+    flex-basis: 120px;
+  }
+
+  .booking-slots {
+    grid-template-columns: 1fr;
+  }
+}
