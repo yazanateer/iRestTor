@@ -427,7 +427,9 @@ pagination: {
       openToday: 'مفتوح اليوم · 09:00–17:00',
       verificationCompleted: 'تم التحقق بنجاح',
       otpCode: 'OTP · #1247 ✓',
-
+      onlineBooking: 'حجز المواعيد عبر الإنترنت',
+      subtitle: 'صفحة حجز مواعيد العيادة',
+      serviceDescription: 'فحص شامل للمريض',
       days: {
         mon: 'الإثنين',
         tue: 'الثلاثاء',

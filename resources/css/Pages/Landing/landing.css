@@ -1056,21 +1056,6 @@
   font-size: 1.1rem;
   color: #2563eb;
 }
-/* 
-.hero-glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(
-    circle,
-    rgba(37, 99, 235, 0.18) 0%,
-    rgba(37, 99, 235, 0) 70%
-  );
-
-  filter: blur(60px);
-
-  animation: floatGlow 10s ease-in-out infinite;
-} */
 
 @keyframes floatGlow {
   0%,100% {
@@ -1089,4 +1074,254 @@
   to {
     transform: translateY(30px);
   }
+}
+
+.real-booking-preview {
+  padding: 24px;
+  background: linear-gradient(180deg, #eef5ff 0%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.mock-language {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #dbe7f7;
+  border-radius: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 18px;
+}
+/* 
+.mock-booking-hero {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e1eaf5;
+  border-radius: 28px;
+  padding: 22px;
+  margin-bottom: 14px;
+} */
+
+.mock-booking-hero {
+  background: #fff;
+  border: 1px solid #e1eaf5;
+  border-radius: 28px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.mock-booking-top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.mock-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: 1px solid #e1eaf5;
+  font-weight: 900;
+  color: #2563ff;
+  font-size: 28px;
+}
+
+.mock-booking-hero p {
+  margin: 0 0 4px;
+  color: #2563ff;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.mock-booking-hero h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.mock-booking-hero span {
+  color: #64748b;
+  font-size: 15px;
+}
+
+.mock-info-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fbff;
+  border: 1px solid #e1eaf5;
+  color: #64748b;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.mock-card {
+  background: #fff;
+  border: 1px solid #e1eaf5;
+  border-radius: 28px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.mock-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.mock-card-header h4 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.mock-card-header p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.mock-card-header > span {
+  background: #edf4ff;
+  border: 1px solid #c8dcff;
+  color: #2563ff;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.mock-service {
+  border: 2px solid #2563ff;
+  background: #edf4ff;
+  border-radius: 24px;
+  padding: 18px;
+}
+
+.mock-service-left {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.mock-service-left > span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563ff;
+  margin-top: 4px;
+}
+
+.mock-service strong {
+  display: block;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.mock-service small {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.mock-service-meta {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  color: #64748b;
+}
+
+.mock-service-meta b {
+  color: #64748b;
+  font-size: 20px;
+}
+
+.mock-date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.mock-date-grid button {
+  border: 1px solid #e1eaf5;
+  background: #fff;
+  border-radius: 22px;
+  min-height: 118px;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.mock-date-grid button.active {
+  border: 2px solid #2563ff;
+  background: #edf4ff;
+}
+
+.mock-date-grid small,
+.mock-date-grid span {
+  display: block;
+  color: #64748b;
+}
+
+.mock-date-grid strong {
+  display: block;
+  font-size: 30px;
+  color: #2563ff;
+  margin: 4px 0;
+}
+
+.mock-date-grid em {
+  display: block;
+  font-style: normal;
+  color: #16a34a;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.mock-time-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.mock-time-list button {
+  height: 54px;
+  border-radius: 18px;
+  border: 1px solid #e1eaf5;
+  background: #fff;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.mock-time-list button.active {
+  border: 2px solid #2563ff;
+  background: #edf4ff;
+  color: #2563ff;
+}
+
+.mock-continue {
+  width: 100%;
+  margin-top: 18px;
+  height: 56px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #2563ff, #60a5fa);
+  color: #fff;
+  font-weight: 900;
 }

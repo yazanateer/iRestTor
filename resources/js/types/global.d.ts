@@ -87,4 +87,12 @@ export type Plan = {
     name: string
     slug: string
     price: string | number
-}
+};
+
+export type DateOverride = {
+    id?: number
+    date: string
+    is_active: boolean
+    start_time: string
+    end_time: string
+};

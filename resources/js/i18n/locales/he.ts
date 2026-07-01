@@ -429,7 +429,9 @@ pagination: {
       openToday: 'פתוח היום · 09:00–17:00',
       verificationCompleted: 'האימות הושלם',
       otpCode: 'OTP · #1247 ✓',
-
+      onlineBooking: 'הזמנת תורים אונליין',
+      subtitle: 'מערכת לקביעת תורים למרפאה',
+      serviceDescription: 'בדיקה מקיפה עבור המטופל',
       days: {
         mon: 'ב׳',
         tue: 'ג׳',

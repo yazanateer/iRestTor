@@ -275,11 +275,6 @@ const currentLanguage = () => {
                 ></div>
                 <div class="booking-brand">
                     <div class="booking-logo">
-                        <!-- <img
-                            v-if="business.logo"
-                            :src="business.logo"
-                            :alt="business.name"
-                        /> -->
                         <img
                             v-if="branding?.logo_url"
                             :src="branding.logo_url"

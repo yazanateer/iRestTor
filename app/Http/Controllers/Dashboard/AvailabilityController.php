@@ -12,7 +12,8 @@ class AvailabilityController extends Controller
 {
     public function index()
     {
-        $businessId = auth()->user()->business_id;
+        $business = auth()->user()->business;
+        $businessId = $business->id;
 
         $existing = BusinessAvailability::where('business_id', $businessId)
             ->get()
@@ -51,9 +52,22 @@ class AvailabilityController extends Controller
                 ];
             });
 
+        $dateOverrides = $business
+            ->dateOverrides()
+            ->orderBy('date')
+            ->get()
+            ->map(fn ($override) => [
+                'id' => $override->id,
+                'date' => $override->date,
+                'is_active' => $override->is_active,
+                'start_time' => $override->start_time ? substr($override->start_time, 0, 5) : '09:00',
+                'end_time' => $override->end_time ? substr($override->end_time, 0, 5) : '17:00',
+            ]);
+
         return Inertia::render('Dashboard/Availability/Index', [
             'days' => $days,
             'breaks' => $breaks,
+            'dateOverrides' => $dateOverrides,
         ]);
     }
 
@@ -72,9 +86,20 @@ class AvailabilityController extends Controller
             'breaks.*.date' => ['nullable', 'date'],
             'breaks.*.start_time' => ['required_with:breaks', 'date_format:H:i'],
             'breaks.*.end_time' => ['required_with:breaks', 'date_format:H:i'],
+
+            'dateOverrides' => ['nullable', 'array'],
+            'dateOverrides.*.id' => ['nullable', 'integer'],
+            'dateOverrides.*.date' => ['required', 'date'],
+            'dateOverrides.*.is_active' => ['required', 'boolean'],
+            'dateOverrides.*.start_time' => ['nullable', 'date_format:H:i'],
+            'dateOverrides.*.end_time' => ['nullable', 'date_format:H:i'],
         ]);
 
+        $business = auth()->user()->business;
+        $businessId = $business->id;
+
         $daysByWeek = collect($validated['days'])->keyBy('day_of_week');
+
         foreach ($validated['breaks'] ?? [] as $break) {
             $day = $daysByWeek->get($break['day_of_week']);
 
@@ -94,7 +119,6 @@ class AvailabilityController extends Controller
                 ]);
             }
         }
-        $businessId = auth()->user()->business_id;
 
         foreach ($validated['days'] as $day) {
             BusinessAvailability::updateOrCreate(
@@ -123,6 +147,43 @@ class AvailabilityController extends Controller
                 'end_time' => $break['end_time'],
             ]);
         }
+
+        $savedOverrideIds = [];
+
+        foreach ($validated['dateOverrides'] ?? [] as $override) {
+            if (
+                $override['is_active'] &&
+                (
+                    empty($override['start_time']) ||
+                    empty($override['end_time']) ||
+                    $override['start_time'] >= $override['end_time']
+                )
+            ) {
+                return back()->withErrors([
+                    'dateOverrides' => 'Special date times are invalid.',
+                ]);
+            }
+
+            $savedOverride = $business
+                ->dateOverrides()
+                ->updateOrCreate(
+                    [
+                        'date' => $override['date'],
+                    ],
+                    [
+                        'is_active' => $override['is_active'],
+                        'start_time' => $override['is_active'] ? $override['start_time'] : null,
+                        'end_time' => $override['is_active'] ? $override['end_time'] : null,
+                    ]
+                );
+
+            $savedOverrideIds[] = $savedOverride->id;
+        }
+
+        $business
+            ->dateOverrides()
+            ->whereNotIn('id', $savedOverrideIds)
+            ->delete();
 
         return redirect()
             ->route('dashboard.availability.index')

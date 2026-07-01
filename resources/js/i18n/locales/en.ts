@@ -520,13 +520,16 @@ export default {
       url: 'iresttor.com/book/clinic-x',
       serviceName: 'Consultation',
       duration: '30 min',
-      price: '$35',
+      price: '₪120',
       available: 'Available',
       continueBooking: 'Continue Booking',
       businessName: 'ClinicX',
       openToday: 'Open Today · 09:00–17:00',
       verificationCompleted: 'Verification Completed',
       otpCode: 'OTP · #1247 ✓',
+      onlineBooking: 'Online Booking',
+      subtitle: 'clinic appointment booking page',
+      serviceDescription: 'fully examine for the patient',
 
       days: {
         mon: 'Mon',
@@ -696,7 +699,7 @@ export default {
 
     mockupPhone: {
       stepOne: 'Step 1 of 3',
-      chooseService: 'Choose Service',
+      chooseService: 'Select a Service',
       stepTwo: 'Step 2 of 3',
       chooseDate: 'Choose Date',
       stepThree: 'Step 3 of 3',

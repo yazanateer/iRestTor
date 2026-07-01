@@ -13,7 +13,10 @@ Route::middleware(['auth', 'manager'])
     ->get('/dashboard', function() {
         $user = auth()->user();
         $business = $user->business;
-
+        
+        if (! $business) {
+            abort(403, 'No business assigned to this user.');
+        }
         return Inertia::render('Dashboard/Index', [
             'business' => $business,
             'bookingLink' => url('/book/' . $business->slug),
