@@ -6,20 +6,32 @@ use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\AvailabilityController;
 use App\Http\Controllers\Dashboard\AppointmentController;
 use App\Http\Controllers\Dashboard\ScheduleController;
+use App\Http\Controllers\Dashboard\PlanController;
 use App\Models\Appointment;
 use App\Models\Service;
 
-Route::middleware(['auth', 'manager'])
+Route::middleware(['auth', 'manager', 'verified'])
+    ->get('/dashboard/plan', [PlanController::class, 'index'])
+    ->name('plans');
+
+Route::middleware(['auth', 'manager', 'verified', 'trial'])
     ->get('/dashboard', function() {
         $user = auth()->user();
         $business = $user->business;
-        
+
         if (! $business) {
             abort(403, 'No business assigned to this user.');
         }
         return Inertia::render('Dashboard/Index', [
             'business' => $business,
             'bookingLink' => url('/book/' . $business->slug),
+            'trial' => [
+                'onTrial' => $business->onTrial(),
+                'expired' => $business->trialExpired(),
+                'isPaid' => $business->isPaid(),
+                'endsAt' => $business->trial_ends_at,
+                'daysRemaining' => $business->trialDaysRemaining(),
+            ],
             'stats' => [
                 'todayAppointments' => Appointment::where('business_id', $business->id)
                     ->whereDate('appointment_date', today())
@@ -48,7 +60,7 @@ Route::middleware(['auth', 'manager'])
     })
     ->name('dashboard');
 
-Route::middleware(['auth', 'manager'])
+Route::middleware(['auth', 'manager', 'verified', 'trial'])
     ->prefix('dashboard')
     ->name('dashboard.')
     ->group(function () {
