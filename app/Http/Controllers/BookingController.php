@@ -31,6 +31,7 @@ class BookingController extends Controller
                 ->pluck('day_of_week')
                 ->values(),
             'bookingWindowDays' => $business->booking_window_days ?? 14,
+            'whatsappEnabled' => $business->canUseWhatsapp(),
             'branding' => $business->branding ? [
             ...$business->branding->toArray(),
             'logo_url' => $business->branding->logo_path

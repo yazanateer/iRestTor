@@ -368,9 +368,23 @@ pagination: {
         verificationCode: 'رمز التحقق',
         verifying: 'جاري التحقق...',
         verifyCode: 'تحقق من الرمز',
+        verifyAndConfirm: 'تحقق وأكد الحجز',
+        codeExpiresIn: 'ينتهي الرمز خلال {time}',
+        codeExpired: 'انتهت صلاحية الرمز. الرجاء طلب رمز جديد.',
+        didntGetCode: 'لم تستلم الرمز؟',
+        resend: 'إعادة الإرسال',
         requestSent: 'تم إرسال طلب الحجز',
         requestSentMessage: 'تم إرسال طلب الحجز بنجاح. سيقوم صاحب العمل بمراجعة الطلب وستصلك رسالة تأكيد بعد الموافقة عليه.',
         noDescription: 'لا يوجد وصف متاح',
+        chooseChannel: 'اختر طريقة استلام الرمز',
+        channelSms: 'رسالة نصية',
+        channelWhatsapp: 'واتساب',
+        verifyDescriptionSms: 'أدخل رمز التحقق المرسل عبر الرسائل النصية إلى {phone}',
+        verifyDescriptionWhatsapp: 'أدخل رمز التحقق المرسل عبر واتساب إلى {phone}',
+        otpDeliveryFailed: 'تعذر إرسال الرمز. يرجى المحاولة مرة أخرى.',
+        whatsappNotAvailable: 'التحقق عبر واتساب غير متاح لهذا العمل التجاري.',
+        whatsappNumberNotFound: 'هذا الرقم غير مسجل على واتساب. جرّب الرسائل النصية بدلاً من ذلك.',
+        invalidChannel: 'يرجى اختيار طريقة توصيل صالحة.',
     },
 
     schedule: {
@@ -693,6 +707,12 @@ features: {
   },
 },
 
-
+    footer: {
+      tagline: 'نظام حجوزات ذكي للأعمال الخدمية الحديثة. متاح باللغات الإنجليزية والعربية والعبرية.',
+      productHeading: 'المنتج',
+      companyHeading: 'الشركة',
+      contact: 'تواصل معنا',
+      copyright: '© {year} IRestTOR. جميع الحقوق محفوظة.',
+    },
   },
 };

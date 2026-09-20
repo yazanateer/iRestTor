@@ -340,6 +340,42 @@
     background: #ffffff;
 }
 
+.booking-channel-selector {
+    margin-top: 24px;
+}
+
+.booking-channel-options {
+    display: flex;
+    gap: 14px;
+}
+
+.booking-channel-option {
+    flex: 1;
+    border: 1.5px solid #e5ecf6;
+    background: #ffffff;
+    color: #071533;
+    border-radius: 18px;
+    padding: 15px 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.18s ease;
+    cursor: pointer;
+}
+
+.booking-channel-option:hover,
+.booking-channel-option--selected {
+    border-color: var(--booking-primary);
+    background: rgba(37, 99, 255, 0.07);
+    color: var(--booking-primary);
+}
+
+.booking-channel-option--selected {
+    box-shadow: 0 14px 34px rgba(37, 99, 255, 0.1);
+}
+
 .booking-summary-box {
     margin-top: 24px;
     background: #f4f7fb;
@@ -413,6 +449,168 @@
 .booking-modal-close:hover {
     background: rgba(37, 99, 255, 0.08);
     color: var(--booking-primary);
+}
+
+.booking-sheet-handle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .booking-modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .booking-modal {
+        max-width: 100%;
+        max-height: 88vh;
+        border-radius: 24px 24px 0 0;
+        padding: 14px 22px calc(26px + env(safe-area-inset-bottom));
+    }
+
+    .booking-sheet-handle {
+        display: block;
+        width: 40px;
+        height: 5px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        margin: 0 auto 18px;
+    }
+
+    .booking-modal-close {
+        top: 14px;
+    }
+}
+
+/* OTP screen */
+.booking-otp-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.booking-otp-back {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e5ecf6;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #071533;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.booking-otp-back:hover {
+    background: rgba(37, 99, 255, 0.08);
+    color: var(--booking-primary);
+}
+
+.booking-otp-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(37, 99, 255, 0.08);
+    color: var(--booking-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.booking-otp-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #071533;
+    margin: 14px 0 6px;
+}
+
+.booking-otp-desc {
+    margin: 0 0 22px;
+    color: #6b7890;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.booking-otp-desc strong {
+    color: #071533;
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+.booking-otp-boxes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.booking-otp-box {
+    width: 15%;
+    max-width: 56px;
+    aspect-ratio: 1 / 1.15;
+    text-align: center;
+    border: 1.5px solid #e5ecf6;
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 800;
+    color: #071533;
+    background: #ffffff;
+}
+
+.booking-otp-box:focus {
+    outline: none;
+    border-color: var(--booking-primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 255, 0.1);
+}
+
+.booking-otp-box--filled {
+    border-color: var(--booking-primary);
+    background: rgba(37, 99, 255, 0.05);
+    color: var(--booking-primary);
+}
+
+.booking-otp-timer {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #6b7890;
+    margin: 0 0 22px;
+}
+
+.booking-otp-timer--expired {
+    color: #dc2626;
+}
+
+.booking-otp-error {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.booking-otp-submit {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.booking-otp-resend {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7890;
+    margin: 0;
+}
+
+.booking-otp-resend button {
+    border: 0;
+    background: none;
+    padding: 0;
+    color: var(--booking-primary);
+    font-weight: 800;
 }
 
 .booking-date-carousel {

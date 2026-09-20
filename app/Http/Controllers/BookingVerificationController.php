@@ -9,13 +9,22 @@ use App\Models\Business;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 use App\Jobs\SendOtpSmsJob;
+use App\Jobs\SendOtpWhatsappJob;
 use App\Notifications\NewAppointmentCreatedNotification;
 
 
 
 class BookingVerificationController extends Controller
 {
+    /**
+     * Twilio error codes for a WhatsApp recipient that is not reachable on WhatsApp
+     * (undeliverable / opt-in required). Used to distinguish this failure so the
+     * customer can be told to try SMS instead.
+     */
+    private const WHATSAPP_NUMBER_NOT_FOUND_CODES = [63016, 63024];
+
     public function send(Request $request, Business $business)
     {
         $this->ensureBusinessIsActive($business);
@@ -27,11 +36,18 @@ class BookingVerificationController extends Controller
             'customer_name' => ['required', 'string'],
             'customer_phone' => ['required', 'string', 'regex:/^(05\d{8}|\+9725\d{8})$/'],
             'customer_email' => ['nullable', 'email'],
+            'delivery_channel' => ['required', Rule::in(['sms', 'whatsapp'])],
         ]);
 
         $validated['customer_phone'] = $this->normalizeIsraeliPhone(
         $validated['customer_phone']
         );
+
+        if ($validated['delivery_channel'] === 'whatsapp' && ! $business->canUseWhatsapp()) {
+            return response()->json([
+                'message' => __('booking.whatsappNotAvailable'),
+            ], 422);
+        }
 
         $alreadyBooked = Appointment::query()
             ->where('business_id', $business->id)
@@ -53,7 +69,7 @@ class BookingVerificationController extends Controller
             ->where('customer_phone', $validated['customer_phone'])
             ->delete();
         
-        BookingVerification::create([
+        $verification = BookingVerification::create([
             'business_id' => $business->id,
             'service_id' => $validated['service_id'],
             'appointment_date' =>
@@ -68,6 +84,8 @@ class BookingVerificationController extends Controller
                 $validated['customer_phone'],
             'customer_email' =>
                 $validated['customer_email'],
+            'delivery_channel' =>
+                $validated['delivery_channel'],
             'code_hash' =>
                 Hash::make($code),
             'expires_at' =>
@@ -75,10 +93,40 @@ class BookingVerificationController extends Controller
             'attempts' => 0,
         ]);
 
-        SendOtpSmsJob::dispatch(
-            $validated['customer_phone'],
-            (string) $code
-        );
+        try {
+            match ($validated['delivery_channel']) {
+                'sms' => SendOtpSmsJob::dispatchSync(
+                    $validated['customer_phone'],
+                    (string) $code
+                ),
+                'whatsapp' => SendOtpWhatsappJob::dispatchSync(
+                    $validated['customer_phone'],
+                    (string) $code
+                ),
+            };
+        } catch (\Throwable $e) {
+            $verification->delete();
+
+            Log::error('OTP delivery failed', [
+                'delivery_channel' => $validated['delivery_channel'],
+                'phone' => $this->maskPhone($validated['customer_phone']),
+                'error' => $e->getMessage(),
+            ]);
+
+            if (
+                $validated['delivery_channel'] === 'whatsapp'
+                && in_array($e->getCode(), self::WHATSAPP_NUMBER_NOT_FOUND_CODES, true)
+            ) {
+                return response()->json([
+                    'message' => __('booking.whatsappNumberNotFound'),
+                ], 500);
+            }
+
+            return response()->json([
+                'message' => __('booking.otpDeliveryFailed'),
+            ], 500);
+        }
+
         return response()->json([
             'success' => true,
         ]);
@@ -186,4 +234,15 @@ class BookingVerificationController extends Controller
         {
             abort_if(! $business->isActive(), 404);
         }
+
+    private function maskPhone(string $phone): string
+    {
+        $length = strlen($phone);
+
+        if ($length <= 4) {
+            return str_repeat('*', $length);
+        }
+
+        return str_repeat('*', $length - 4) . substr($phone, -4);
+    }
 }

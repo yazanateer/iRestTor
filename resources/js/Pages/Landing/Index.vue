@@ -17,6 +17,8 @@ const successMessage = computed(
   () => page.props.flash?.success
 )
 
+const currentYear = new Date().getFullYear()
+
 const switchLanguage = (lang: 'en' | 'he' | 'ar') => {
   locale.value = lang
   localStorage.setItem('locale', lang)
@@ -288,6 +290,36 @@ const submitContactForm = () => {
               </div>
             </div>
           </form>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+          <div class="landing-footer-brand">
+            <div class="landing-footer-brand-row">
+              <span class="brand-mark">iR</span>
+              <span class="landing-footer-name">{{ t('landing.brand.name') }}</span>
+            </div>
+            <p>{{ t('landing.footer.tagline') }}</p>
+          </div>
+
+          <div class="landing-footer-links">
+            <div>
+              <div class="landing-footer-heading">{{ t('landing.footer.productHeading') }}</div>
+              <a href="#features">{{ t('landing.nav.features') }}</a>
+              <a href="#pricing">{{ t('landing.nav.pricing') }}</a>
+              <a href="#how">{{ t('landing.nav.howItWorks') }}</a>
+            </div>
+
+            <div>
+              <div class="landing-footer-heading">{{ t('landing.footer.companyHeading') }}</div>
+              <a href="#contact">{{ t('landing.footer.contact') }}</a>
+              <Link href="/login">{{ t('landing.nav.login') }}</Link>
+            </div>
+          </div>
+        </footer>
+
+        <div class="landing-footer-copyright">
+          {{ t('landing.footer.copyright', { year: currentYear }) }}
+        </div>
       </div>
     </section>
   </main>

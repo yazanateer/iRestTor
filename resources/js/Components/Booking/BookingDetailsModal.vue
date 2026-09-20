@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import BookingSuccessContent from './BookingSuccessContent.vue';
 import { useI18n } from 'vue-i18n';
-import type { Service, Slot } from '../../types/global.d.ts';
+import { onMounted } from 'vue';
+import type { DeliveryChannel, Service, Slot } from '../../types/global.d.ts';
 
 
-defineProps<{
+const props = defineProps<{
     bookingSuccess: boolean;
     bookingError: string;
     confirming: boolean;
@@ -15,6 +16,8 @@ defineProps<{
     customerName: string;
     customerPhone: string;
     customerEmail: string;
+    selectedChannel: DeliveryChannel | null;
+    whatsappEnabled: boolean;
 }>();
 
 const { t } = useI18n();
@@ -25,12 +28,21 @@ const emit = defineEmits<{
     (e: 'update:customerName', value: string): void;
     (e: 'update:customerPhone', value: string): void;
     (e: 'update:customerEmail', value: string): void;
+    (e: 'update:selectedChannel', value: DeliveryChannel): void;
 }>();
+
+onMounted(() => {
+    if (!props.whatsappEnabled && props.selectedChannel !== 'sms') {
+        emit('update:selectedChannel', 'sms');
+    }
+});
 </script>
 
 <template>
     <div class="booking-modal-backdrop">
         <div class="booking-modal">
+            <div class="booking-sheet-handle"></div>
+
             <button
                 v-if="!bookingSuccess"
                 type="button"
@@ -92,6 +104,41 @@ const emit = defineEmits<{
                     <p><strong>{{ t('booking.time') }}:</strong> {{ selectedSlot?.label }}</p>
                 </div>
 
+                <div
+                    class="booking-channel-selector"
+                    role="radiogroup"
+                    :aria-label="t('booking.chooseChannel')"
+                >
+                    <label class="booking-label">{{ t('booking.chooseChannel') }}</label>
+
+                    <div class="booking-channel-options">
+                        <button
+                            type="button"
+                            role="radio"
+                            :aria-checked="selectedChannel === 'sms'"
+                            class="booking-channel-option"
+                            :class="{ 'booking-channel-option--selected': selectedChannel === 'sms' }"
+                            @click="emit('update:selectedChannel', 'sms')"
+                        >
+                            <i class="bi bi-chat-dots"></i>
+                            {{ t('booking.channelSms') }}
+                        </button>
+
+                        <button
+                            v-if="whatsappEnabled"
+                            type="button"
+                            role="radio"
+                            :aria-checked="selectedChannel === 'whatsapp'"
+                            class="booking-channel-option"
+                            :class="{ 'booking-channel-option--selected': selectedChannel === 'whatsapp' }"
+                            @click="emit('update:selectedChannel', 'whatsapp')"
+                        >
+                            <i class="bi bi-whatsapp"></i>
+                            {{ t('booking.channelWhatsapp') }}
+                        </button>
+                    </div>
+                </div>
+
                 <p v-if="bookingError" class="text-danger fw-semibold mt-3 mb-0">
                     {{ bookingError }}
                 </p>
@@ -108,7 +155,7 @@ const emit = defineEmits<{
                     <button
                         type="button"
                         class="booking-primary-btn"
-                        :disabled="!customerName || !customerPhone || confirming"
+                        :disabled="!customerName || !customerPhone || !selectedChannel || confirming"
                         @click="emit('confirm')"
                     >
                         {{ confirming ? t('booking.confirming') : t('booking.confirmAppointment') }}

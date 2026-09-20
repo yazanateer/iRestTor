@@ -391,9 +391,23 @@ export default {
         verificationCode: 'Verification Code',
         verifying: 'Verifying...',
         verifyCode: 'Verify Code',
+        verifyAndConfirm: 'Verify & Confirm Booking',
+        codeExpiresIn: 'Code expires in {time}',
+        codeExpired: 'Code expired. Please request a new one.',
+        didntGetCode: "Didn't get a code?",
+        resend: 'Resend',
         requestSent: 'Booking Request Sent',
         requestSentMessage: 'Your booking request has been sent successfully. The business will review your request and you will receive a confirmation message once it is approved.',
         noDescription: 'No description available',
+        chooseChannel: 'Choose how to receive your code',
+        channelSms: 'SMS',
+        channelWhatsapp: 'WhatsApp',
+        verifyDescriptionSms: 'Enter the verification code sent via SMS to {phone}',
+        verifyDescriptionWhatsapp: 'Enter the verification code sent via WhatsApp to {phone}',
+        otpDeliveryFailed: "We couldn't send your code. Please try again.",
+        whatsappNotAvailable: "WhatsApp verification isn't available for this business.",
+        whatsappNumberNotFound: "This number isn't on WhatsApp. Try SMS instead.",
+        invalidChannel: 'Please select a valid delivery method.',
     },
 
     schedule: {
@@ -797,6 +811,14 @@ features: {
     ],
   },
 },
+
+    footer: {
+      tagline: 'AI booking OS for modern service businesses. Available in English, Arabic, and Hebrew.',
+      productHeading: 'Product',
+      companyHeading: 'Company',
+      contact: 'Contact',
+      copyright: '© {year} IRestTOR. All rights reserved.',
+    },
   },
 
 

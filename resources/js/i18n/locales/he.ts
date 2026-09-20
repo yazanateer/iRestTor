@@ -370,9 +370,23 @@ pagination: {
         verificationCode: 'קוד אימות',
         verifying: 'מאמת...',
         verifyCode: 'אמת קוד',
+        verifyAndConfirm: 'אמת ואשר את התור',
+        codeExpiresIn: 'הקוד יפוג בעוד {time}',
+        codeExpired: 'הקוד פג תוקף. יש לבקש קוד חדש.',
+        didntGetCode: 'לא קיבלת קוד?',
+        resend: 'שלח שוב',
         requestSent: 'בקשת התור נשלחה',
         requestSentMessage: 'בקשת התור שלך נשלחה בהצלחה. בית העסק יעבור על הבקשה וישלח לך הודעת אישור לאחר אישורה.',
         noDescription: 'אין תיאור זמין',
+        chooseChannel: 'בחר כיצד לקבל את הקוד שלך',
+        channelSms: 'SMS',
+        channelWhatsapp: 'וואטסאפ',
+        verifyDescriptionSms: 'הזן את קוד האימות שנשלח ב-SMS אל {phone}',
+        verifyDescriptionWhatsapp: 'הזן את קוד האימות שנשלח בוואטסאפ אל {phone}',
+        otpDeliveryFailed: 'לא הצלחנו לשלוח את הקוד שלך. נסה שוב.',
+        whatsappNotAvailable: 'אימות בוואטסאפ אינו זמין לעסק זה.',
+        whatsappNumberNotFound: 'מספר זה אינו רשום בוואטסאפ. נסה SMS במקום זאת.',
+        invalidChannel: 'יש לבחור אמצעי משלוח תקין.',
     },
     
     schedule: {
@@ -696,6 +710,14 @@ pagination: {
     ],
   },
 },
+
+    footer: {
+      tagline: 'מערכת הזמנות חכמה לעסקי שירות מודרניים. זמינה באנגלית, ערבית ועברית.',
+      productHeading: 'מוצר',
+      companyHeading: 'חברה',
+      contact: 'צור קשר',
+      copyright: '© {year} IRestTOR. כל הזכויות שמורות.',
+    },
   },
 
 };

@@ -793,6 +793,90 @@
   gap: 10px;
 }
 
+/* Footer */
+.landing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 96px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.landing-footer-brand {
+  max-width: 340px;
+}
+
+.landing-footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.landing-footer-name {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+}
+
+.landing-footer-brand p {
+  color: #7d8ba3;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.landing-footer-links {
+  display: flex;
+  gap: 72px;
+}
+
+.landing-footer-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.landing-footer-links a {
+  display: block;
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.15s ease;
+}
+
+.landing-footer-links a:hover {
+  color: #fff;
+}
+
+.landing-footer-copyright {
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 13px;
+  color: #5f6d85;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .landing-footer {
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 56px;
+  }
+
+  .landing-footer-links {
+    gap: 48px;
+  }
+}
+
 @media (max-width: 992px) {
   .nav-links {
     display: none;
@@ -868,12 +952,62 @@
   .businesses-section,
   .pricing-section,
   .contact-section {
-    padding: 80px 0;
+    padding: 64px 0;
   }
 
   .pricing-card,
   .contact-form {
     padding: 34px 24px;
+  }
+
+  .feature-card {
+    padding: 24px;
+    min-height: 0;
+  }
+
+  .feature-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    margin-bottom: 16px;
+  }
+
+  .feature-icon i {
+    font-size: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  .step-item h3 {
+    font-size: 18px;
+  }
+
+  .step-item p {
+    font-size: 14px;
+  }
+
+  .business-pill {
+    padding: 12px 18px;
+    font-size: 13.5px;
+  }
+
+  .business-pills {
+    margin-top: 32px;
+    gap: 10px;
   }
 }
 

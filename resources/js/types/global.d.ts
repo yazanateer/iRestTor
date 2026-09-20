@@ -96,3 +96,5 @@ export type DateOverride = {
     start_time: string
     end_time: string
 };
+
+export type DeliveryChannel = 'sms' | 'whatsapp';

@@ -21,6 +21,7 @@ class BookingVerification extends Model
         'customer_name',
         'customer_phone',
         'customer_email',
+        'delivery_channel',
         'code_hash',
         'expires_at',
         'verified_at',

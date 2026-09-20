@@ -6,7 +6,7 @@ import '@/../../resources/css/Pages/booking.css';
 import BookingDetailsModal from '@/../../resources/js/Components/Booking/BookingDetailsModal.vue';
 import BookingOtpModal from '../../Components/Booking/BookingOtpModal.vue';
 import { useI18n } from 'vue-i18n';
-import type { Branding, Business, Service, Slot} from '../../../js/types/global.d.ts'
+import type { Branding, Business, DeliveryChannel, Service, Slot} from '../../../js/types/global.d.ts'
 
 type DateOverride = {
     date: string
@@ -27,7 +27,10 @@ const props = defineProps<{
     availabilityDays: number[];
     bookingWindowDays: number;
     dateOverrides: DateOverride[];
+    whatsappEnabled: boolean;
 }>();
+
+const selectedChannel = ref<DeliveryChannel | null>(props.whatsappEnabled ? null : 'sms');
 
 const currentStep = ref<'booking' | 'details'>('booking');
 
@@ -113,6 +116,7 @@ const goToDetails = () => {
     const requestOtp = async () => {
     if (!selectedService.value || !selectedDate.value || !selectedSlot.value) return;
     bookingError.value = '';
+    otpError.value = '';
     confirming.value = true;
     try {
         await axios.post(route('booking.verification.send', props.business.slug), {
@@ -123,11 +127,17 @@ const goToDetails = () => {
             customer_name: customerName.value,
             customer_phone: customerPhone.value,
             customer_email: customerEmail.value || null,
+            delivery_channel: selectedChannel.value,
         });
         showOtpModal.value = true;
     } catch (error: any) {
-        bookingError.value =
-            error.response?.data?.message || t('booking.genericError');
+        const message = error.response?.data?.message || t('booking.genericError');
+
+        if (showOtpModal.value) {
+            otpError.value = message;
+        } else {
+            bookingError.value = message;
+        }
     } finally {
         confirming.value = false;
     }
@@ -549,6 +559,7 @@ const currentLanguage = () => {
                 v-model:customer-name="customerName"
                 v-model:customer-phone="customerPhone"
                 v-model:customer-email="customerEmail"
+                v-model:selected-channel="selectedChannel"
                 :booking-success="bookingSuccess"
                 :booking-error="bookingError"
                 :confirming="confirming"
@@ -556,16 +567,20 @@ const currentLanguage = () => {
                 :selected-date="selectedDate"
                 :selected-slot="selectedSlot"
                 :requires-approval="bookingRequiresApproval"
+                :whatsapp-enabled="whatsappEnabled"
                 @close="currentStep = 'booking'"
                 @confirm="requestOtp"
             />
-            
-            <BookingOtpModal 
+
+            <BookingOtpModal
                 v-if="showOtpModal"
                 v-model:code="otpCode"
                 :loading="otpLoading"
                 :error="otpError"
+                :customer-phone="customerPhone"
+                :channel="selectedChannel ?? 'sms'"
                 @verify="verifyOtp"
+                @resend="requestOtp"
                 @close="showOtpModal = false"
             />
         </div>
