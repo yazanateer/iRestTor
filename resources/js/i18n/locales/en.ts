@@ -821,7 +821,50 @@ features: {
     },
   },
 
+    register: {
+        title: 'Create your account',
+        subtitle: 'Start your 7-day free trial. No credit card required.',
+        nameLabel: 'Your name',
+        businessNameLabel: 'Business name',
+        emailLabel: 'Email',
+        phoneLabel: 'Phone (optional)',
+        timezoneLabel: 'Timezone',
+        passwordLabel: 'Password',
+        confirmPasswordLabel: 'Confirm password',
+        termsPrefix: 'I agree to the',
+        termsOfService: 'Terms of Service',
+        termsMiddle: 'and',
+        privacyPolicy: 'Privacy Policy',
+        submit: 'Create account',
+        alreadyHaveAccount: 'Already have an account?',
+        login: 'Log in',
+    },
 
+    trial: {
+        bannerTitle: 'Free trial',
+        daysRemaining: '0 days left | 1 day left | {count} days left',
+        expiringSoon: 'Your trial is ending soon.',
+        expiredMessage: 'Your free trial has ended. Choose a plan to keep using your dashboard.',
+        choosePlan: 'Choose a plan',
+    },
+
+    plans: {
+        title: 'Choose a plan',
+        subtitle: 'Your free trial has ended. Select a plan to continue using your dashboard.',
+        monthly: '/ month',
+        free: 'Free',
+        choose: 'Choose plan',
+        comingSoon: 'Billing coming soon',
+        empty: 'No plans are available right now. Please contact support.',
+    },
+
+    verifyEmail: {
+        title: 'Verify your email',
+        message: "Thanks for signing up! Before getting started, could you verify your email address by clicking the link we just emailed you? If you didn't receive the email, we'll gladly send you another.",
+        linkSent: 'A new verification link has been sent to the email address you provided during registration.',
+        resend: 'Resend verification email',
+        logout: 'Log out',
+    },
 
 };
 

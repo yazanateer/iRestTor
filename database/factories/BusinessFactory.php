@@ -33,4 +33,12 @@ class BusinessFactory extends Factory
             'plan_id' => Plan::factory()->premium(),
         ]);
     }
+
+    public function trial(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'plan_id' => null,
+            'trial_ends_at' => now()->addDays(7),
+        ]);
+    }
 }

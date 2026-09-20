@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
+import TrialBanner from '@/Components/TrialBanner.vue';
 import { Head } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import type { Business, Appointment } from '../../types/global.d.ts';
@@ -7,6 +8,13 @@ import type { Business, Appointment } from '../../types/global.d.ts';
 const props = defineProps<{
     business: Business
     bookingLink: string
+    trial: {
+        onTrial: boolean
+        expired: boolean
+        isPaid: boolean
+        endsAt: string | null
+        daysRemaining: number | null
+    }
     stats: {
         todayAppointments: number
         pendingRequests: number
@@ -37,6 +45,8 @@ const formatTime = (time: string) => time.slice(0, 5);
         <template #title>
             {{ business.name }}
         </template>
+
+        <TrialBanner :trial="trial" />
 
         <div class="row g-4 mb-4">
             <div class="col-md-6 col-xl-3">

@@ -30,4 +30,11 @@ class PlanFactory extends Factory
             'price' => 99,
         ]);
     }
+
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_active' => false,
+        ]);
+    }
 }

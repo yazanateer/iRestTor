@@ -30,7 +30,17 @@ class Business extends Model
     'is_active',
     'plan_id',
     'booking_window_days',
+    'trial_ends_at',
+    'tos_accepted_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'trial_ends_at' => 'datetime',
+            'tos_accepted_at' => 'datetime',
+        ];
+    }
 
     public function users() : HasMany
     {
@@ -95,5 +105,37 @@ class Business extends Model
     public function canUseReminders(): bool
     {
         return $this->isPremium();
+    }
+
+    /** Business has a paid plan assigned (present or future payment feature). */
+    public function isPaid(): bool
+    {
+        return ! is_null($this->plan_id);
+    }
+
+    /** plan_id null AND still within the trial window. */
+    public function onTrial(): bool
+    {
+        return is_null($this->plan_id)
+            && ! is_null($this->trial_ends_at)
+            && now()->lessThanOrEqualTo($this->trial_ends_at);
+    }
+
+    /** plan_id null AND trial window has passed. */
+    public function trialExpired(): bool
+    {
+        return is_null($this->plan_id)
+            && ! is_null($this->trial_ends_at)
+            && now()->greaterThan($this->trial_ends_at);
+    }
+
+    /** Remaining whole days of trial, floored at 0; null when not on a trial. */
+    public function trialDaysRemaining(): ?int
+    {
+        if (is_null($this->trial_ends_at) || ! is_null($this->plan_id)) {
+            return null;
+        }
+
+        return max(0, (int) ceil(now()->diffInDays($this->trial_ends_at, false)));
     }
 }
