@@ -32,6 +32,13 @@ export default {
         type: 'סוג',
 
     },
+    states: {
+        loading: 'טוען…',
+        errorTitle: 'משהו השתבש',
+        errorMessage: 'לא הצלחנו לטעון את זה. נסה שוב.',
+        retry: 'נסה שוב',
+        dismiss: 'סגור',
+    },
 
     days: {
         sunday: 'ראשון',

@@ -1,3 +1,4 @@
+import '../css/tokens.css';
 import '../css/app.css';
 import './bootstrap';
 import '../css/admin.css';

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
+import LanguageSwitcher from '../Components/LanguageSwitcher.vue';
 import "../../css/Layout/manager.css"
 
 
 const page = usePage();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 const navItems = [
     { labelKey: 'manager.nav.dashboard', routeName: 'dashboard', icon: 'bi-grid-1x2' },
     { labelKey: 'manager.nav.appointments', routeName: 'dashboard.appointments.index', icon: 'bi-calendar-check' },
@@ -15,21 +16,6 @@ const navItems = [
 
 const isActive = (routeName: string) => {
     return route().current(routeName);
-};
-
-const languages = [
-    { code: 'en', label: 'EN', name: 'English' },
-    { code: 'he', label: 'HE', name: 'עברית' },
-    { code: 'ar', label: 'AR', name: 'العربية' },
-];
-
-const setLanguage = (lang: string) => {
-    locale.value = lang;
-    localStorage.setItem('locale', lang);
-};
-
-const currentLanguage = () => {
-    return languages.find((lang) => lang.code === locale.value) ?? languages[0];
 };
 </script>
 
@@ -87,36 +73,7 @@ const currentLanguage = () => {
             
       <header class="admin-topbar manager-topbar">
     <div class="admin-topbar-left">
-        <div class="language-switcher dropdown">
-            <button
-                class="language-switcher-btn"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                <i class="bi bi-globe2"></i>
-                <span>{{ currentLanguage().label }}</span>
-                <i class="bi bi-chevron-down small"></i>
-            </button>
-
-            <ul class="dropdown-menu language-menu">
-                <li v-for="lang in languages" :key="lang.code">
-                    <button
-                        type="button"
-                        class="dropdown-item language-menu-item"
-                        :class="{ active: locale.value === lang.code }"
-                        @click="setLanguage(lang.code)"
-                    >
-                        <span>{{ lang.name }}</span>
-
-                        <i
-                            v-if="locale.value === lang.code"
-                            class="bi bi-check-lg"
-                        ></i>
-                    </button>
-                </li>
-            </ul>
-        </div>
+        <LanguageSwitcher />
     </div>
 
     <div class="manager-topbar-center">

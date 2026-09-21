@@ -31,6 +31,13 @@ export default {
         sentAt: 'تاريخ الإرسال',
         type: 'النوع',
     },
+    states: {
+        loading: 'جارٍ التحميل…',
+        errorTitle: 'حدث خطأ ما',
+        errorMessage: 'تعذر تحميل هذا. يرجى المحاولة مرة أخرى.',
+        retry: 'إعادة المحاولة',
+        dismiss: 'إغلاق',
+    },
 
     days: {
         sunday: 'الأحد',

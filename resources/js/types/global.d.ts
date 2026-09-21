@@ -2,6 +2,8 @@
 export type Branding = {
     logo_path?: string | null
     cover_image_path?: string | null
+    logo_url?: string | null
+    cover_image_url?: string | null
     primary_color: string
     secondary_color: string
     accent_color: string
@@ -10,6 +12,25 @@ export type Branding = {
     public_description?: string | null
     theme_style: string
 
+}
+
+// Resolved (defaulted, accessibility-safe) background + text color pairing
+export type ResolvedBrandingColor = {
+    background: string
+    onColor: string
+}
+
+// Fully-populated, never-throwing result of the booking-page branding resolver
+export type ResolvedBranding = {
+    primary: ResolvedBrandingColor
+    secondary: ResolvedBrandingColor
+    accent: ResolvedBrandingColor
+    themeStyle: string
+    logoUrl: string | null
+    coverImageUrl: string | null
+    publicTitle: string | null
+    publicSubtitle: string | null
+    publicDescription: string | null
 }
 
 export type Business = {
@@ -98,3 +119,25 @@ export type DateOverride = {
 };
 
 export type DeliveryChannel = 'sms' | 'whatsapp';
+
+// Narrows the existing Appointment.status string to the product's known values
+export type AppointmentStatus = 'confirmed' | 'pending_approval' | 'cancelled';
+
+export type SupportedLocale = 'en' | 'ar' | 'he';
+
+// View-state contract for data-driven screens
+export type ViewState = 'loading' | 'empty' | 'success' | 'error';
+
+// LanguageSwitcher option
+export type LanguageOption = {
+    code: SupportedLocale;
+    label: string;
+    name: string;
+};
+
+// ResponsiveTable column definition
+export type TableColumn = {
+    key: string;
+    labelKey: string;
+    align?: 'start' | 'end' | 'center';
+};

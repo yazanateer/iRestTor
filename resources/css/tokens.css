@@ -1,0 +1,121 @@
+/*
+ * Slotify Design System — canonical design tokens.
+ *
+ * Single source of truth for color, typography, spacing, radii, borders,
+ * elevation, and motion. Both Tailwind (via tailwind.config.js theme.extend)
+ * and Bootstrap/custom CSS (via var(--token)) consume these values, so a
+ * single token change propagates everywhere.
+ *
+ * Formalized from the existing resources/css/admin.css :root block. The
+ * --admin-* names are kept as aliases so existing CSS keeps working
+ * unchanged while it migrates to the canonical --brand- and --color- names.
+ */
+
+:root {
+    /* Color — brand (evolution of the existing navy/blue identity) */
+    --brand-blue: #2563ff;
+    --brand-blue-soft: #3b82f6;
+    --brand-navy: #071533;
+    /* Light brand-blue tint for hover/active backgrounds (formalizes the
+       rgba(37, 99, 255, ...) tint already repeated across admin.css/manager.css) */
+    --brand-tint: rgba(37, 99, 255, 0.08);
+
+    /* Color — surface / text */
+    --color-bg: #f4f7fb;
+    --color-surface: #ffffff;
+    --color-border: #e5ecf6;
+    --color-text: #0b1633;
+    --color-muted: #6b7890;
+
+    /* Color — status, each paired with its own text color so status is
+       never communicated by color alone (see StatusBadge, Requirement 11.5) */
+    --color-success: #16a34a;
+    --color-success-bg: rgba(34, 197, 94, 0.12);
+    --color-success-text: #16a34a;
+
+    --color-warning: #facc15;
+    --color-warning-bg: rgba(250, 204, 21, 0.18);
+    --color-warning-text: #92610a;
+
+    --color-danger: #dc2626;
+    --color-danger-bg: rgba(220, 38, 38, 0.12);
+    --color-danger-text: #dc2626;
+
+    /* Aliases — existing admin.css custom properties now resolve to the
+       canonical tokens above. Do not remove until every consumer reads the
+       canonical names directly. */
+    --admin-navy: var(--brand-navy);
+    --admin-blue: var(--brand-blue);
+    --admin-blue-soft: var(--brand-blue-soft);
+    --admin-bg: var(--color-bg);
+    --admin-card: var(--color-surface);
+    --admin-border: var(--color-border);
+    --admin-text: var(--color-text);
+    --admin-muted: var(--color-muted);
+
+    /* Typography — Figtree family, fixed step scale with matching line heights */
+    --font-sans:
+        'Figtree',
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        sans-serif;
+
+    --text-xs: 0.75rem; /* 12px */
+    --leading-xs: 1rem; /* 16px */
+    --text-sm: 0.875rem; /* 14px */
+    --leading-sm: 1.25rem; /* 20px */
+    --text-base: 1rem; /* 16px */
+    --leading-base: 1.5rem; /* 24px */
+    --text-lg: 1.125rem; /* 18px */
+    --leading-lg: 1.75rem; /* 28px */
+    --text-xl: 1.25rem; /* 20px */
+    --leading-xl: 1.75rem; /* 28px */
+    --text-2xl: 1.5rem; /* 24px */
+    --leading-2xl: 2rem; /* 32px */
+    --text-3xl: 1.875rem; /* 30px */
+    --leading-3xl: 2.25rem; /* 36px */
+
+    /* Spacing rhythm — 4/8px steps */
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.5rem; /* 24px */
+    --space-6: 2rem; /* 32px */
+    --space-7: 2.5rem; /* 40px */
+    --space-8: 3rem; /* 48px */
+
+    /* Radii */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --radius-full: 999px;
+
+    /* Borders */
+    --border-width: 1px;
+    --border-color: var(--color-border);
+
+    /* Elevation — exactly two levels */
+    --elevation-1: 0 1px 2px rgba(7, 21, 51, 0.06), 0 1px 3px rgba(7, 21, 51, 0.08);
+    --elevation-2: 0 18px 45px rgba(7, 21, 51, 0.08);
+
+    /* Motion — durations constrained to 150–250ms */
+    --motion-fast: 150ms;
+    --motion-base: 200ms;
+    --motion-slow: 250ms;
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

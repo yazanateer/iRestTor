@@ -32,6 +32,13 @@ export default {
         sentAt: 'Sent At',
         type: 'Type',
     },
+    states: {
+        loading: 'Loading…',
+        errorTitle: 'Something went wrong',
+        errorMessage: "We couldn't load this. Please try again.",
+        retry: 'Retry',
+        dismiss: 'Dismiss',
+    },
     days: {
         sunday: 'Sunday',
         monday: 'Monday',
