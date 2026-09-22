@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import ResponsiveTable from '@/Components/ResponsiveTable.vue';
+import EmptyState from '@/Components/EmptyState.vue';
 import { Head, Link, router} from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import type { Manager } from '../../../types/global.d.ts';
+import type { Manager, TableColumn } from '../../../types/global.d.ts';
 
 const props = defineProps<{
     managers: Manager[];
@@ -10,6 +12,14 @@ const props = defineProps<{
 
 
 const { t } = useI18n();
+
+const columns: TableColumn[] = [
+    { key: 'business', labelKey: 'admin.businesses.business' },
+    { key: 'name', labelKey: 'common.name' },
+    { key: 'phone', labelKey: 'common.phone' },
+    { key: 'email', labelKey: 'common.email' },
+    { key: 'actions', labelKey: 'common.actions', align: 'end' },
+];
 
 const deleteManager = (id: number) => {
     if (confirm(t('admin.managers.deleteConfirm'))) {
@@ -47,53 +57,49 @@ const deleteManager = (id: number) => {
     </div>
 
         <div class="admin-card">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>{{ t('admin.businesses.business') }}</th>
-                        <th>{{ t('common.name') }}</th>
-                        <th>{{ t('common.phone') }}</th>
-                        <th>{{ t('common.email') }}</th>
-                        <th class="text-end">{{ t('common.actions') }}</th>
-                    </tr>
-                </thead>
+            <EmptyState
+                v-if="managers.length === 0"
+                icon="bi-person-badge"
+                title-key="admin.managers.empty"
+                action-label-key="admin.managers.createManager"
+                :action-href="route('admin.managers.create')"
+            />
 
-                <tbody>
-                    <tr v-for="manager in managers" :key="manager.id">
+            <ResponsiveTable v-else :columns="columns" :rows="managers" row-key="id">
+                <template #cell="{ row, column }">
+                    <template v-if="column.key === 'business'">
+                        {{ row.business?.name || '-' }}
+                    </template>
 
-                        <td>{{ manager.business?.name || '-' }}</td>
-                        <td>
-                        {{ manager.name }}
-                        </td>
-                        <td>{{ manager.phone }}</td>
-                        <td>{{ manager.email }}</td>
+                    <template v-else-if="column.key === 'name'">
+                        {{ row.name }}
+                    </template>
 
-                        
+                    <template v-else-if="column.key === 'phone'">
+                        {{ row.phone }}
+                    </template>
 
-                        <td class="text-end">
-                            <Link
-                                :href="route('admin.managers.edit', manager.id)"
-                                class="btn btn-sm btn-outline-primary me-2"
-                            >
-                                {{ t('common.edit') }}
-                            </Link>
+                    <template v-else-if="column.key === 'email'">
+                        {{ row.email }}
+                    </template>
 
-                            <button
-                                class="btn btn-sm btn-outline-danger"
-                                @click="deleteManager(manager.id)"
-                            >
-                                {{ t('common.delete') }}
-                            </button>
-                        </td>
-                    </tr>
+                    <template v-else-if="column.key === 'actions'">
+                        <Link
+                            :href="route('admin.managers.edit', row.id)"
+                            class="admin-secondary-btn admin-btn-sm me-2"
+                        >
+                            {{ t('common.edit') }}
+                        </Link>
 
-                    <tr v-if="managers.length === 0">
-                        <td colspan="4" class="text-center text-muted py-4">
-                            {{ t('admin.managers.empty') }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <button
+                            class="admin-danger-btn admin-btn-sm"
+                            @click="deleteManager(row.id)"
+                        >
+                            {{ t('common.delete') }}
+                        </button>
+                    </template>
+                </template>
+            </ResponsiveTable>
         </div>
     </AdminLayout>
 </template>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import BusinessBookingPreview from './BusinessBookingPreview.vue';
+import { useI18n } from 'vue-i18n';
+
 defineProps<{
     form: any;
     logoPreview: string | null;
@@ -7,27 +9,29 @@ defineProps<{
     logoUrl?: string | null;
     coverUrl?: string | null;
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
     <hr class="my-4" />
 
     <h5 class="fw-bold mb-3">
-        {{ form.__t?.brandingSettings ?? 'Branding Settings' }}
+        {{ t('businessBranding.heading') }}
     </h5>
 
     <div class="admin-form-group">
-        <label class="admin-label">Public Title</label>
+        <label class="admin-label">{{ t('businessBranding.publicTitleLabel') }}</label>
         <input v-model="form.public_title" type="text" class="admin-input" />
     </div>
 
     <div class="admin-form-group">
-        <label class="admin-label">Public Subtitle</label>
+        <label class="admin-label">{{ t('businessBranding.publicSubtitleLabel') }}</label>
         <input v-model="form.public_subtitle" type="text" class="admin-input" />
     </div>
 
     <div class="admin-form-group">
-        <label class="admin-label">Logo</label>
+        <label class="admin-label">{{ t('businessBranding.logoLabel') }}</label>
 
         <label class="branding-upload-card">
             <input
@@ -41,8 +45,8 @@ defineProps<{
                 <i class="bi bi-cloud-arrow-up branding-upload-icon"></i>
 
                 <div>
-                    <h6>Upload Logo</h6>
-                    <small>PNG, JPG up to 2MB</small>
+                    <h6>{{ t('businessBranding.uploadLogo') }}</h6>
+                    <small>{{ t('businessBranding.logoHint') }}</small>
                 </div>
             </div>
 
@@ -53,7 +57,7 @@ defineProps<{
     </div>
 
     <div class="admin-form-group">
-        <label class="admin-label">Cover Image</label>
+        <label class="admin-label">{{ t('businessBranding.coverImageLabel') }}</label>
 
         <label class="branding-upload-card">
             <input
@@ -67,8 +71,8 @@ defineProps<{
                 <i class="bi bi-image branding-upload-icon"></i>
 
                 <div>
-                    <h6>Upload Cover</h6>
-                    <small>Recommended 1600×500</small>
+                    <h6>{{ t('businessBranding.uploadCover') }}</h6>
+                    <small>{{ t('businessBranding.coverHint') }}</small>
                 </div>
             </div>
 
@@ -79,7 +83,7 @@ defineProps<{
     </div>
 
     <div class="admin-form-group">
-        <label class="admin-label">Public Description</label>
+        <label class="admin-label">{{ t('businessBranding.publicDescriptionLabel') }}</label>
 
         <textarea
             v-model="form.public_description"
@@ -91,21 +95,21 @@ defineProps<{
     <div class="row">
         <div class="col-md-4">
             <div class="admin-form-group">
-                <label class="admin-label">Primary Color</label>
+                <label class="admin-label">{{ t('businessBranding.primaryColorLabel') }}</label>
                 <input v-model="form.primary_color" type="color" class="form-control form-control-color" />
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="admin-form-group">
-                <label class="admin-label">Secondary Color</label>
+                <label class="admin-label">{{ t('businessBranding.secondaryColorLabel') }}</label>
                 <input v-model="form.secondary_color" type="color" class="form-control form-control-color" />
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="admin-form-group">
-                <label class="admin-label">Accent Color</label>
+                <label class="admin-label">{{ t('businessBranding.accentColorLabel') }}</label>
                 <input v-model="form.accent_color" type="color" class="form-control form-control-color" />
             </div>
         </div>

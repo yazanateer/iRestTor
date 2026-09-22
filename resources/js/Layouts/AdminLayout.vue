@@ -2,6 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '../Components/LanguageSwitcher.vue';
+import FlashMessage from '../Components/FlashMessage.vue';
 import "../../css/Layout/admin.css"
 
 const page = usePage();
@@ -28,8 +29,8 @@ const isActive = (routeName: string) => {
                 </div>
 
                 <div>
-                    <h1>IRestTor</h1>
-                    <span>AI Booking OS</span>
+                    <h1>{{ t('common.console') }}</h1>
+                    <span>{{ t('admin.tagline') }}</span>
                 </div>
             </div>
 
@@ -90,12 +91,36 @@ const isActive = (routeName: string) => {
     <div class="admin-topbar-actions">
         <span class="admin-status-dot"></span>
         <span>{{ t('admin.systemOnline') }}</span>
+
+        <Link
+            :href="route('logout')"
+            method="post"
+            as="button"
+            class="mobile-logout-btn"
+            :aria-label="t('common.logout')"
+        >
+            <i class="bi bi-box-arrow-right"></i>
+        </Link>
     </div>
 </header>
 
             <section class="admin-content">
+                <FlashMessage />
                 <slot />
             </section>
         </main>
+
+        <nav class="mobile-bottom-nav">
+            <Link
+                v-for="item in navItems"
+                :key="item.routeName"
+                :href="route(item.routeName)"
+                class="mobile-bottom-nav-link"
+                :class="{ active: isActive(item.routeName) }"
+            >
+                <i :class="['bi', item.icon]"></i>
+                <span>{{ t(item.labelKey) }}</span>
+            </Link>
+        </nav>
     </div>
 </template>

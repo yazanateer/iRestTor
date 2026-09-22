@@ -7,11 +7,27 @@ const props = withDefaults(
         columns: TableColumn[];
         rows: Record<string, unknown>[];
         rowKey?: string;
+        /** Set true when listening for @row-click, to enable the click
+         *  guard (ignores clicks on interactive descendants) and hover styling. */
+        clickableRows?: boolean;
     }>(),
     {
         rowKey: 'id',
+        clickableRows: false,
     },
 );
+
+const emit = defineEmits<{
+    (e: 'rowClick', row: Record<string, unknown>): void;
+}>();
+
+const INTERACTIVE_SELECTOR = 'button, a, input, select, textarea, label';
+
+const handleRowClick = (row: Record<string, unknown>, event: MouseEvent) => {
+    if (!props.clickableRows) return;
+    if ((event.target as HTMLElement).closest(INTERACTIVE_SELECTOR)) return;
+    emit('rowClick', row);
+};
 
 const { t } = useI18n();
 
@@ -37,7 +53,12 @@ const alignClass = (align?: TableColumn['align']) => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in rows" :key="String(row[props.rowKey])">
+                <tr
+                    v-for="row in rows"
+                    :key="String(row[props.rowKey])"
+                    :class="{ 'responsive-table-row--clickable': clickableRows }"
+                    @click="handleRowClick(row, $event)"
+                >
                     <td
                         v-for="column in columns"
                         :key="column.key"
@@ -78,6 +99,15 @@ const alignClass = (align?: TableColumn['align']) => {
     border-bottom: var(--border-width) solid var(--color-border);
     color: var(--color-text);
     font-size: var(--text-sm);
+}
+
+.responsive-table-row--clickable {
+    cursor: pointer;
+    transition: background var(--motion-base) var(--ease-standard);
+}
+
+.responsive-table-row--clickable:hover {
+    background: var(--color-bg);
 }
 
 @media (max-width: 767px) {

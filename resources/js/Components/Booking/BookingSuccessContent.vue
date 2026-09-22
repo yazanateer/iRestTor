@@ -20,7 +20,7 @@ const { t } = useI18n();
     <div class="text-center">
         <i
             class="bi bi-check-circle-fill"
-            style="font-size: 56px; color: #16a34a;"
+            style="font-size: 56px; color: var(--color-success);"
         ></i>
 
         <h2>

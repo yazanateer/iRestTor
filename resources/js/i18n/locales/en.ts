@@ -31,6 +31,7 @@ export default {
         business: 'Business',
         sentAt: 'Sent At',
         type: 'Type',
+        appName: 'IRestTor',
     },
     states: {
         loading: 'Loading…',
@@ -91,6 +92,7 @@ export default {
         platformAdmin: 'Platform Admin',
         console: 'IRestTor Admin Console',
         systemOnline: 'System Online',
+        tagline: 'AI Booking OS',
 
         dashboard: {
             welcome: 'Welcome, SaaS Admin',
@@ -255,6 +257,12 @@ export default {
         confirm: 'Confirm',
         reject: 'Reject',
         searchPlaceholder: 'Search by customer name or phone',
+        detailsEyebrow: 'Appointment Details',
+        appointmentSection: 'Appointment',
+        timeline: 'Timeline',
+        bookedAt: 'Booked At',
+        confirmedAt: 'Confirmed At',
+        cancelledAt: 'Cancelled At',
 
         filters: {
         all: 'All',
@@ -336,6 +344,8 @@ export default {
         publicBookingLink: 'Public Booking Link',
         bookingLinkDescription: 'Share this link with your customers so they can book appointments.',
         copyLink: 'Copy Link',
+        copied: 'Copied!',
+        copyFailed: 'Could not copy the link',
         quickActions: 'Quick Actions',
         quickActionsDescription: 'Start configuring your business.',
         createServices: 'Create Services',
@@ -381,11 +391,14 @@ export default {
         noServicesDescription: 'This business has not published bookable services yet.',
         subtitle: 'Choose a service, select a date, and pick an available time.',
         selectServiceDescription: 'Pick the service you want to book.',
-        stepOne: 'Step 1 of 3',
+        stepOne: 'Step 1 of 4',
         chooseDateDescription: 'Select the day you want to visit.',
-        stepTwo: 'Step 2 of 3',
+        stepTwo: 'Step 2 of 4',
         availableTimesDescription: 'Pick one of the available appointment slots.',
-        stepThree: 'Step 3 of 3',
+        stepThree: 'Step 3 of 4',
+        stepFour: 'Step 4 of 4',
+        verification: 'Verification',
+        progress: 'Booking progress',
         selectServiceAndDate: 'Select service and date',
         timesWillAppear: 'Available times will appear here.',
         selectTimeToContinue: 'Select a time slot to continue.',
@@ -578,6 +591,7 @@ export default {
         tue: 'Tue',
         wed: 'Wed',
       },
+      month: 'Jul',
 
       stats: {
         todayAppointments: "Today's Appointments",
@@ -725,6 +739,11 @@ export default {
         consulting: 'Consulting',
         other: 'Other',
       },
+
+      success: {
+        title: 'Request received successfully',
+        description: 'Thank you. Our team will contact you shortly to help you get started with IRestTOR.',
+      },
     },
 
     mockupShowcase: {
@@ -871,6 +890,94 @@ features: {
         linkSent: 'A new verification link has been sent to the email address you provided during registration.',
         resend: 'Resend verification email',
         logout: 'Log out',
+    },
+
+    auth: {
+        login: {
+            title: 'Log in',
+            emailLabel: 'Email',
+            passwordLabel: 'Password',
+            rememberMe: 'Remember me',
+            forgotPassword: 'Forgot your password?',
+            submit: 'Log in',
+        },
+        forgotPassword: {
+            title: 'Forgot password',
+            description: 'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.',
+            emailLabel: 'Email',
+            submit: 'Email password reset link',
+        },
+        resetPassword: {
+            title: 'Reset password',
+            emailLabel: 'Email',
+            passwordLabel: 'Password',
+            confirmPasswordLabel: 'Confirm password',
+            submit: 'Reset password',
+        },
+        confirmPassword: {
+            title: 'Confirm password',
+            description: 'This is a secure area of the application. Please confirm your password before continuing.',
+            passwordLabel: 'Password',
+            submit: 'Confirm',
+        },
+    },
+
+    profile: {
+        title: 'Profile',
+        information: {
+            heading: 'Profile Information',
+            description: "Update your account's profile information and email address.",
+            nameLabel: 'Name',
+            emailLabel: 'Email',
+            unverified: 'Your email address is unverified.',
+            resendVerification: 'Click here to re-send the verification email.',
+            verificationSent: 'A new verification link has been sent to your email address.',
+            saved: 'Saved.',
+        },
+        password: {
+            heading: 'Update Password',
+            description: 'Ensure your account is using a long, random password to stay secure.',
+            currentPasswordLabel: 'Current Password',
+            newPasswordLabel: 'New Password',
+            confirmPasswordLabel: 'Confirm Password',
+            saved: 'Saved.',
+        },
+        deleteAccount: {
+            heading: 'Delete Account',
+            description: 'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.',
+            button: 'Delete Account',
+            confirmTitle: 'Are you sure you want to delete your account?',
+            confirmDescription: 'Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+            passwordLabel: 'Password',
+        },
+    },
+
+    businessBranding: {
+        heading: 'Branding Settings',
+        publicTitleLabel: 'Public Title',
+        publicSubtitleLabel: 'Public Subtitle',
+        logoLabel: 'Logo',
+        uploadLogo: 'Upload Logo',
+        logoHint: 'PNG, JPG up to 2MB',
+        coverImageLabel: 'Cover Image',
+        uploadCover: 'Upload Cover',
+        coverHint: 'Recommended 1600×500',
+        publicDescriptionLabel: 'Public Description',
+        primaryColorLabel: 'Primary Color',
+        secondaryColorLabel: 'Secondary Color',
+        accentColorLabel: 'Accent Color',
+        previewTitle: 'Live Booking Page Preview',
+        previewDescription: 'Preview how the public booking page will look for customers.',
+        businessLogoAlt: 'Business logo',
+        mockConsultationName: 'Consultation',
+        mockConsultationDescription: 'Professional appointment service',
+        mockFollowUpName: 'Follow-up Meeting',
+        mockFollowUpDescription: 'Quick follow-up session',
+        livePreviewBadge: 'Live Preview',
+        businessNamePlaceholder: 'business-name',
+        businessNameFallback: 'Business Name',
+        defaultSubtitle: 'Smart online appointment booking experience',
+        defaultDescription: 'Customers can choose a service, pick a date, select an available time, and confirm their appointment easily.',
     },
 
 };

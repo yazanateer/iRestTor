@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { Appointment } from '../../../types/global.d.ts';
+import { useI18n } from 'vue-i18n';
+import { formatDate as formatDateLocale } from '../../../lib/formatDate.ts';
+import type { Appointment, SupportedLocale } from '../../../types/global.d.ts';
 
 defineProps<{
     appointment: Appointment;
@@ -11,10 +13,12 @@ const emit = defineEmits<{
     (e: 'reject', appointmentId: number): void
 }>();
 
+const { t, locale } = useI18n();
+
 const formatDate = (date?: string | null) => {
     if (!date) return '-';
 
-    return new Date(date).toLocaleDateString('en-GB');
+    return formatDateLocale(date, locale.value as SupportedLocale);
 };
 
 const formatTime = (time?: string | null) => {
@@ -26,11 +30,11 @@ const formatTime = (time?: string | null) => {
 const formatStatus = (status: string) => {
     switch (status) {
         case 'pending_approval':
-            return 'Pending Approval';
+            return t('appointmentStatus.pending');
         case 'confirmed':
-            return 'Confirmed';
+            return t('appointmentStatus.confirmed');
         case 'cancelled':
-            return 'Cancelled';
+            return t('appointmentStatus.cancelled');
         default:
             return status;
     }
@@ -50,7 +54,7 @@ const formatStatus = (status: string) => {
 
             <div class="appointment-modal-header">
                 <div>
-                    <p class="appointment-eyebrow">Appointment Details</p>
+                    <p class="appointment-eyebrow">{{ t('appointments.detailsEyebrow') }}</p>
                     <h3>{{ appointment.customer_name }}</h3>
                 </div>
 
@@ -67,42 +71,42 @@ const formatStatus = (status: string) => {
             </div>
 
             <div class="appointment-section">
-                <h5>Customer</h5>
+                <h5>{{ t('appointments.customer') }}</h5>
 
                 <div class="appointment-grid">
                     <div>
-                        <span>Name</span>
+                        <span>{{ t('common.name') }}</span>
                         <strong>{{ appointment.customer_name }}</strong>
                     </div>
 
                     <div>
-                        <span>Phone</span>
+                        <span>{{ t('common.phone') }}</span>
                         <strong>{{ appointment.customer_phone }}</strong>
                     </div>
 
                     <div>
-                        <span>Email</span>
+                        <span>{{ t('common.email') }}</span>
                         <strong>{{ appointment.customer_email || '-' }}</strong>
                     </div>
                 </div>
             </div>
 
             <div class="appointment-section">
-                <h5>Appointment</h5>
+                <h5>{{ t('appointments.appointmentSection') }}</h5>
 
                 <div class="appointment-grid">
                     <div>
-                        <span>Service</span>
+                        <span>{{ t('appointments.service') }}</span>
                         <strong>{{ appointment.service?.name || '-' }}</strong>
                     </div>
 
                     <div>
-                        <span>Date</span>
+                        <span>{{ t('appointments.date') }}</span>
                         <strong>{{ formatDate(appointment.appointment_date) }}</strong>
                     </div>
 
                     <div>
-                        <span>Time</span>
+                        <span>{{ t('appointments.time') }}</span>
                         <strong>
                             {{ formatTime(appointment.start_time) }}
                             -
@@ -113,21 +117,21 @@ const formatStatus = (status: string) => {
             </div>
 
             <div class="appointment-section">
-                <h5>Timeline</h5>
+                <h5>{{ t('appointments.timeline') }}</h5>
 
                 <div class="appointment-grid">
                     <div>
-                        <span>Booked At</span>
+                        <span>{{ t('appointments.bookedAt') }}</span>
                         <strong>{{ formatDate(appointment.created_at) }}</strong>
                     </div>
 
                     <div>
-                        <span>Confirmed At</span>
+                        <span>{{ t('appointments.confirmedAt') }}</span>
                         <strong>{{ formatDate(appointment.confirmed_at) }}</strong>
                     </div>
 
                     <div>
-                        <span>Cancelled At</span>
+                        <span>{{ t('appointments.cancelledAt') }}</span>
                         <strong>{{ formatDate(appointment.cancelled_at) }}</strong>
                     </div>
                 </div>
@@ -142,7 +146,7 @@ const formatStatus = (status: string) => {
                     @click="emit('confirm', appointment.id)"
                 >
                     <i class="bi bi-check-lg me-1"></i>
-                    Confirm
+                    {{ t('appointments.confirm') }}
                 </button>
 
                 <button
@@ -151,7 +155,7 @@ const formatStatus = (status: string) => {
                     @click="emit('reject', appointment.id)"
                 >
                     <i class="bi bi-x-lg me-1"></i>
-                    Reject
+                    {{ t('appointments.reject') }}
                 </button>
             </div>
         </div>

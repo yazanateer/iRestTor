@@ -58,12 +58,12 @@ const { t } = useI18n();
             <div class="row g-3">
                 <div class="col-md-6">
                     <Link :href="route('admin.businesses.index')" class="text-decoration-none">
-                        <div class="p-4 rounded-4 h-100" style="border: 1px solid #e5ecf6;">
+                        <div class="admin-overview-link p-4 rounded-4 h-100">
                             <div class="mb-3">
-                                <i class="bi bi-building fs-3 text-primary"></i>
+                                <i class="bi bi-building fs-3 admin-text-brand"></i>
                             </div>
 
-                            <h5 class="fw-bold text-dark">{{ t('admin.dashboard.overview.businessManagement') }}</h5>
+                            <h5 class="fw-bold">{{ t('admin.dashboard.overview.businessManagement') }}</h5>
                             <p class="text-muted mb-0">{{ t('admin.dashboard.overview.businessManagementDescription') }}</p>
                         </div>
                     </Link>
@@ -71,12 +71,12 @@ const { t } = useI18n();
 
                 <div class="col-md-6">
                     <Link :href="route('admin.managers.index')" class="text-decoration-none">
-                        <div class="p-4 rounded-4 h-100" style="border: 1px solid #e5ecf6;">
+                        <div class="admin-overview-link p-4 rounded-4 h-100">
                             <div class="mb-3">
-                                <i class="bi bi-person-badge fs-3 text-primary"></i>
+                                <i class="bi bi-person-badge fs-3 admin-text-brand"></i>
                             </div>
 
-                            <h5 class="fw-bold text-dark">{{ t('admin.dashboard.overview.managerAccounts') }}</h5>
+                            <h5 class="fw-bold">{{ t('admin.dashboard.overview.managerAccounts') }}</h5>
                             <p class="text-muted mb-0">{{ t('admin.dashboard.overview.managerAccountsDescription') }}</p>
                         </div>
                     </Link>
@@ -99,7 +99,7 @@ const { t } = useI18n();
 
                 <Link
                     :href="route('admin.managers.create')"
-                    class="btn btn-light"
+                    class="admin-secondary-btn"
                 >
                     <i class="bi bi-person-plus me-2"></i>
                     {{ t('admin.managers.createManager') }}

@@ -40,4 +40,33 @@ describe('ResponsiveTable', () => {
             expect(cell.attributes('data-label')).toBeTruthy();
         });
     });
+
+    it('emits rowClick when a row is clicked, but not when an inner button is clicked', async () => {
+        const wrapper = mount(ResponsiveTable, {
+            props: { columns, rows, clickableRows: true },
+            global: { plugins: [i18n] },
+            slots: {
+                cell: `<template #cell="{ row }"><button class="row-action">Edit {{ row.name }}</button></template>`,
+            },
+        });
+
+        const firstRow = wrapper.findAll('tr').filter((tr) => tr.find('td').exists())[0]!;
+        await firstRow.find('button.row-action').trigger('click');
+        expect(wrapper.emitted('rowClick')).toBeUndefined();
+
+        await firstRow.trigger('click');
+        expect(wrapper.emitted('rowClick')).toHaveLength(1);
+        expect(wrapper.emitted('rowClick')![0]).toEqual([rows[0]]);
+    });
+
+    it('does not emit rowClick when no listener is attached', async () => {
+        const wrapper = mount(ResponsiveTable, {
+            props: { columns, rows },
+            global: { plugins: [i18n] },
+        });
+
+        const firstRow = wrapper.findAll('tr').filter((tr) => tr.find('td').exists())[0]!;
+        await firstRow.trigger('click');
+        expect(wrapper.emitted('rowClick')).toBeUndefined();
+    });
 });

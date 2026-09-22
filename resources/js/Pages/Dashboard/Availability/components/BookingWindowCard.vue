@@ -70,7 +70,7 @@ const options = [7, 14, 30, 60, 90]
 
 .booking-window-option {
   border: 1.5px solid var(--slot-border);
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 18px;
   padding: 16px 12px;
   color: var(--slot-muted);

@@ -96,7 +96,7 @@ const { t } = useI18n();
     border-radius: var(--radius-md);
     border: var(--border-width) solid transparent;
     background: var(--brand-blue);
-    color: #fff;
+    color: var(--color-surface);
     padding: 8px 16px;
     font-size: var(--text-sm);
     font-weight: 600;

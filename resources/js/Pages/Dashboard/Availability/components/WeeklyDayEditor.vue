@@ -235,7 +235,7 @@ const presets = computed(() => [
 
 .weekly-day-editor__section-header button {
   border: 1px solid var(--slot-border);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--slot-blue);
   border-radius: 999px;
   padding: 8px 13px;
@@ -309,15 +309,15 @@ const presets = computed(() => [
   height: 42px;
   border-radius: 14px;
   border: 1px solid var(--slot-border);
-  background: #fff;
-  color: #dc2626;
+  background: var(--color-surface);
+  color: var(--color-danger);
 }
 
 .weekly-day-editor__empty {
   margin: 0;
   padding: 16px;
   border-radius: 16px;
-  background: #f8fbff;
+  background: var(--color-bg);
   color: var(--slot-muted);
   font-size: 13px;
 }
@@ -330,7 +330,7 @@ const presets = computed(() => [
 
 .weekly-day-editor__presets button {
   border: 1px solid var(--slot-border);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--slot-muted);
   border-radius: 999px;
   padding: 8px 14px;
@@ -364,7 +364,7 @@ const presets = computed(() => [
 .weekly-day-editor__empty-state {
   padding: 34px;
   border-radius: 20px;
-  background: #f8fbff;
+  background: var(--color-bg);
   text-align: center;
   color: var(--slot-muted);
 }

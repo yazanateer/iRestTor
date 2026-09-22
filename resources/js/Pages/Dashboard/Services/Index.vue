@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
+import PageHeader from '@/Components/PageHeader.vue';
+import ResponsiveTable from '@/Components/ResponsiveTable.vue';
+import EmptyState from '@/Components/EmptyState.vue';
 import { Head, Link, router} from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n';
-import type { Service } from '../../../types/global.d.ts';
+import type { Service, TableColumn } from '../../../types/global.d.ts';
 
 
 defineProps<{
@@ -10,6 +13,14 @@ defineProps<{
 }>();
 
 const { t } = useI18n();
+
+const columns: TableColumn[] = [
+    { key: 'service', labelKey: 'services.service' },
+    { key: 'duration', labelKey: 'services.duration' },
+    { key: 'price', labelKey: 'services.price' },
+    { key: 'status', labelKey: 'common.status' },
+    { key: 'actions', labelKey: 'common.actions', align: 'end' },
+];
 
 const deleteService = (id: number) => {
     if (confirm(t('services.deleteConfirm'))) {
@@ -25,100 +36,84 @@ const deleteService = (id: number) => {
             {{ t('services.title') }}
         </template>
 
-    <div class="mb-4">
-    <div class="d-flex justify-content-between align-items-start">
-        <div>
-            <h3 class="fw-bold mb-1">{{ t('services.businessServices') }}</h3>
+    <PageHeader title-key="services.businessServices">
+        <template #actions>
+            <Link
+                :href="route('dashboard.services.create')"
+                class="admin-primary-btn"
+            >
+                <i class="bi bi-plus-lg me-2"></i>
+                {{ t('services.createService') }}
+            </Link>
+        </template>
+    </PageHeader>
 
-            <p class="text-muted mb-0">
-                {{ t('services.description') }}
-            </p>
-        </div>
-    </div>
-
-    <div class="mt-3">
-        <Link
-            :href="route('dashboard.services.create')"
-            class="admin-primary-btn"
-        >
-            <i class="bi bi-plus-lg me-2"></i>
-            {{ t('services.createService') }}
-        </Link>
-    </div>
-</div>
-
+    <p class="text-muted mb-4">
+        {{ t('services.description') }}
+    </p>
 
         <div class="admin-card">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>{{ t('services.service') }}</th>
-                        <th>{{ t('services.duration') }}</th>
-                        <th>{{ t('services.price') }}</th>
-                        <th>{{ t('common.status') }}</th>
-                        <th class="admin-table-actions">{{ t('common.actions') }}</th>
-                    </tr>
-                </thead>
+            <EmptyState
+                v-if="services.length === 0"
+                icon="bi-briefcase"
+                title-key="services.empty"
+                action-label-key="services.createService"
+                :action-href="route('dashboard.services.create')"
+            />
 
-                <tbody>
-                    <tr v-for="service in services" :key="service.id">
-                        <td>
-                            <div class="d-flex align-items-center gap-3">
-                                <div
-                                    style="width:16px;height:16px;border-radius:50%;"
-                                    :style="{ background: service.color || '#2563ff' }"
-                                ></div>
+            <ResponsiveTable v-else :columns="columns" :rows="services" row-key="id">
+                <template #cell="{ row, column }">
+                    <template v-if="column.key === 'service'">
+                        <div class="d-flex align-items-center gap-3">
+                            <div
+                                style="width:16px;height:16px;border-radius:50%;flex-shrink:0;"
+                                :style="{ background: row.color || 'var(--brand-blue)' }"
+                            ></div>
 
-                                <div>
-                                    <strong>{{ service.name }}</strong>
+                            <div>
+                                <strong>{{ row.name }}</strong>
 
-                                    <div class="text-muted small">
-                                        {{ service.description || '-' }}
-                                    </div>
+                                <div class="text-muted small">
+                                    {{ row.description || '-' }}
                                 </div>
                             </div>
-                        </td>
+                        </div>
+                    </template>
 
-                        <td>
-                            {{ service.duration_minutes }} {{t('common.min')}}
-                        </td>
+                    <template v-else-if="column.key === 'duration'">
+                        {{ row.duration_minutes }} {{ t('common.min') }}
+                    </template>
 
-                        <td>
-                            {{ service.price ? ' ₪ ' + service.price : '-' }}
-                        </td>
+                    <template v-else-if="column.key === 'price'">
+                        {{ row.price ? ' ₪ ' + row.price : '-' }}
+                    </template>
 
-                        <td>
-                            <span
-                                class="admin-badge"
-                                :class="service.is_active ? 'admin-badge-success' : 'admin-badge-inactive'"
-                            >
-                                {{ service.is_active ? t('common.active') : t('common.inactive') }}</span>
-                        </td>
+                    <template v-else-if="column.key === 'status'">
+                        <span
+                            class="admin-badge"
+                            :class="row.is_active ? 'admin-badge-success' : 'admin-badge-inactive'"
+                        >
+                            {{ row.is_active ? t('common.active') : t('common.inactive') }}
+                        </span>
+                    </template>
 
-                        <td class="admin-table-actions">
-                            <Link
-                                :href="route('dashboard.services.edit', service.id)"
-                                class="btn btn-sm btn-outline-primary me-2"
-                            >
-                                {{ t('common.edit') }}
-                            </Link>
+                    <template v-else-if="column.key === 'actions'">
+                        <Link
+                            :href="route('dashboard.services.edit', row.id)"
+                            class="admin-secondary-btn admin-btn-sm me-2"
+                        >
+                            {{ t('common.edit') }}
+                        </Link>
 
-                            <button
-                                class="btn btn-sm btn-outline-danger"
-                                @click="deleteService(service.id)"
-                            >
-                                {{ t('common.delete') }}
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr v-if="services.length === 0">
-                        <td colspan="5" class="text-center text-muted py-4">
-                            {{ t('services.empty') }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <button
+                            class="admin-danger-btn admin-btn-sm"
+                            @click="deleteService(row.id)"
+                        >
+                            {{ t('common.delete') }}
+                        </button>
+                    </template>
+                </template>
+            </ResponsiveTable>
         </div>
 
 

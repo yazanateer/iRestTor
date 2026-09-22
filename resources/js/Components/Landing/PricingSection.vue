@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import '../../../css/Pages/Landing/pricing-section.css'
 
 type PlanKey = 'basic' | 'premium' | 'business'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+const arrowIcon = computed(() =>
+  ['he', 'ar'].includes(locale.value) ? 'bi-arrow-left' : 'bi-arrow-right'
+)
 
 const plans: {
   key: PlanKey
@@ -108,7 +113,7 @@ const plans: {
             :class="{ 'is-featured-btn': plan.popular }"
           >
             {{ t('landing.pricing.cta') }}
-            <i class="bi bi-arrow-right"></i>
+            <i :class="['bi', arrowIcon]"></i>
           </a>
         </article>
       </div>

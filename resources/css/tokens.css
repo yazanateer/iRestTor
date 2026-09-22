@@ -19,6 +19,9 @@
     /* Light brand-blue tint for hover/active backgrounds (formalizes the
        rgba(37, 99, 255, ...) tint already repeated across admin.css/manager.css) */
     --brand-tint: rgba(37, 99, 255, 0.08);
+    /* Saturated light-blue border/accent — one step stronger than
+       --color-border, used for mockup and marketing-page accent borders */
+    --brand-border: #bfdbfe;
 
     /* Color — surface / text */
     --color-bg: #f4f7fb;
@@ -26,6 +29,9 @@
     --color-border: #e5ecf6;
     --color-text: #0b1633;
     --color-muted: #6b7890;
+    --color-muted-bg: rgba(107, 120, 144, 0.14);
+    /* Muted text on dark (navy) backgrounds — landing page's dark contact/footer sections */
+    --color-muted-on-dark: #94a3b8;
 
     /* Color — status, each paired with its own text color so status is
        never communicated by color alone (see StatusBadge, Requirement 11.5) */
@@ -40,6 +46,10 @@
     --color-danger: #dc2626;
     --color-danger-bg: rgba(220, 38, 38, 0.12);
     --color-danger-text: #dc2626;
+
+    --color-info: #2563ff;
+    --color-info-bg: rgba(37, 99, 255, 0.12);
+    --color-info-text: #1d4ed8;
 
     /* Aliases — existing admin.css custom properties now resolve to the
        canonical tokens above. Do not remove until every consumer reads the

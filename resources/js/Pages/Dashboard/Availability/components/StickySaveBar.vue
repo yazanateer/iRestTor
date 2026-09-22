@@ -89,7 +89,7 @@ const emit = defineEmits<{
   border-radius: 16px;
   padding: 13px 24px;
   background: linear-gradient(135deg, var(--slot-blue), var(--slot-blue-2));
-  color: #ffffff;
+  color: var(--color-surface);
   font-weight: 900;
   box-shadow: 0 16px 34px rgba(37, 99, 255, 0.26);
   display: inline-flex;

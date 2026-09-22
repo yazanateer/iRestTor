@@ -59,7 +59,7 @@ onMounted(() => {
                         <p>{{ t('booking.detailsDescription') }}</p>
                     </div>
 
-                    <span class="booking-step">{{ t('booking.finalStep') }}</span>
+                    <span class="booking-step">{{ t('booking.stepFour') }}</span>
                 </div>
 
                 <div class="booking-form-grid">

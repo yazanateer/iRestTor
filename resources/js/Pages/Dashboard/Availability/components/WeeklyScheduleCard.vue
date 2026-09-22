@@ -98,7 +98,7 @@ const selectedDay = computed(() =>
 .weekly-schedule-row {
   width: 100%;
   border: 1.5px solid var(--slot-border);
-  background: #ffffff;
+  background: var(--color-surface);
   border-radius: 18px;
   padding: 16px 18px;
   display: flex;
@@ -145,7 +145,7 @@ const selectedDay = computed(() =>
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: #cbd5e1;
+  background: var(--brand-border);
 }
 
 .weekly-schedule-dot--open {
@@ -174,7 +174,7 @@ const selectedDay = computed(() =>
 }
 
 .weekly-schedule-status--closed {
-  background: #eef2f7;
+  background: var(--color-bg);
   color: var(--slot-muted);
 }
 

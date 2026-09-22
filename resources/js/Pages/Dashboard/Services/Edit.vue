@@ -3,6 +3,7 @@ import ManagerLayout from '@/Layouts/ManagerLayout.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import type { Service } from '../../../types/global.d.ts'
+import { BRAND_BLUE } from '../../../lib/designTokens.ts'
 
 const props = defineProps<{
   service: Service
@@ -18,7 +19,7 @@ const form = useForm({
   description: props.service.description ?? '',
   duration_minutes: props.service.duration_minutes,
   price: props.service.price ?? '',
-  color: props.service.color ?? '#2563ff',
+  color: props.service.color ?? BRAND_BLUE,
   is_active: props.service.is_active,
   confirmation_mode: props.service.confirmation_mode ?? 'auto_confirm',
 })
@@ -51,7 +52,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.name" class="text-danger small mt-1">
+                    <div v-if="form.errors.name" class="admin-error-text">
                         {{ form.errors.name }}
                     </div>
                 </div>
@@ -65,7 +66,7 @@ const submit = () => {
                         style="height:120px;padding-top:14px;"
                     ></textarea>
 
-                    <div v-if="form.errors.description" class="text-danger small mt-1">
+                    <div v-if="form.errors.description" class="admin-error-text">
                         {{ form.errors.description }}
                     </div>
                 </div>
@@ -81,7 +82,7 @@ const submit = () => {
                                 class="admin-input"
                             />
 
-                            <div v-if="form.errors.duration_minutes" class="text-danger small mt-1">
+                            <div v-if="form.errors.duration_minutes" class="admin-error-text">
                                 {{ form.errors.duration_minutes }}
                             </div>
                         </div>
@@ -98,7 +99,7 @@ const submit = () => {
                                 class="admin-input"
                             />
 
-                            <div v-if="form.errors.price" class="text-danger small mt-1">
+                            <div v-if="form.errors.price" class="admin-error-text">
                                 {{ form.errors.price }}
                             </div>
                         </div>
@@ -114,7 +115,7 @@ const submit = () => {
                                 class="form-control form-control-color"
                             />
 
-                            <div v-if="form.errors.color" class="text-danger small mt-1">
+                            <div v-if="form.errors.color" class="admin-error-text">
                                 {{ form.errors.color }}
                             </div>
                         </div>
@@ -143,7 +144,7 @@ const submit = () => {
 
                     <div
                         v-if="!props.features.approvalWorkflow"
-                        class="alert alert-primary mt-3 mb-0"
+                        class="admin-alert-info mt-3 mb-0"
                     >
                         <strong>{{ t('services.premiumFeature') }}</strong>
                         <br />
@@ -173,7 +174,7 @@ const submit = () => {
 
                     <Link
                         :href="route('dashboard.services.index')"
-                        class="btn btn-light"
+                        class="admin-secondary-btn"
                     >
                         {{ t('common.cancel') }}
                     </Link>

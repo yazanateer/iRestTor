@@ -95,116 +95,143 @@ The plan follows the design's dependency order: foundation (design tokens, i18n 
     - **Property 8: Date formatting routes by active locale** — **Validates: Requirements 9.10**
     - fast-check under Vitest, single test per property, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property {N}: {property_text}`
 
-- [ ] 7. Checkpoint - Foundation, primitives, and helpers
+- [x] 7. Checkpoint - Foundation, primitives, and helpers
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Migrate Auth and Profile screens off Breeze
-  - [ ] 8.1 Migrate `GuestLayout.vue` onto the design system
+- [x] 8. Migrate Auth and Profile screens off Breeze
+  - [x] 8.1 Migrate `GuestLayout.vue` onto the design system
     - Replace Breeze gray palette (`bg-gray-100`, `text-gray-500`) with token background/surface, brand logo, i18n-wired text, RTL-aware direction
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 9.1, 9.2_ (Design §Components › Layout designs › GuestLayout)
 
-  - [ ] 8.2 Migrate `Pages/Auth/*` and `Pages/Profile/*` screens
+  - [x] 8.2 Migrate `Pages/Auth/*` and `Pages/Profile/*` screens
     - Remove all Breeze default gray classes and every `indigo-500` reference; route all user-facing text through vue-i18n keys (add matching keys in `en.ts`/`ar.ts`/`he.ts`); RTL mirroring; no horizontal overflow at 320–767px; interactive targets ≥44×44px
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 9.1, 9.2, 10.4_ (Design §Components › Layout designs)
 
-- [ ] 9. Migrate the Admin console
-  - [ ] 9.1 Add mobile-navigation parity to `AdminLayout.vue`
+- [x] 9. Migrate the Admin console
+  - [x] 9.1 Add mobile-navigation parity to `AdminLayout.vue`
     - Apply the `mobile-bottom-nav` + `mobile-logout-btn` pattern (matching `ManagerLayout`) so ≤767px exposes every top-level destination; keep the full persistent sidebar at ≥768px; reuse the shared `LanguageSwitcher`; identical nav destination set/order across all `/admin/*` screens
     - _Requirements: 6.3, 6.4, 6.5, 10.2_ (Design §Components › Layout designs › AdminLayout)
 
-  - [ ] 9.2 Token-align admin screens and replace ad-hoc styling
+  - [x] 9.2 Token-align admin screens and replace ad-hoc styling
     - `Pages/Admin/*`: replace `admin-*` and raw Bootstrap literals (`#2563ff`/`#2563eb`) with token-driven shared components + `var(--token)`; route text through i18n; use `ResponsiveTable` for tabular data; render `EmptyState` when a table has zero rows (no empty table body)
     - _Requirements: 6.1, 6.2, 6.6, 6.7, 9.1, 9.2, 12.2_ (Design §Components › Layout designs, §View-state design)
 
-- [ ] 10. Migrate the Manager dashboard
-  - [ ] 10.1 Align `ManagerLayout.vue` and dashboard screens to tokens
+- [x] 10. Migrate the Manager dashboard
+  - [x] 10.1 Align `ManagerLayout.vue` and dashboard screens to tokens
     - Token-align layout; reuse shared `LanguageSwitcher`; identical nav destination set/order across `/dashboard/*`; one primary action per view via `PageHeader`; route text through i18n
     - _Requirements: 5.1, 5.2, 5.3, 9.1, 9.2_ (Design §Components › Layout designs › ManagerLayout)
 
-  - [ ] 10.2 Apply responsive tables and view states to dashboard views
+  - [x] 10.2 Apply responsive tables and view states to dashboard views
     - Use `ResponsiveTable` for tabular data; wire `LoadingSkeleton`/`EmptyState`/`ErrorState` per data-driven view; mobile navigation at ≤767px; success via shared `flash.success` prop; loading→error transition at 10s
     - _Requirements: 5.4, 5.5, 5.7, 5.8, 10.2, 12.1, 12.2, 12.3, 12.4, 12.5_ (Design §View-state design)
 
-- [ ] 11. Refresh the Landing page
-  - [ ] 11.1 Rebuild landing sections token-driven and conversion-focused
+- [x] 11. Refresh the Landing page
+  - [x] 11.1 Rebuild landing sections token-driven and conversion-focused
     - Render `Pages/Landing/*` with tokens (zero hardcoded color/spacing literals); hero headline + subheading within the initial viewport at 320–1920px; exactly one primary-styled CTA per section wired to its destination route; token-rendered product visualization
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_ (Design §Components › Layout designs)
 
-  - [ ] 11.2 Make landing i18n-complete, RTL-aware, and mobile-safe
+  - [x] 11.2 Make landing i18n-complete, RTL-aware, and mobile-safe
     - Route all text through vue-i18n keys (matching keys in `en`/`ar`/`he`); RTL direction + mirrored layout/icons for `ar`/`he`; no horizontal overflow or clipped content at 320–767px
     - _Requirements: 4.6, 4.7, 4.8, 9.1, 9.2, 9.8, 10.6_ (Design §Components › i18n and RTL design)
 
-- [ ] 12. Refresh the Booking flow
-  - [ ] 12.1 Rebuild `Pages/Booking/Show.vue` stepper and apply tenant branding via resolver
+- [x] 12. Refresh the Booking flow
+  - [x] 12.1 Rebuild `Pages/Booking/Show.vue` stepper and apply tenant branding via resolver
     - 4-step stepper (service → date → slot → OTP) showing current + completed steps; apply `Tenant_Branding` only here via the branding resolver (task 6.2) with token fallbacks; replace inline hardcoded fallbacks (e.g. `#2563ff` service dots) with tokens/resolved branding; preserve existing OTP handling and appointment-creation behavior unchanged
     - _Requirements: 3.1, 3.5, 8.1, 8.2, 8.3, 8.4, 8.9_ (Design §Components › Layout designs › Booking)
 
-  - [ ] 12.2 Make booking i18n-complete, RTL-aware, mobile-safe, and error-accessible
+  - [x] 12.2 Make booking i18n-complete, RTL-aware, mobile-safe, and error-accessible
     - Route all text through vue-i18n keys; RTL for `ar`/`he`; each step no horizontal overflow and interactive targets ≥44×44px at 320–767px; OTP failure shows an accessible error associated with the OTP input and allows retry
     - _Requirements: 8.5, 8.6, 8.7, 8.8, 9.1, 9.2, 10.4_ (Design §Components, §Error Handling)
 
-- [ ] 13. Checkpoint - Screen migrations
+- [x] 13. Checkpoint - Screen migrations
   - Ensure all tests pass, ask the user if questions arise.
+  - Verified: `npx vite build` clean; `npm run test:unit` 39/39; `php artisan test` 76/81 (same 5 pre-existing `/profile` 404 failures, present on `main`, unrelated to this spec). Found 25 en-only i18n keys (Availability editor + some Landing/plan strings) missing from ar/he, confirmed pre-existing on `main` — deferred to task 15 per user decision.
 
-- [ ] 14. Availability UI token/visual alignment (caution)
-  - [ ] 14.1 Record and preserve the Availability_UI contract
+- [x] 14. Availability UI token/visual alignment (caution)
+  - [x] 14.1 Record and preserve the Availability_UI contract
     - Before any change, record the existing props, emitted events, and request/response payloads of `WeeklyAvailability.vue`, `SpecialDatesAvailability.vue`, and `Pages/Dashboard/Availability/*` as a snapshot to compare against
     - _Requirements: 13.1, 13.2_ (Design §Testing Strategy › Regression gate)
+    - Verified `WeeklyAvailability.vue` and `SpecialDatesAvailability.vue` are orphaned (zero references anywhere in `resources/js`) — superseded by `Pages/Dashboard/Availability/Index.vue` + its `components/` subfolder, which is the live implementation. Contract snapshot recorded below for 14.2 to compare against; out-of-scope files left untouched.
 
-  - [ ] 14.2 Apply token/visual alignment only
+  - [x] 14.2 Apply token/visual alignment only
     - Replace color/spacing literals with `var(--token)` and align to shared components visually; do NOT change props, emits, request/response payloads, or scheduling results; if a token change would alter any recorded contract or scheduling result, revert it and keep pre-redesign behavior
     - _Requirements: 13.2, 13.3, 13.4_ (Design §Components)
+    - Remapped the page-local `--slot-*` alias layer (in `index.css`) to reference canonical `--brand-*`/`--color-*` tokens where an exact-value match existed (navy, blue, blue-2, blue-soft→tint, bg, card, border, text, muted, success, success-soft); left `--slot-amber`/`--slot-danger` as their own literals (no canonical equivalent) but wired their duplicated raw-hex usages in `CalendarExceptionsCard.vue` to consume the local `var(--slot-amber)`/`var(--slot-danger)` aliases instead of repeating hex. Swapped exact-match literals (`#ffffff`/`#fff`→`var(--color-surface)`, `#dc2626`→`var(--color-danger)`, `#f8fbff`/`#eef2f7`/`#eef2f9`→`var(--color-bg)`, `#cbd5e1`→`var(--brand-border)`) across `index.css` and all 5 live components. Left 3 genuine one-offs with no token match (`#dbe3ef`, `#fff7ed`, `#b6c1d4`) untouched. Verified zero script/template diffs (all changes confined to `<style scoped>` blocks) — props/emits/payload contract from 14.1 unchanged. Visually verified via Playwright (desktop + mobile, scratch manager account, cleaned up after) — no visual regressions.
 
-- [ ] 15. Static / lint design-system hygiene checks
-  - [ ] 15.1 Banned-literal and off-token scan
+- [x] 15. Static / lint design-system hygiene checks
+  - [x] 15.1 Banned-literal and off-token scan
     - Grep internal-screen sources (admin, manager, auth, profile, landing) for `#2563eb`, `#2563ff`, and `indigo-500` and assert zero matches; flag hardcoded color/spacing/radius/shadow literals outside the token set
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 4.4, 7.2, 8.3_ (Design §Testing Strategy › Static/lint checks)
+    - Zero matches for `#2563eb`/`#2563ff`/`indigo-500` confirmed across admin/manager/auth/profile/landing (fixed 4 remaining occurrences: `Admin/Businesses/{Create,Edit}.vue` and `Dashboard/Services/{Create,Edit}.vue` form-default hex, extracted into a new shared `resources/js/lib/designTokens.ts` mirror since native `<input type="color">` defaults can't use `var()`; `schedule.css`/`appointments.css` CSS literals swapped directly to `var(--brand-blue)`). Also swept ~90 additional off-token literals (exact/near-exact matches to `--color-surface`, `--brand-navy`, `--color-border`, `--color-muted`, `--color-bg`, `--color-success`, `--color-danger`, `--brand-border`, `--color-warning`, `--color-text`) across admin.css, Layout, Landing, Dashboard, Auth, Profile, Components, Layouts. User approved swapping `appointments.css`/`schedule.css` hand-rolled status-pastel colors to `--color-warning/success/danger-bg/-text`. Left 8 literals as flagged one-offs with no canonical token match: `admin.css` dark-sidebar gradient/nav-link shades (`#0b1d43`, `#9db8ff`×2, `#cbd7f7`), `appointments.css` (`#dce6f5` border, `#eef2ff` hover, `#e2e8f0` neutral badge), `ContactSuccessCard.vue` (`#ecfdf3`) — flagged for a future dedicated design-token pass, not fixed here. `Dashboard/Availability` and `Components/{WeeklyAvailability,SpecialDatesAvailability}.vue` excluded (task 14's separate caution scope / confirmed orphaned). Verified via `npx vite build`, `npm run test:unit` (39/39), `php artisan test` (76/81, baseline), and a Playwright visual check (status badges + schedule icon, scratch data, cleaned up after).
 
-  - [ ] 15.2 i18n and branding-boundary checks
+  - [x] 15.2 i18n and branding-boundary checks
     - Assert no hardcoded user-facing string literals on refreshed components; verify i18n key parity across `en`/`ar`/`he`; assert only `Booking/Show.vue` consumes the `Branding` type (internal screens do not)
     - _Requirements: 3.1, 3.2, 4.7, 7.3, 8.6, 9.1, 9.2_ (Design §Testing Strategy › Static/lint checks)
+    - Branding-type check: found and removed an unused `import type { Branding }` in `Admin/Businesses/Edit.vue` (dead import, never referenced) — now only `Booking/Show.vue` consumes it, confirmed via repo-wide grep. Hardcoded-string sweep (excluding Booking/Availability, already covered by tasks 12/14) found and fixed real gaps: `AppointmentDetailsModal.vue` had zero i18n (fully wired now, reusing existing `appointments.*`/`common.*`/`appointmentStatus.*` keys plus 6 new `appointments.*` keys; also switched its date formatting from a hardcoded `'en-GB'` format to the existing shared `lib/formatDate.ts` locale-aware helper, previously unused anywhere); `ContactSuccessCard.vue` had zero i18n (wired, new `landing.contact.success.*` keys); `AdminLayout.vue`/`ManagerLayout.vue` sidebar `<h1>IRestTor</h1>` was hardcoded (now `t('common.console')`, an existing unused key) and `AdminLayout.vue`'s tagline was hardcoded (new `admin.tagline` key, mirroring `manager.businessDashboard`). All 9 new keys added to en/ar/he together. i18n parity check: same 25 pre-existing en-only keys as Checkpoint 13 (Availability + landing/plan strings, confirmed already on `main`, deferred by user decision) — zero new gaps introduced. Verified via `npx vite build`, `npm run test:unit` (39/39), `php artisan test` (76/81, baseline), and a Playwright visual check of the fully-wired Appointment Details modal (scratch data, cleaned up after).
+    - **Update from task 16.4**: a rigorous recursive (dot-path) parity check — as opposed to the bare-key-name regex used above and in Checkpoint 13 — showed the real gap was only 19 keys (18 live `availability.*` keys actively rendered by the Availability page, plus `common.console` which task 15.2 itself introduced as a new consumer without verifying ar/he had it), not 25/26; the rest were false positives from bare-name matching (duplicate/orphaned dead namespaces already present in all three locales). All 19 fixed, plus 2 reverse-direction extras (`landing.pricing.premium.features`, dead content present only in ar/he) removed for exact parity. See 16.4 for detail.
 
-- [ ] 16. Implement the remaining property-based tests
-  - [ ]* 16.1 Property test P3 — locale persistence round-trip
+- [x] 16. Implement the remaining property-based tests
+  - [x]* 16.1 Property test P3 — locale persistence round-trip
     - **Property 3: Locale persistence round-trip** — **Validates: Requirements 9.4, 9.5**
     - fast-check under Vitest, single test, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property 3: {property_text}`
+    - Exported `SUPPORTED_LOCALES`/`resolveInitialLocale` from `i18n/index.ts` (testability-only, no behavior change) and added `resources/js/i18n/index.spec.ts`.
 
-  - [ ]* 16.2 Property test P4 — invalid/missing locale defaults to English
+  - [x]* 16.2 Property test P4 — invalid/missing locale defaults to English
     - **Property 4: Invalid or missing persisted locale defaults to English** — **Validates: Requirements 9.6**
     - fast-check single test, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property 4: {property_text}`
+    - Added alongside 16.1 in `resources/js/i18n/index.spec.ts`.
 
-  - [ ]* 16.3 Property test P5 — direction is RTL exactly for RTL locales
+  - [x]* 16.3 Property test P5 — direction is RTL exactly for RTL locales
     - **Property 5: Direction is RTL exactly for RTL locales** — **Validates: Requirements 9.8, 9.9**
     - fast-check single test, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property 5: {property_text}`
+    - Extracted the inline `isRTL` check in `app.ts` into a new reusable `resources/js/lib/direction.ts` (`resolveDirection`), behavior-preserving; added `direction.spec.ts`.
 
-  - [ ]* 16.4 Property test P6 — translation key parity across locales
+  - [x]* 16.4 Property test P6 — translation key parity across locales
     - **Property 6: Translation key parity across locales** — **Validates: Requirements 9.1**
     - fast-check single test, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property 6: {property_text}`
+    - Added a shared `resources/js/lib/flattenKeys.ts` (dot-path recursive key flattener) and `resources/js/i18n/localeParity.spec.ts`. Writing this test surfaced that the property did not actually hold: a rigorous flatten found 19 real gaps (18 live `availability.*` keys + `common.console`, introduced by task 15.2) plus 2 reverse-direction-only keys in ar/he (`landing.pricing.premium.features`, dead/orphaned). User approved fixing; all 19 translated into ar/he and the 2 dead extras removed — verified 598/598/598 keys, zero gaps either direction, before writing the test.
 
-  - [ ]* 16.5 Property test P7 — exactly one active locale indicator
+  - [x]* 16.5 Property test P7 — exactly one active locale indicator
     - **Property 7: Exactly one active locale indicator** — **Validates: Requirements 9.7**
+    - Added to the existing `resources/js/Components/LanguageSwitcher.spec.ts` (which already had `it.each` coverage for the 3 concrete locales; this adds the ≥100-iteration fast-check property alongside it).
+    - Verified via `npx vite build` (clean), `npm run test:unit` (44/44, up from 39), `php artisan test` (76/81, unchanged baseline), `git status --porcelain -- app database routes` (empty).
     - fast-check single test, ≥100 iterations, tagged `// Feature: v1-ui-ux-refresh, Property 7: {property_text}`
 
-- [ ] 17. Cross-screen component/regression tests
-  - [ ]* 17.1 Nav parity, view-state timing, and i18n fallback tests
+- [x] 17. Cross-screen component/regression tests
+  - [x]* 17.1 Nav parity, view-state timing, and i18n fallback tests
     - Following `TrialBanner.spec.ts`: nav destination set identical across an area's screens and mobile-nav set equals desktop set; fake-timer test for loading→error at 10s; assert vue-i18n `fallbackLocale === 'en'` and a representative missing-key example renders the `en` value
     - _Requirements: 5.3, 6.3, 7.5, 9.3, 10.2, 12.5_
+    - Added `Layouts/navParity.spec.ts`: mounts `AdminLayout.vue`/`ManagerLayout.vue` (mocking `usePage`/`route`, real i18n) and asserts the desktop `.admin-nav` and mobile `.mobile-bottom-nav` render an identical href set in identical order (both already derive from the same `navItems` array by construction — this guards the invariant), and that the two nav elements are visually distinct (Requirements 5.3, 6.3, 10.2).
+    - Added `i18n/fallback.spec.ts`: asserts the real `i18n.global.fallbackLocale.value === 'en'`, and mounts a component against a synthetic i18n instance with a key present only in `en` to prove it renders the `en` text (not the raw key) when active locale is `ar` (Requirements 7.5, 9.3).
+    - **Skipped, documented rather than implemented**: the 10s loading→error fake-timer test. Audited the whole app — every screen is server-rendered via Inertia props at initial page load; there is no client-side `loading` state, fetch/XHR, or timeout logic anywhere, and the shared `ErrorState.vue` (built in task 5) has zero consumers. There is nothing live to regression-test, and building new async-loading infrastructure with no current consumer would be speculative feature work outside this task's scope. User confirmed: skip and document rather than build unused infrastructure. Flagging for whoever eventually adds a client-fetch-driven view.
+    - Verified via `npx vite build` (clean), `npm run test:unit` (50/50, up from 44), `php artisan test` (76/81, unchanged baseline), `git status --porcelain -- app database routes` (empty).
 
-- [ ] 18. Final verification and frontend-only guarantee
-  - [ ] 18.1 Build and backend regression gate
+- [x] 18. Final verification and frontend-only guarantee
+  - [x] 18.1 Build and backend regression gate
     - Run `npm run build` (must succeed) and the existing PHPUnit suite (`composer test` / `php artisan test`) proving zero new PHP failures (controllers, business logic, auth, tenant scoping, booking/OTP/appointment, availability behavior untouched)
     - _Requirements: 1.2, 1.9, 8.9, 13.5_ (Design §Testing Strategy › Regression gate)
+    - `npm run build` — clean. `composer test` / `php artisan test` — 76/81 passing, 3163 assertions, same 5 `Tests\Feature\ProfileTest` failures throughout this entire spec (missing `/profile` route, 404). Re-confirmed this run that the failures are pre-existing on `main` too (temporarily diffed `routes/` against `main` — identical, zero difference — then restored; nothing on this branch touches routing/controllers/models/migrations). `git status --porcelain -- app database routes` — empty for the whole spec's work.
 
-  - [ ] 18.2 Availability contract snapshot comparison
+  - [x] 18.2 Availability contract snapshot comparison
     - Compare `WeeklyAvailability`/`SpecialDatesAvailability` props, emits, and request/response payloads before vs after; assert identical
     - _Requirements: 13.2, 13.4, 13.5_
+    - `WeeklyAvailability.vue`/`SpecialDatesAvailability.vue` (orphaned, confirmed in 14.1) — zero diff, untouched. Live implementation (`Pages/Dashboard/Availability/Index.vue` + its 5 `components/*.vue`, and `AvailabilityController.php`): re-extracted every prop/emit from the current files and diffed against the 14.1 snapshot — identical, word-for-word. `git diff` on `Index.vue` and `AvailabilityController.php` is empty (zero lines); the 5 sub-components' diffs are 100% confined to `<style scoped>` blocks (confirmed by hunk line numbers, all past each file's script/template boundary) — task 14.2's token-only work is the only change, and it never touched props, emits, or the request/response contract.
 
-  - [ ] 18.3 Manual responsive / RTL / contrast verification checklist
+  - [x] 18.3 Manual responsive / RTL / contrast verification checklist
     - Responsive review at 320/375/768/1024/1440/1920px (no horizontal overflow, hero-in-viewport, 44px targets); RTL review in `ar`/`he` (mirrored layout/nav/icons, no LTR artifacts, desktop + mobile); accessibility audit (AA contrast across locales/directions, visible focus rings ≥3:1, keyboard-only operability, reduced-motion)
     - _Requirements: 4.1, 4.6, 4.8, 7.4, 7.6, 8.5, 8.7, 9.8, 10.1, 10.5, 10.6, 11.1, 11.2, 11.4, 11.7_ (Design §Testing Strategy › Manual/visual verification)
+    - Playwright-driven pass across Landing, Auth/Login, Booking, Manager Dashboard, Manager Availability, Admin Console (scratch data, cleaned up after) at all 6 breakpoints, in `en` and `ar` (RTL), with programmatic overflow/touch-target/reduced-motion checks plus visual screenshot review. Found and fixed 3 real bugs:
+      - **Horizontal overflow on Manager/Admin dashboards at 320–375px** (Requirement 10.5): `.admin-main` was a flex item with no `min-width: 0`, so it refused to shrink below its content's intrinsic width (the raw public booking-link URL), forcing the whole page to ~380px wide with a horizontal scrollbar even at 320px viewports. Fixed in `admin.css` (`min-width: 0` on `.admin-main`) plus `overflow-wrap: break-word` on `.dashboard-list-item` for defense in depth. Re-verified zero overflow at every breakpoint × every screen × both directions afterward.
+      - **Auth text inputs under the 44px touch-target minimum** (Requirement 7.6): shared `TextInput.vue` (used by every Auth screen) had no explicit height, rendering at 42px. Added `min-h-[44px]` + padding; updated its outdated snapshot test.
+      - **Two native inputs with no visible focus indicator** (Requirement 11.2): `.contact-form` (Landing) and `.schedule-date-picker` (Manager Schedule) both did `outline: none` with zero replacement — keyboard users tabbing to them would see nothing. Added focus-visible border/box-shadow treatments matching the pattern already used elsewhere; verified via screenshot.
+    - Reduced-motion: confirmed `tokens.css`'s existing `@media (prefers-reduced-motion: reduce)` block collapses transition/animation duration to ~0 under `page.emulateMedia({reducedMotion: 'reduce'})`.
+    - Keyboard operability: tabbed through Login — logical focus order, visible ring at every stop (screenshot-verified).
+    - Contrast: spot-checked key token pairs with the existing `contrastRatio()` helper from `resolveBranding.ts`. All pass AA except `--color-muted` (#6b7890) on white at 4.45:1 — 0.05 under the 4.5:1 normal-text threshold. This is the canonical muted-text token used across effectively every screen in the app; flagged rather than unilaterally changed. User decision: leave as-is (0.05 under threshold, not worth a pervasive token change).
+    - Verified via `npx vite build` (clean), `npm run test:unit` (50/50, snapshot updated), `php artisan test` (76/81, baseline unchanged), `git status --porcelain -- app database routes` (empty).
 
-- [ ] 19. Final checkpoint - Ensure all tests pass
+- [x] 19. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
+  - `npm run build` clean. `npm run test:unit` 50/50. `composer test` 76/81 — same 5 pre-existing `Tests\Feature\ProfileTest` failures (missing `/profile` route, 404) present on `main`, unrelated to this spec, consistent since Checkpoint 13 and re-confirmed at every gate since. All 19 top-level tasks and every subtask in this file are now checked; `grep "\[ \]"` against the whole file returns nothing else. `git status --porcelain -- app database routes` is empty for the spec's entire history — zero backend files touched. Spec complete.
 
 ## Notes
 

@@ -12,7 +12,7 @@
     align-items: center;
     gap: 14px;
     padding: 0 20px;
-    background: #ffffff;
+    background: var(--color-surface);
     border: 1.5px solid #dce6f5;
     border-radius: 20px;
     transition: all 0.2s ease;
@@ -22,19 +22,19 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    border-top: 1px solid #e5ecf6;
+    border-top: 1px solid var(--color-border);
     margin-top: 24px;
     padding-top: 20px;
 }
 
 .appointments-search:focus-within {
-    border-color: #2563eb;
+    border-color: var(--brand-blue);
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 .appointments-search i {
     font-size: 20px;
-    color: #64748b;
+    color: var(--color-muted);
     flex-shrink: 0;
 }
 
@@ -47,11 +47,11 @@
     background: transparent;
     font-size: 16px;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--color-text);
 }
 
 .appointments-search input::placeholder {
-    color: #64748b;
+    color: var(--color-muted);
     font-weight: 500;
 }
 
@@ -69,8 +69,8 @@
 
 .appointment-filter {
     border: none;
-    background: #f8fafc;
-    color: #0f172a;
+    background: var(--color-bg);
+    color: var(--color-text);
     border-radius: 14px;
     padding: 10px 16px;
     font-size: 14px;
@@ -86,23 +86,23 @@
 }
 
 .appointment-filter.active-all {
-    background: #2563eb;
-    color: #ffffff;
+    background: var(--brand-blue);
+    color: var(--color-surface);
 }
 
 .appointment-filter.active-pending {
-    background: #facc15;
-    color: #071533;
+    background: var(--color-warning);
+    color: var(--brand-navy);
 }
 
 .appointment-filter.active-confirmed {
-    background: #16a34a;
-    color: #ffffff;
+    background: var(--color-success);
+    color: var(--color-surface);
 }
 
 .appointment-filter.active-cancelled {
-    background: #dc2626;
-    color: #ffffff;
+    background: var(--color-danger);
+    color: var(--color-surface);
 }
 
 .count {
@@ -119,21 +119,21 @@
 
 .count-all {
     background: #e2e8f0;
-    color: #0f172a;
+    color: var(--color-text);
 }
 
 .count-pending {
-    background: #facc15;
-    color: #0f172a;
+    background: var(--color-warning);
+    color: var(--color-text);
 }
 
 .count-confirmed {
-    background: #16a34a;
+    background: var(--color-success);
     color: white;
 }
 
 .count-cancelled {
-    background: #dc2626;
+    background: var(--color-danger);
     color: white;
 }
 
@@ -141,21 +141,12 @@
 .appointment-filter.active-confirmed .count,
 .appointment-filter.active-cancelled .count {
     background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    color: var(--color-surface);
 }
 
 .appointment-filter.active-pending .count {
     background: rgba(255, 255, 255, 0.35);
-    color: #071533;
-}
-
-.appointment-row {
-    cursor: pointer;
-    transition: all .15s ease;
-}
-
-.appointment-row:hover {
-    background: #f8fbff;
+    color: var(--brand-navy);
 }
 
 .appointment-modal-backdrop {
@@ -176,7 +167,7 @@
     max-width: 760px;
     max-height: 90vh;
     overflow-y: auto;
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 28px;
     padding: 32px;
     box-shadow: 0 30px 80px rgba(7, 21, 51, 0.25);
@@ -188,9 +179,9 @@
     inset-inline-end: 20px;
     width: 42px;
     height: 42px;
-    border: 1px solid #e5ecf6;
+    border: 1px solid var(--color-border);
     border-radius: 14px;
-    background: #ffffff;
+    background: var(--color-surface);
 }
 
 .appointment-modal-header {
@@ -203,7 +194,7 @@
 
 .appointment-eyebrow {
     margin: 0 0 6px;
-    color: #2563eb;
+    color: var(--brand-blue);
     font-size: 12px;
     font-weight: 900;
     text-transform: uppercase;
@@ -213,7 +204,7 @@
 .appointment-modal-header h3 {
     margin: 0;
     font-weight: 900;
-    color: #071533;
+    color: var(--brand-navy);
 }
 
 .appointment-status {
@@ -226,22 +217,22 @@
 }
 
 .status-pending {
-    background: #fef3c7;
-    color: #92400e;
+    background: var(--color-warning-bg);
+    color: var(--color-warning-text);
 }
 
 .status-confirmed {
-    background: #dcfce7;
-    color: #166534;
+    background: var(--color-success-bg);
+    color: var(--color-success-text);
 }
 
 .status-cancelled {
-    background: #fee2e2;
-    color: #991b1b;
+    background: var(--color-danger-bg);
+    color: var(--color-danger-text);
 }
 
 .appointment-section {
-    border: 1px solid #e5ecf6;
+    border: 1px solid var(--color-border);
     border-radius: 22px;
     padding: 22px;
     margin-bottom: 18px;
@@ -250,7 +241,7 @@
 .appointment-section h5 {
     margin: 0 0 18px;
     font-weight: 900;
-    color: #071533;
+    color: var(--brand-navy);
 }
 
 .appointment-grid {
@@ -261,14 +252,14 @@
 
 .appointment-grid span {
     display: block;
-    color: #64748b;
+    color: var(--color-muted);
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 6px;
 }
 
 .appointment-grid strong {
-    color: #071533;
+    color: var(--brand-navy);
     font-size: 15px;
 }
 

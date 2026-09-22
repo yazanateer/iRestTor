@@ -1,10 +1,10 @@
 .admin-language-select {
-    border: 1px solid #e5ecf6;
-    background: #ffffff;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     border-radius: 12px;
     padding: 8px 12px;
     font-weight: 700;
-    color: #071533;
+    color: var(--brand-navy);
     outline: none;
 }
 
@@ -21,6 +21,33 @@
     transform: translateX(-50%);
     text-align: center;
 }
+
+/* Below 768px, absolute centering can overlap the language switcher and
+   mobile logout button (their widths aren't reserved for), so the title
+   drops to its own full-width row instead. */
+@media (max-width: 768px) {
+    .admin-topbar {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .admin-topbar-left {
+        order: 1;
+    }
+
+    .admin-topbar-actions {
+        order: 2;
+    }
+
+    .admin-topbar-center {
+        position: static;
+        left: auto;
+        transform: none;
+        order: 3;
+        width: 100%;
+    }
+}
+
 .admin-brand-icon {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 28px;

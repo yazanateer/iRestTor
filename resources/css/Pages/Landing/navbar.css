@@ -8,7 +8,7 @@
   z-index: 1000;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .landing-nav {
@@ -25,7 +25,7 @@
 .brand span {
   font-size: 2rem;
   font-weight: 900;
-  color: #0f172a;
+  color: var(--brand-navy);
   letter-spacing: -0.03em;
 }
 .brand-logo {
@@ -52,7 +52,7 @@
 }
 
 .nav-links a {
-  color: #334155;
+  color: var(--color-text);
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 700;
@@ -60,7 +60,7 @@
 }
 
 .nav-links a:hover {
-  color: #2563eb;
+  color: var(--brand-blue);
 }
 
 /* ======================================================
@@ -80,8 +80,8 @@
 .language-switcher {
   display: flex;
   align-items: center;
-  background: #f8fafc;
-  border: 1px solid #dbeafe;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   padding: 6px;
 }
@@ -89,7 +89,7 @@
 .language-switcher button {
   border: none;
   background: transparent;
-  color: #64748b;
+  color: var(--color-muted);
   font-weight: 700;
   width: 52px;
   height: 42px;
@@ -100,7 +100,7 @@
 
 .language-switcher button.active {
   background: white;
-  color: #0f172a;
+  color: var(--brand-navy);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
@@ -109,14 +109,14 @@
 ====================================================== */
 
 .login-link {
-  color: #334155;
+  color: var(--color-text);
   text-decoration: none;
   font-weight: 700;
   font-size: 1.05rem;
 }
 
 .login-link:hover {
-  color: #2563eb;
+  color: var(--brand-blue);
 }
 
 /* ======================================================
@@ -132,12 +132,12 @@
   border-radius: 18px;
   background: linear-gradient(
     135deg,
-    #2563eb,
-    #60a5fa
+    var(--brand-blue),
+    var(--brand-blue-soft)
   );
   color: white;
   font-weight: 800;
-  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.18);
+  box-shadow: 0 18px 40px rgba(37, 99, 255, 0.18);
   transition: 0.3s ease;
 }
 

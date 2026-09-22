@@ -3,6 +3,9 @@ import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps({
     status: {
@@ -23,20 +26,17 @@ const verificationLinkSent = computed(
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head :title="t('verifyEmail.title')" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            Thanks for signing up! Before getting started, could you verify your
-            email address by clicking on the link we just emailed to you? If you
-            didn't receive the email, we will gladly send you another.
+        <div class="mb-4 text-sm text-muted">
+            {{ t('verifyEmail.message') }}
         </div>
 
         <div
-            class="mb-4 text-sm font-medium text-green-600"
+            class="mb-4 text-sm font-medium text-success"
             v-if="verificationLinkSent"
         >
-            A new verification link has been sent to the email address you
-            provided during registration.
+            {{ t('verifyEmail.linkSent') }}
         </div>
 
         <form @submit.prevent="submit">
@@ -45,15 +45,15 @@ const verificationLinkSent = computed(
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Resend Verification Email
+                    {{ t('verifyEmail.resend') }}
                 </PrimaryButton>
 
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >Log Out</Link
+                    class="inline-flex min-h-[44px] items-center rounded-ds-sm text-sm text-muted underline hover:text-text focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+                    >{{ t('verifyEmail.logout') }}</Link
                 >
             </div>
         </form>

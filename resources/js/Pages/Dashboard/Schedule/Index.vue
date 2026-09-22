@@ -106,7 +106,7 @@ const appointmentsAtTime = (slot: string) => {
 </script>
 
 <template>
-    <Head title="Schedule" />
+    <Head :title="t('schedule.title')" />
 
     <ManagerLayout>
         <template #title>

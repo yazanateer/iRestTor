@@ -1,13 +1,19 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
+
 <template>
   <div class="contact-success-card">
     <div class="contact-success-icon">
       <i class="bi bi-check2-circle"></i>
     </div>
 
-    <h3>Request received successfully</h3>
+    <h3>{{ t('landing.contact.success.title') }}</h3>
 
     <p>
-      Thank you. Our team will contact you shortly to help you get started with IRestTOR.
+      {{ t('landing.contact.success.description') }}
     </p>
   </div>
 </template>
@@ -16,11 +22,11 @@
 .contact-success-card {
   max-width: 760px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 34px;
   padding: 56px 44px;
   text-align: center;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .contact-success-icon {
@@ -29,7 +35,7 @@
   margin: 0 auto 22px;
   border-radius: 50%;
   background: #ecfdf3;
-  color: #16a34a;
+  color: var(--color-success);
   display: grid;
   place-items: center;
   font-size: 36px;
@@ -42,7 +48,7 @@
 }
 
 .contact-success-card p {
-  color: #64748b;
+  color: var(--color-muted);
   font-size: 18px;
   line-height: 1.7;
 }

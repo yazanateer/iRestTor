@@ -2,6 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '../Components/LanguageSwitcher.vue';
+import FlashMessage from '../Components/FlashMessage.vue';
 import "../../css/Layout/manager.css"
 
 
@@ -28,8 +29,8 @@ const isActive = (routeName: string) => {
                 </div>
 
                 <div>
-                    <h1>IRestTor</h1>
-                    <span>{{t('manager.businessDashboard')}}</span>
+                    <h1>{{ t('common.console') }}</h1>
+                    <span>{{ t('manager.businessDashboard') }}</span>
                 </div>
             </div>
 
@@ -103,6 +104,7 @@ const isActive = (routeName: string) => {
 </header>
 
             <section class="admin-content">
+                <FlashMessage />
                 <slot />
             </section>
         </main>

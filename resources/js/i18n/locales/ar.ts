@@ -23,6 +23,7 @@ export default {
         name: 'الاسم',
         password: 'كلمة المرور',
         description: 'الوصف',
+        console: 'IRestTor',
         available: 'متاح',
         continue: 'متابعة',
         off: 'مغلق',
@@ -30,6 +31,7 @@ export default {
         business: 'النشاط التجاري',
         sentAt: 'تاريخ الإرسال',
         type: 'النوع',
+        appName: 'IRestTor',
     },
     states: {
         loading: 'جارٍ التحميل…',
@@ -90,6 +92,7 @@ export default {
         platformAdmin: 'مدير المنصة',
         console: 'لوحة تحكم IRestTor',
         systemOnline: 'النظام يعمل',
+        tagline: 'نظام حجز بالذكاء الاصطناعي',
 
         dashboard: {
             welcome: 'مرحباً، مدير النظام',
@@ -252,6 +255,12 @@ export default {
         confirm: 'تأكيد',
         reject: 'رفض',
         searchPlaceholder: 'البحث حسب اسم العميل أو رقم الهاتف',
+        detailsEyebrow: 'تفاصيل الموعد',
+        appointmentSection: 'الموعد',
+        timeline: 'الجدول الزمني',
+        bookedAt: 'تاريخ الحجز',
+        confirmedAt: 'تاريخ التأكيد',
+        cancelledAt: 'تاريخ الإلغاء',
 
         filters: {
         all: 'الكل',
@@ -302,6 +311,25 @@ pagination: {
         halfDayAM: 'نصف يوم',
         previousMonth: 'الشهر السابق',
         nextMonth: 'الشهر التالي',
+
+        weeklyScheduleDescription: 'حدد ساعات عملك الأسبوعية الافتراضية.',
+        selectedWeeklyDayHint: 'تعديل {day}. تنطبق التغييرات هنا على كل {day} ما لم يتم تجاوزها بتاريخ خاص.',
+        weeklyEditorDescription: 'تتكرر هذه الساعات كل أسبوع لهذا اليوم.',
+        selectDayToEdit: 'اختر يومًا للتعديل',
+        calendarExceptions: 'استثناءات التقويم',
+        calendarExceptionsDescription: 'تجاوز الجدول الأسبوعي لتواريخ محددة.',
+        override: 'تجاوز',
+        selectedDate: 'التاريخ المحدد',
+        usesWeeklySchedule: 'يتبع الجدول الأسبوعي',
+        addOverrideDescription: 'يتبع هذا التاريخ حاليًا الجدول الأسبوعي الافتراضي.',
+        overrideThisDate: 'تجاوز هذا التاريخ',
+        removeOverride: 'إزالة التجاوز',
+        selectDate: 'اختر تاريخًا',
+        selectDateDescription: 'اختر تاريخًا من التقويم لإدارة توفره.',
+        bookingWindow: 'نافذة الحجز',
+        bookingWindowDescription: 'اختر إلى أي مدى مسبقًا يمكن للعملاء حجز المواعيد.',
+        daysAhead: 'أيام مسبقًا',
+        bookingWindowNote: 'سيرى العملاء فقط التواريخ المتاحة خلال الأيام {days} القادمة.',
     },
 
     dashboard: {
@@ -313,6 +341,8 @@ pagination: {
         publicBookingLink: 'رابط الحجز العام',
         bookingLinkDescription: 'شارك هذا الرابط مع عملائك حتى يتمكنوا من حجز المواعيد.',
         copyLink: 'نسخ الرابط',
+        copied: 'تم النسخ!',
+        copyFailed: 'تعذر نسخ الرابط',
         quickActions: 'الإجراءات السريعة',
         quickActionsDescription: 'ابدأ بإعداد عملك التجاري.',
         createServices: 'إنشاء خدمات',
@@ -358,11 +388,14 @@ pagination: {
         noServicesDescription: 'لم يقم هذا العمل التجاري بنشر أي خدمات للحجز بعد.',
         subtitle: 'اختر خدمة، وحدد تاريخًا، ثم اختر وقتًا متاحًا.',
         selectServiceDescription: 'اختر الخدمة التي تريد حجزها.',
-        stepOne: 'الخطوة 1 من 3',
+        stepOne: 'الخطوة 1 من 4',
         chooseDateDescription: 'اختر اليوم الذي تريد زيارته فيه.',
-        stepTwo: 'الخطوة 2 من 3',
+        stepTwo: 'الخطوة 2 من 4',
         availableTimesDescription: 'اختر أحد المواعيد المتاحة.',
-        stepThree: 'الخطوة 3 من 3',
+        stepThree: 'الخطوة 3 من 4',
+        stepFour: 'الخطوة 4 من 4',
+        verification: 'التحقق',
+        progress: 'مراحل الحجز',
         selectServiceAndDate: 'اختر الخدمة والتاريخ',
         timesWillAppear: 'ستظهر الأوقات المتاحة هنا.',
         selectTimeToContinue: 'اختر وقتًا للمتابعة.',
@@ -459,6 +492,7 @@ pagination: {
         tue: 'الثلاثاء',
         wed: 'الأربعاء',
       },
+      month: 'يوليو',
 
       stats: {
         todayAppointments: 'مواعيد اليوم',
@@ -607,6 +641,11 @@ pagination: {
         consulting: 'استشارات',
         other: 'أخرى',
       },
+
+      success: {
+        title: 'تم استلام الطلب بنجاح',
+        description: 'شكرًا لك. سيتواصل معك فريقنا قريبًا لمساعدتك في البدء مع IRestTOR.',
+      },
     },
 
     mockupShowcase: {
@@ -684,17 +723,6 @@ features: {
 
     subtitle:
       'قلل من حالات عدم الحضور واحصل على تحكم كامل في الموافقة على المواعيد.',
-
-    features: [
-      'مواعيد غير محدودة',
-      'التحقق عبر OTP بالرسائل النصية',
-      'تذكيرات WhatsApp',
-      'إشعارات WhatsApp',
-      'نظام الموافقة على المواعيد',
-      'الموافقة أو رفض المواعيد',
-      'لوحة تحكم للأعمال',
-      'إشعارات للعملاء',
-    ],
   },
 
   business: {
@@ -766,6 +794,94 @@ features: {
         linkSent: 'تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.',
         resend: 'إعادة إرسال رابط التحقق',
         logout: 'تسجيل الخروج',
+    },
+
+    auth: {
+        login: {
+            title: 'تسجيل الدخول',
+            emailLabel: 'البريد الإلكتروني',
+            passwordLabel: 'كلمة المرور',
+            rememberMe: 'تذكرني',
+            forgotPassword: 'هل نسيت كلمة المرور؟',
+            submit: 'تسجيل الدخول',
+        },
+        forgotPassword: {
+            title: 'نسيت كلمة المرور',
+            description: 'هل نسيت كلمة المرور؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور يتيح لك اختيار كلمة مرور جديدة.',
+            emailLabel: 'البريد الإلكتروني',
+            submit: 'إرسال رابط إعادة تعيين كلمة المرور',
+        },
+        resetPassword: {
+            title: 'إعادة تعيين كلمة المرور',
+            emailLabel: 'البريد الإلكتروني',
+            passwordLabel: 'كلمة المرور',
+            confirmPasswordLabel: 'تأكيد كلمة المرور',
+            submit: 'إعادة تعيين كلمة المرور',
+        },
+        confirmPassword: {
+            title: 'تأكيد كلمة المرور',
+            description: 'هذه منطقة آمنة من التطبيق. يرجى تأكيد كلمة المرور قبل المتابعة.',
+            passwordLabel: 'كلمة المرور',
+            submit: 'تأكيد',
+        },
+    },
+
+    profile: {
+        title: 'الملف الشخصي',
+        information: {
+            heading: 'معلومات الملف الشخصي',
+            description: 'قم بتحديث معلومات ملفك الشخصي وعنوان بريدك الإلكتروني.',
+            nameLabel: 'الاسم',
+            emailLabel: 'البريد الإلكتروني',
+            unverified: 'عنوان بريدك الإلكتروني غير موثّق.',
+            resendVerification: 'اضغط هنا لإعادة إرسال رابط التحقق.',
+            verificationSent: 'تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.',
+            saved: 'تم الحفظ.',
+        },
+        password: {
+            heading: 'تحديث كلمة المرور',
+            description: 'تأكد من أن حسابك يستخدم كلمة مرور طويلة وعشوائية للحفاظ على الأمان.',
+            currentPasswordLabel: 'كلمة المرور الحالية',
+            newPasswordLabel: 'كلمة المرور الجديدة',
+            confirmPasswordLabel: 'تأكيد كلمة المرور',
+            saved: 'تم الحفظ.',
+        },
+        deleteAccount: {
+            heading: 'حذف الحساب',
+            description: 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته نهائيًا. قبل حذف حسابك، يرجى تنزيل أي بيانات أو معلومات ترغب في الاحتفاظ بها.',
+            button: 'حذف الحساب',
+            confirmTitle: 'هل أنت متأكد أنك تريد حذف حسابك؟',
+            confirmDescription: 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته نهائيًا. يرجى إدخال كلمة المرور لتأكيد رغبتك في حذف حسابك نهائيًا.',
+            passwordLabel: 'كلمة المرور',
+        },
+    },
+
+    businessBranding: {
+        heading: 'إعدادات العلامة التجارية',
+        publicTitleLabel: 'العنوان العام',
+        publicSubtitleLabel: 'العنوان الفرعي العام',
+        logoLabel: 'الشعار',
+        uploadLogo: 'رفع الشعار',
+        logoHint: 'PNG أو JPG حتى 2 ميجابايت',
+        coverImageLabel: 'صورة الغلاف',
+        uploadCover: 'رفع صورة الغلاف',
+        coverHint: 'يُفضل بحجم 1600×500',
+        publicDescriptionLabel: 'الوصف العام',
+        primaryColorLabel: 'اللون الأساسي',
+        secondaryColorLabel: 'اللون الثانوي',
+        accentColorLabel: 'لون التمييز',
+        previewTitle: 'معاينة مباشرة لصفحة الحجز',
+        previewDescription: 'معاينة كيف ستبدو صفحة الحجز العامة للعملاء.',
+        businessLogoAlt: 'شعار النشاط التجاري',
+        mockConsultationName: 'استشارة',
+        mockConsultationDescription: 'خدمة موعد احترافية',
+        mockFollowUpName: 'موعد متابعة',
+        mockFollowUpDescription: 'جلسة متابعة سريعة',
+        livePreviewBadge: 'معاينة مباشرة',
+        businessNamePlaceholder: 'اسم-النشاط',
+        businessNameFallback: 'اسم النشاط التجاري',
+        defaultSubtitle: 'تجربة ذكية لحجز المواعيد عبر الإنترنت',
+        defaultDescription: 'يمكن للعملاء اختيار خدمة، وتحديد تاريخ، واختيار وقت متاح، وتأكيد موعدهم بسهولة.',
     },
 
 };

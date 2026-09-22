@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import AdminLayout from '@/Layouts/AdminLayout.vue'
+import ResponsiveTable from '@/Components/ResponsiveTable.vue'
+import EmptyState from '@/Components/EmptyState.vue'
 import { Head, router } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
+import type { TableColumn } from '../../../types/global.d.ts'
 
 const { t } = useI18n()
 
@@ -19,6 +22,16 @@ defineProps<{
     }[]
   }
 }>()
+
+const columns: TableColumn[] = [
+  { key: 'name', labelKey: 'common.name' },
+  { key: 'business', labelKey: 'common.business' },
+  { key: 'phone', labelKey: 'common.phone' },
+  { key: 'type', labelKey: 'common.type' },
+  { key: 'status', labelKey: 'common.status' },
+  { key: 'sentAt', labelKey: 'common.sentAt' },
+  { key: 'actions', labelKey: 'common.actions', align: 'end' },
+]
 
 const updateStatus = (id: number, status: string) => {
   router.patch(route('admin.contact-requests.status', id), { status }, {
@@ -46,87 +59,82 @@ const updateStatus = (id: number, status: string) => {
     </div>
 
     <div class="admin-card">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>{{ t('common.name') }}</th>
-            <th>{{ t('common.business') }}</th>
-            <th>{{ t('common.phone') }}</th>
-            <th>{{ t('common.type') }}</th>
-            <th>{{ t('common.status') }}</th>
-            <th>{{ t('common.sentAt') }}</th>
-            <th class="text-end">{{ t('common.actions') }}</th>
-          </tr>
-        </thead>
+      <EmptyState
+        v-if="contactRequests.data.length === 0"
+        icon="bi-envelope-paper"
+        title-key="admin.contactRequests.empty"
+      />
 
-        <tbody>
-          <tr v-for="request in contactRequests.data" :key="request.id">
-            <td>
-              <strong>{{ request.full_name }}</strong>
+      <ResponsiveTable v-else :columns="columns" :rows="contactRequests.data" row-key="id">
+        <template #cell="{ row, column }">
+          <template v-if="column.key === 'name'">
+            <strong>{{ row.full_name }}</strong>
 
-              <div v-if="request.message" class="text-muted small mt-1">
-                {{ request.message }}
-              </div>
-            </td>
+            <div v-if="row.message" class="text-muted small mt-1">
+              {{ row.message }}
+            </div>
+          </template>
 
-            <td>{{ request.business_name || '-' }}</td>
-            <td>{{ request.phone }}</td>
-            <td>{{ request.business_type || '-' }}</td>
+          <template v-else-if="column.key === 'business'">
+            {{ row.business_name || '-' }}
+          </template>
 
-            <td>
-              <span
-                class="lead-status"
-                :class="`lead-status--${request.status}`"
-                >
-                {{ t(`admin.contactRequests.statuses.${request.status}`) }}
+          <template v-else-if="column.key === 'phone'">
+            {{ row.phone }}
+          </template>
+
+          <template v-else-if="column.key === 'type'">
+            {{ row.business_type || '-' }}
+          </template>
+
+          <template v-else-if="column.key === 'status'">
+            <span
+              class="lead-status"
+              :class="`lead-status--${row.status}`"
+              >
+              {{ t(`admin.contactRequests.statuses.${row.status}`) }}
             </span>
-            </td>
+          </template>
 
-            <td>{{ request.created_at }}</td>
+          <template v-else-if="column.key === 'sentAt'">
+            {{ row.created_at }}
+          </template>
 
-           <td class="text-end">
+          <template v-else-if="column.key === 'actions'">
             <div class="lead-actions">
-                <button
-                v-if="request.status === 'new'"
+              <button
+                v-if="row.status === 'new'"
                 class="lead-action lead-action--progress"
-                @click="updateStatus(request.id, 'in_progress')"
+                @click="updateStatus(row.id, 'in_progress')"
                 >
                 {{ t('admin.contactRequests.actions.inProgress') }}
+              </button>
 
-                </button>
+              <span v-else class="lead-action-placeholder"></span>
 
-                <span v-else class="lead-action-placeholder"></span>
-
-                <button
-                v-if="request.status !== 'converted'"
+              <button
+                v-if="row.status !== 'converted'"
                 class="lead-action lead-action--convert"
-                @click="updateStatus(request.id, 'converted')"
+                @click="updateStatus(row.id, 'converted')"
                 >
                 {{ t('admin.contactRequests.actions.convert') }}
-                </button>
+              </button>
 
-                <span v-else class="lead-action-placeholder"></span>
+              <span v-else class="lead-action-placeholder"></span>
 
-                <button
-                v-if="request.status !== 'closed'"
+              <button
+                v-if="row.status !== 'closed'"
                 class="lead-action lead-action--close"
-                @click="updateStatus(request.id, 'closed')"
+                @click="updateStatus(row.id, 'closed')"
                 >
                 {{ t('admin.contactRequests.actions.close') }}
-                </button>
+              </button>
 
-                <span v-else class="lead-action-placeholder"></span>
+              <span v-else class="lead-action-placeholder"></span>
             </div>
-            </td>
-          </tr>
-
-          <tr v-if="contactRequests.data.length === 0">
-            <td colspan="7" class="text-center text-muted py-4">
-              {{ t('admin.contactRequests.empty') }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          </template>
+        </template>
+      </ResponsiveTable>
     </div>
   </AdminLayout>
 </template>
@@ -138,30 +146,30 @@ const updateStatus = (id: number, status: string) => {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: capitalize;
 }
 
 .lead-status--new {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .lead-status--in_progress {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
 }
 
 .lead-status--converted {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
 }
 
 .lead-status--closed {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--color-muted-bg);
+  color: var(--color-muted);
 }
 
 .lead-actions {
@@ -180,24 +188,24 @@ const updateStatus = (id: number, status: string) => {
 
 .lead-action {
   border: 0;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   font-size: 0.85rem;
   font-weight: 700;
 }
 
 .lead-action--progress {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
 }
 
 .lead-action--convert {
-  background: #bfdbfe;
-  color: #1e40af;
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
 }
 
 .lead-action--close {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--color-muted-bg);
+  color: var(--color-muted);
 }
 
 .lead-action-placeholder {

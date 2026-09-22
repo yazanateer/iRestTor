@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+const arrowIcon = computed(() =>
+  ['he', 'ar'].includes(locale.value) ? 'bi-arrow-left' : 'bi-arrow-right'
+)
 </script>
 
 <template>
@@ -74,23 +79,23 @@ const { t } = useI18n()
 
               <div class="mock-date-grid">
                 <button>
-                  <small>Wed</small>
+                  <small>{{ t('landing.mockup.days.wed') }}</small>
                   <strong>8</strong>
-                  <span>Jul</span>
+                  <span>{{ t('landing.mockup.month') }}</span>
                   <em>{{ t('common.available') }}</em>
                 </button>
 
                 <button class="active">
-                  <small>Wed</small>
+                  <small>{{ t('landing.mockup.days.wed') }}</small>
                   <strong>15</strong>
-                  <span>Jul</span>
+                  <span>{{ t('landing.mockup.month') }}</span>
                   <em>{{ t('common.available') }}</em>
                 </button>
 
                 <button>
-                  <small>Wed</small>
+                  <small>{{ t('landing.mockup.days.wed') }}</small>
                   <strong>22</strong>
-                  <span>Jul</span>
+                  <span>{{ t('landing.mockup.month') }}</span>
                   <em>{{ t('common.available') }}</em>
                 </button>
               </div>
@@ -115,7 +120,7 @@ const { t } = useI18n()
 
               <button class="mock-continue">
                 {{ t('landing.mockup.continueBooking') }}
-                <i class="bi bi-arrow-right"></i>
+                <i :class="['bi', arrowIcon]"></i>
               </button>
             </div>
           </div>

@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import ResponsiveTable from '@/Components/ResponsiveTable.vue';
+import EmptyState from '@/Components/EmptyState.vue';
 import { Head, Link, router} from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n';
-import type { Business } from '../../../types/global.d.ts';
+import type { Business, TableColumn } from '../../../types/global.d.ts';
 
 defineProps<{
     businesses: Business[];
 }>();
 
 const { t } = useI18n();
+
+const columns: TableColumn[] = [
+    { key: 'name', labelKey: 'common.name' },
+    { key: 'bookingLink', labelKey: 'admin.businesses.bookingLink' },
+    { key: 'phone', labelKey: 'common.phone' },
+    { key: 'email', labelKey: 'common.email' },
+    { key: 'status', labelKey: 'common.status' },
+    { key: 'actions', labelKey: 'common.actions', align: 'end' },
+];
 
 const deleteBusiness = (id: number) => {
     if(confirm(t('admin.businesses.deleteConfirm'))) {
@@ -50,66 +61,58 @@ const deleteBusiness = (id: number) => {
     </div>
 
         <div class="admin-card">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>{{ t('common.name') }}</th>
-                        <th>{{ t('admin.businesses.bookingLink') }}</th>
-                        <th>{{ t('common.phone') }}</th>
-                        <th>{{ t('common.email') }}</th>
-                        <th>{{ t('common.status') }}</th>
-                        <th class="text-end">{{ t('common.actions') }}</th>
-                    </tr>
-                </thead>
+            <EmptyState
+                v-if="businesses.length === 0"
+                icon="bi-building"
+                title-key="admin.businesses.empty"
+                action-label-key="admin.businesses.createBusiness"
+                :action-href="route('admin.businesses.create')"
+            />
 
-                <tbody>
-                    <tr v-for="business in businesses" :key="business.id">
-                        <td>
-                            <strong>{{ business.name }}</strong>
-                        </td>
+            <ResponsiveTable v-else :columns="columns" :rows="businesses" row-key="id">
+                <template #cell="{ row, column }">
+                    <template v-if="column.key === 'name'">
+                        <strong>{{ row.name }}</strong>
+                    </template>
 
-                        <td>
-                            <span class="text-muted">
-                                /book/{{ business.slug }}
-                            </span>
-                        </td>
+                    <template v-else-if="column.key === 'bookingLink'">
+                        <span class="text-muted">/book/{{ row.slug }}</span>
+                    </template>
 
-                        <td>{{ business.phone || '-' }}</td>
-                        <td>{{ business.email || '-' }}</td>
+                    <template v-else-if="column.key === 'phone'">
+                        {{ row.phone || '-' }}
+                    </template>
 
-                        <td>
-                            <span
-                                class="admin-badge"
-                                :class="business.is_active ? 'admin-badge-success' : 'admin-badge-inactive'"
-                            >
-                                {{ business.is_active ? t('common.active') : t('common.inactive') }}
-                            </span>
-                        </td>
+                    <template v-else-if="column.key === 'email'">
+                        {{ row.email || '-' }}
+                    </template>
 
-                        <td class="text-end">
-                            <Link
-                                :href="route('admin.businesses.edit', business.id)"
-                                class="btn btn-sm btn-outline-primary me-2"
-                            >
-                                {{t('common.edit')}}
-                            </Link>
+                    <template v-else-if="column.key === 'status'">
+                        <span
+                            class="admin-badge"
+                            :class="row.is_active ? 'admin-badge-success' : 'admin-badge-inactive'"
+                        >
+                            {{ row.is_active ? t('common.active') : t('common.inactive') }}
+                        </span>
+                    </template>
 
-                            <button
-                                class="btn btn-sm btn-outline-danger"
-                                @click="deleteBusiness(business.id)"
-                            >
-                                {{ t('common.delete') }}
-                            </button>
-                        </td>
-                    </tr>
+                    <template v-else-if="column.key === 'actions'">
+                        <Link
+                            :href="route('admin.businesses.edit', row.id)"
+                            class="admin-secondary-btn admin-btn-sm me-2"
+                        >
+                            {{ t('common.edit') }}
+                        </Link>
 
-                    <tr v-if="businesses.length === 0">
-                        <td colspan="6" class="text-center text-muted py-4">
-                            {{ t('admin.businesses.empty') }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <button
+                            class="admin-danger-btn admin-btn-sm"
+                            @click="deleteBusiness(row.id)"
+                        >
+                            {{ t('common.delete') }}
+                        </button>
+                    </template>
+                </template>
+            </ResponsiveTable>
         </div>
     </AdminLayout>
 </template>

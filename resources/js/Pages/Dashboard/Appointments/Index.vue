@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import ManagerLayout from '@/Layouts/ManagerLayout.vue';
+import PageHeader from '@/Components/PageHeader.vue';
+import StatusBadge from '@/Components/StatusBadge.vue';
+import ResponsiveTable from '@/Components/ResponsiveTable.vue';
+import EmptyState from '@/Components/EmptyState.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { Appointment } from '../../../types/global.d.ts';
+import type { Appointment, AppointmentStatus, TableColumn } from '../../../types/global.d.ts';
 import "../../../../css/Pages/appointments.css"
 import AppointmentDetailsModal from "../Appointments/AppointmentDetailsModal.vue"
+
+const columns: TableColumn[] = [
+    { key: 'customer', labelKey: 'appointments.customer' },
+    { key: 'service', labelKey: 'appointments.service' },
+    { key: 'date', labelKey: 'appointments.date' },
+    { key: 'time', labelKey: 'appointments.time' },
+    { key: 'status', labelKey: 'appointments.status' },
+    { key: 'actions', labelKey: 'appointments.actions' },
+];
 
 type PaginationLink = {
     url: string | null
@@ -82,22 +95,6 @@ const rejectAppointment = (appointmentId: number) => {
     });
 };
 
-const getStatusLabel = (status: string) => {
-    switch (status) {
-        case 'confirmed':
-            return t('appointmentStatus.confirmed');
-
-        case 'pending_approval':
-            return t('appointmentStatus.pending');
-
-        case 'cancelled':
-            return t('appointmentStatus.cancelled');
-
-        default:
-            return status;
-    }
-};
-
 const selectedAppointment = ref<Appointment | null>(null);
 
 const openAppointment = (appointment: Appointment) => {
@@ -126,12 +123,11 @@ const formatTime = (time: string) => {
             {{ t('appointments.title') }}
         </template>
 
-        <div class="mb-4">
-            <h3 class="fw-bold mb-1">{{ t('appointments.heading') }}</h3>
-            <p class="text-muted mb-0">
-                {{ t('appointments.description') }}
-            </p>
-        </div>
+        <PageHeader title-key="appointments.heading" />
+
+        <p class="text-muted mb-4">
+            {{ t('appointments.description') }}
+        </p>
 
         <div class="admin-card">
             <div class="appointments-toolbar mb-4">
@@ -187,58 +183,53 @@ const formatTime = (time: string) => {
                     </button>
                 </div>
             </div>
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                    <th>{{ t('appointments.customer') }}</th>
-                    <th>{{ t('appointments.service') }}</th>
-                    <th>{{ t('appointments.date') }}</th>
-                    <th>{{ t('appointments.time') }}</th>
-                    <th>{{ t('appointments.status') }}</th>
-                    <th>{{ t('appointments.actions') }}</th>
-                    </tr>
-                </thead>
+            <EmptyState
+                v-if="appointments.data.length === 0"
+                icon="bi-calendar-check"
+                title-key="appointments.noAppointments"
+            />
 
-                <tbody>
-                    <tr v-for="appointment in appointments.data" 
-                        :key="appointment.id" 
-                        class="appointment-row"
-                        @click="openAppointment(appointment)">
-                        <td>
-                            <strong>{{ appointment.customer_name }}</strong>
-                            <div class="text-muted small">
-                                {{ appointment.customer_phone }}
-                            </div>
-                        </td>
+            <ResponsiveTable
+                v-else
+                :columns="columns"
+                :rows="appointments.data"
+                row-key="id"
+                clickable-rows
+                @row-click="openAppointment($event as unknown as Appointment)"
+            >
+                <template #cell="{ row, column }">
+                    <template v-if="column.key === 'customer'">
+                        <strong>{{ row.customer_name }}</strong>
+                        <div class="text-muted small">
+                            {{ row.customer_phone }}
+                        </div>
+                    </template>
 
-                        <td>{{ appointment.service?.name || '-' }}</td>
+                    <template v-else-if="column.key === 'service'">
+                        {{ row.service?.name || '-' }}
+                    </template>
 
-                        <td>{{ formatDate(appointment.appointment_date)}}</td>
+                    <template v-else-if="column.key === 'date'">
+                        {{ formatDate(row.appointment_date) }}
+                    </template>
 
-                        <td>
-                            {{ formatTime(appointment.start_time) }} - {{ formatTime(appointment.end_time) }}
-                        </td>
-                        <td>
-                            <span
-                                class="badge"
-                                :class="{
-                                    'bg-warning text-dark': appointment.status === 'pending_approval',
-                                    'bg-success': appointment.status === 'confirmed',
-                                    'bg-danger': appointment.status === 'cancelled',
-                                }"
-                            >
-                                {{ getStatusLabel(appointment.status) }}
-                            </span>
-                        </td>
-                        <td>
+                    <template v-else-if="column.key === 'time'">
+                        {{ formatTime(row.start_time) }} - {{ formatTime(row.end_time) }}
+                    </template>
+
+                    <template v-else-if="column.key === 'status'">
+                        <StatusBadge :status="row.status as AppointmentStatus" />
+                    </template>
+
+                    <template v-else-if="column.key === 'actions'">
                         <div
-                            v-if="appointment.status === 'pending_approval'"
+                            v-if="row.status === 'pending_approval'"
                             class="d-flex gap-2"
                         >
                             <button
                                 type="button"
-                                class="btn btn-success btn-sm"
-                                @click="confirmAppointment(appointment.id)"
+                                class="admin-success-btn admin-btn-sm"
+                                @click="confirmAppointment(row.id)"
                             >
                                 <i class="bi bi-check-lg"></i>
                                 {{ t('appointments.confirm') }}
@@ -246,8 +237,8 @@ const formatTime = (time: string) => {
 
                             <button
                                 type="button"
-                                class="btn btn-outline-danger btn-sm"
-                                @click="rejectAppointment(appointment.id)"
+                                class="admin-danger-btn admin-btn-sm"
+                                @click="rejectAppointment(row.id)"
                             >
                                 <i class="bi bi-x-lg"></i>
                                 {{ t('appointments.reject') }}
@@ -256,23 +247,16 @@ const formatTime = (time: string) => {
                         <span v-else class="text-muted small">
                             —
                         </span>
-                    </td>
-                    </tr>
-
-                    <tr v-if="appointments.data.length === 0">
-                        <td colspan="5" class="text-center text-muted py-4">
-                        {{ t('appointments.noAppointments') }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </template>
+                </template>
+            </ResponsiveTable>
             <div class="d-flex justify-content-center gap-2 mt-4 flex-wrap">
                 <button
                     v-for="link in appointments.links"
                     :key="link.label"
                     type="button"
-                    class="btn btn-sm"
-                    :class="link.active ? 'btn-primary' : 'btn-light'"
+                    class="admin-btn-sm"
+                    :class="link.active ? 'admin-primary-btn' : 'admin-secondary-btn'"
                     :disabled="!link.url"
                     @click="link.url && router.visit(link.url, {
                         preserveScroll: true,

@@ -3,9 +3,10 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import '../../../../css/admin/business-branding.css'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import type { Branding, Business, Plan } from '../../../types/global.d.ts'; 
+import type { Business, Plan } from '../../../types/global.d.ts';
 import { computed } from 'vue';
 import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue';
+import { BRAND_BLUE, BRAND_BLUE_SOFT, COLOR_SUCCESS } from '../../../lib/designTokens.ts';
 
 const props = defineProps<{
     business: Business
@@ -34,9 +35,9 @@ const form = useForm({
     plan_id: props.business.plan_id ?? '',
     is_active: props.business.is_active,
 
-    primary_color: props.business.branding?.primary_color ?? '#2563ff',
-    secondary_color: props.business.branding?.secondary_color ?? '#3b82f6',
-    accent_color: props.business.branding?.accent_color ?? '#16a34a',
+    primary_color: props.business.branding?.primary_color ?? BRAND_BLUE,
+    secondary_color: props.business.branding?.secondary_color ?? BRAND_BLUE_SOFT,
+    accent_color: props.business.branding?.accent_color ?? COLOR_SUCCESS,
     public_title: props.business.branding?.public_title ?? '',
     public_subtitle: props.business.branding?.public_subtitle ?? '',
     public_description: props.business.branding?.public_description ?? '',
@@ -81,7 +82,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.name" class="text-danger small mt-1">
+                    <div v-if="form.errors.name" class="admin-error-text">
                         {{ form.errors.name }}
                     </div>
                 </div>
@@ -101,7 +102,7 @@ const submit = () => {
                         {{ t('admin.businesses.slugHint') }}
                     </small>
 
-                    <div v-if="form.errors.slug" class="text-danger small mt-1">
+                    <div v-if="form.errors.slug" class="admin-error-text">
                         {{ form.errors.slug }}
                     </div>
                 </div>
@@ -117,7 +118,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.phone" class="text-danger small mt-1">
+                    <div v-if="form.errors.phone" class="admin-error-text">
                         {{ form.errors.phone }}
                     </div>
                 </div>
@@ -133,7 +134,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.email" class="text-danger small mt-1">
+                    <div v-if="form.errors.email" class="admin-error-text">
                         {{ form.errors.email }}
                     </div>
                 </div>
@@ -149,7 +150,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.address" class="text-danger small mt-1">
+                    <div v-if="form.errors.address" class="admin-error-text">
                         {{ form.errors.address }}
                     </div>
                 </div>
@@ -165,7 +166,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.timezone" class="text-danger small mt-1">
+                    <div v-if="form.errors.timezone" class="admin-error-text">
                         {{ form.errors.timezone }}
                     </div>
                 </div>
@@ -191,7 +192,7 @@ const submit = () => {
                         </option>
                     </select>
 
-                    <div v-if="form.errors.plan_id" class="text-danger small mt-1">
+                    <div v-if="form.errors.plan_id" class="admin-error-text">
                         {{ form.errors.plan_id }}
                     </div>
                     </div>
@@ -229,7 +230,7 @@ const submit = () => {
 
                     <Link
                         :href="route('admin.businesses.index')"
-                        class="btn btn-light"
+                        class="admin-secondary-btn"
                     >
                         {{ t('common.cancel') }}
                     </Link>

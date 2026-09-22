@@ -5,7 +5,9 @@ import { computed, ref, watch } from 'vue';
 import '@/../../resources/css/Pages/booking.css';
 import BookingDetailsModal from '@/../../resources/js/Components/Booking/BookingDetailsModal.vue';
 import BookingOtpModal from '../../Components/Booking/BookingOtpModal.vue';
+import BookingStepper from '../../Components/Booking/BookingStepper.vue';
 import { useI18n } from 'vue-i18n';
+import { resolveBranding } from '../../lib/resolveBranding.ts';
 import type { Branding, Business, DeliveryChannel, Service, Slot} from '../../../js/types/global.d.ts'
 
 type DateOverride = {
@@ -30,6 +32,8 @@ const props = defineProps<{
     whatsappEnabled: boolean;
 }>();
 
+const resolvedBranding = computed(() => resolveBranding(props.branding));
+
 const selectedChannel = ref<DeliveryChannel | null>(props.whatsappEnabled ? null : 'sms');
 
 const currentStep = ref<'booking' | 'details'>('booking');
@@ -51,6 +55,20 @@ const confirming = ref(false)
 
 const selectedService = computed(() => {
     return props.services.find((service) => service.id === selectedServiceId.value) ?? null;
+});
+
+// 0=service, 1=date, 2=time, 3=verification — derived purely from existing
+// booking state, does not alter any booking/OTP behavior.
+const currentStepIndex = computed(() => {
+    if (currentStep.value === 'details' || showOtpModal.value || bookingSuccess.value) {
+        return 3;
+    }
+
+    if (selectedSlot.value) return 2;
+    if (selectedDate.value) return selectedService.value ? 2 : 1;
+    if (selectedService.value) return 1;
+
+    return 0;
 });
 
 const mobileSummaryLine = computed(() => {
@@ -268,9 +286,12 @@ const currentLanguage = () => {
     <Head :title="t('booking.pageTitle', { business: business.name })" />
     <div class="booking-page"
          :style="{
-             '--booking-primary': branding?.primary_color ?? '#2563ff',
-             '--booking-secondary': branding?.secondary_color ?? '#3b82f6',
-             '--booking-accent': branding?.accent_color ?? '#16a34a',
+             '--booking-primary': resolvedBranding.primary.background,
+             '--booking-primary-on': resolvedBranding.primary.onColor,
+             '--booking-secondary': resolvedBranding.secondary.background,
+             '--booking-secondary-on': resolvedBranding.secondary.onColor,
+             '--booking-accent': resolvedBranding.accent.background,
+             '--booking-accent-on': resolvedBranding.accent.onColor,
         }"
     >
         <div class="booking-shell">
@@ -292,13 +313,13 @@ const currentLanguage = () => {
                             <button
                                 type="button"
                                 class="dropdown-item booking-language-item"
-                                :class="{ active: locale.value === lang.code }"
+                                :class="{ active: locale === lang.code }"
                                 @click="setLanguage(lang.code)"
                             >
                                 <span>{{ lang.name }}</span>
 
                                 <i
-                                    v-if="locale.value === lang.code"
+                                    v-if="locale === lang.code"
                                     class="bi bi-check-lg"
                                 ></i>
                             </button>
@@ -306,18 +327,18 @@ const currentLanguage = () => {
                     </ul>
                 </div>
                 <div
-                    v-if="branding?.cover_image_url"
+                    v-if="resolvedBranding.coverImageUrl"
                     class="booking-cover"
-                    :style="{ backgroundImage: `url(${branding.cover_image_url})` }"
+                    :style="{ backgroundImage: `url(${resolvedBranding.coverImageUrl})` }"
                 ></div>
                 <div class="booking-brand">
                     <div class="booking-logo">
                         <img
-                            v-if="branding?.logo_url"
-                            :src="branding.logo_url"
+                            v-if="resolvedBranding.logoUrl"
+                            :src="resolvedBranding.logoUrl"
                             />
                         <span v-else>{{ business.name.charAt(0) }}</span>
-                        
+
                     </div>
 
                     <div>
@@ -325,23 +346,23 @@ const currentLanguage = () => {
                             {{ t('booking.onlineBooking') }}
                         </p>
 
-                        <h1>{{ 
-                                branding?.public_title
-                                || business.name 
+                        <h1>{{
+                                resolvedBranding.publicTitle
+                                || business.name
                             }}
                         </h1>
 
                         <p class="booking-subtitle">
                             {{
-                                 branding?.public_subtitle
-                                 || t('booking.subtitle') 
+                                 resolvedBranding.publicSubtitle
+                                 || t('booking.subtitle')
                             }}
                         </p>
                         <p
-                            v-if="branding?.public_description"
+                            v-if="resolvedBranding.publicDescription"
                             class="booking-description"
                         >
-                            {{ branding.public_description }}
+                            {{ resolvedBranding.publicDescription }}
                         </p>
                     </div>
                 </div>
@@ -358,6 +379,8 @@ const currentLanguage = () => {
                     </span>
                 </div>
             </div>
+
+            <BookingStepper v-if="!bookingSuccess" :current-step-index="currentStepIndex" />
 
             <div v-if="!bookingSuccess" class="booking-card">
                 <div class="booking-card-header">
@@ -383,7 +406,7 @@ const currentLanguage = () => {
                         <div class="booking-service-left">
                             <div
                                 class="booking-service-dot"
-                                :style="{ background: service.color || '#2563ff' }"
+                                :style="{ background: service.color || 'var(--booking-primary)' }"
                             ></div>
 
                             <div>

@@ -37,7 +37,7 @@ const submit = () => {
                 <div class="admin-form-group">
                     <label class="admin-label">{{t('admin.managers.managerName')}}</label>
                     <input v-model="form.name" type="text" class="admin-input" />
-                    <div v-if="form.errors.name" class="text-danger small mt-1">
+                    <div v-if="form.errors.name" class="admin-error-text">
                         {{ form.errors.name }}
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const submit = () => {
                 <div class="admin-form-group">
                     <label class="admin-label">{{ t('common.email')}}</label>
                     <input v-model="form.email" type="email" class="admin-input" />
-                    <div v-if="form.errors.email" class="text-danger small mt-1">
+                    <div v-if="form.errors.email" class="admin-error-text">
                         {{ form.errors.email }}
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.phone" class="text-danger small mt-1">
+                    <div v-if="form.errors.phone" class="admin-error-text">
                         {{ form.errors.phone }}
                     </div>
                 </div>
@@ -66,7 +66,7 @@ const submit = () => {
                 <div class="admin-form-group">
                     <label class="admin-label">{{ t('common.password') }}</label>
                     <input v-model="form.password" type="password" class="admin-input" />
-                    <div v-if="form.errors.password" class="text-danger small mt-1">
+                    <div v-if="form.errors.password" class="admin-error-text">
                         {{ form.errors.password }}
                     </div>
                 </div>
@@ -83,7 +83,7 @@ const submit = () => {
                             {{ business.name }}
                         </option>
                     </select>
-                    <div v-if="form.errors.business_id" class="text-danger small mt-1">
+                    <div v-if="form.errors.business_id" class="admin-error-text">
                         {{ form.errors.business_id }}
                     </div>
                 </div>
@@ -93,7 +93,7 @@ const submit = () => {
                         {{ t('admin.managers.createManager') }}
                     </button>
 
-                    <Link :href="route('admin.managers.index')" class="btn btn-light">
+                    <Link :href="route('admin.managers.index')" class="admin-secondary-btn">
                         {{ t('common.cancel') }}
                     </Link>
                 </div>

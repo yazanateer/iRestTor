@@ -4,9 +4,9 @@ import en from './locales/en.ts'
 import ar from './locales/ar.ts'
 import he from './locales/he.ts'
 
-const SUPPORTED_LOCALES = ['en', 'ar', 'he'] as const;
+export const SUPPORTED_LOCALES = ['en', 'ar', 'he'] as const;
 
-const resolveInitialLocale = (): (typeof SUPPORTED_LOCALES)[number] => {
+export const resolveInitialLocale = (): (typeof SUPPORTED_LOCALES)[number] => {
     let stored: string | null = null;
 
     try {

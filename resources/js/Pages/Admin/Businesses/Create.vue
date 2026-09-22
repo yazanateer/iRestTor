@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
 import BusinessBrandingForm from '../../../Components/Booking/BusinessBrandingForm.vue'
 import type { Plan } from '../../../types/global.d.ts'
+import { BRAND_BLUE, BRAND_BLUE_SOFT, COLOR_SUCCESS } from '../../../lib/designTokens.ts'
 const form = useForm({
     logo: null as File | null,
     cover_image: null as File | null,
@@ -19,9 +20,9 @@ const form = useForm({
     is_active: true,
     plan_id: '',
 
-    primary_color: '#2563ff',
-    secondary_color: '#3b82f6',
-    accent_color: '#16a34a',
+    primary_color: BRAND_BLUE,
+    secondary_color: BRAND_BLUE_SOFT,
+    accent_color: COLOR_SUCCESS,
     public_title: '',
     public_subtitle: '',
     public_description: '',
@@ -70,7 +71,7 @@ const coverPreview = computed(() => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.name" class="text-danger small mt-1">
+                    <div v-if="form.errors.name" class="admin-error-text">
                         {{ form.errors.name }}
                     </div>
                 </div>
@@ -90,7 +91,7 @@ const coverPreview = computed(() => {
                         {{ t('admin.businesses.slugHint') }}
                     </small>
 
-                    <div v-if="form.errors.slug" class="text-danger small mt-1">
+                    <div v-if="form.errors.slug" class="admin-error-text">
                         {{ form.errors.slug }}
                     </div>
                 </div>
@@ -106,7 +107,7 @@ const coverPreview = computed(() => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.phone" class="text-danger small mt-1">
+                    <div v-if="form.errors.phone" class="admin-error-text">
                         {{ form.errors.phone }}
                     </div>
                 </div>
@@ -122,7 +123,7 @@ const coverPreview = computed(() => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.email" class="text-danger small mt-1">
+                    <div v-if="form.errors.email" class="admin-error-text">
                         {{ form.errors.email }}
                     </div>
                 </div>
@@ -138,7 +139,7 @@ const coverPreview = computed(() => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.address" class="text-danger small mt-1">
+                    <div v-if="form.errors.address" class="admin-error-text">
                         {{ form.errors.address }}
                     </div>
                 </div>
@@ -154,7 +155,7 @@ const coverPreview = computed(() => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.timezone" class="text-danger small mt-1">
+                    <div v-if="form.errors.timezone" class="admin-error-text">
                         {{ form.errors.timezone }}
                     </div>
                 </div>
@@ -180,7 +181,7 @@ const coverPreview = computed(() => {
                         </option>
                     </select>
 
-                    <div v-if="form.errors.plan_id" class="text-danger small mt-1">
+                    <div v-if="form.errors.plan_id" class="admin-error-text">
                         {{ form.errors.plan_id }}
                     </div>
                     </div>
@@ -216,7 +217,7 @@ const coverPreview = computed(() => {
 
                     <Link
                         :href="route('admin.businesses.index')"
-                        class="btn btn-light"
+                        class="admin-secondary-btn"
                     >
                         {{ t('common.cancel') }}
                     </Link>

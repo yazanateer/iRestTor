@@ -32,8 +32,8 @@ const submit = () => {
     <GuestLayout>
         <Head :title="t('register.title')" />
 
-        <h1 class="text-lg font-semibold text-gray-900">{{ t('register.title') }}</h1>
-        <p class="mt-1 text-sm text-gray-600">{{ t('register.subtitle') }}</p>
+        <h1 class="text-lg font-semibold text-navy">{{ t('register.title') }}</h1>
+        <p class="mt-1 text-sm text-muted">{{ t('register.subtitle') }}</p>
 
         <form class="mt-6" @submit.prevent="submit">
             <div>
@@ -143,11 +143,11 @@ const submit = () => {
             <div class="mt-4 block">
                 <label class="flex items-start">
                     <Checkbox name="terms" v-model:checked="form.terms" />
-                    <span class="ms-2 text-sm text-gray-600">
+                    <span class="ms-2 text-sm text-muted">
                         {{ t('register.termsPrefix') }}
-                        <a href="/terms" target="_blank" class="underline hover:text-gray-900">{{ t('register.termsOfService') }}</a>
+                        <a href="/terms" target="_blank" class="underline hover:text-text">{{ t('register.termsOfService') }}</a>
                         {{ t('register.termsMiddle') }}
-                        <a href="/privacy" target="_blank" class="underline hover:text-gray-900">{{ t('register.privacyPolicy') }}</a>
+                        <a href="/privacy" target="_blank" class="underline hover:text-text">{{ t('register.privacyPolicy') }}</a>
                     </span>
                 </label>
 
@@ -157,7 +157,7 @@ const submit = () => {
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="inline-flex min-h-[44px] items-center rounded-ds-sm text-sm text-muted underline hover:text-text focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
                 >
                     {{ t('register.alreadyHaveAccount') }} {{ t('register.login') }}
                 </Link>

@@ -23,6 +23,7 @@ export default {
         name: 'שם',
         password: 'סיסמה',
         description: 'תיאור',
+        console: 'IRestTor',
         available: 'זמין',
         continue: 'המשך',
         off: 'כבוי',
@@ -30,6 +31,7 @@ export default {
         business: 'עסק',
         sentAt: 'נשלח',
         type: 'סוג',
+        appName: 'IRestTor',
 
     },
     states: {
@@ -91,6 +93,7 @@ export default {
         platformAdmin: 'מנהל פלטפורמה',
         console: 'קונסולת מנהל IRestTor',
         systemOnline: 'המערכת פעילה',
+        tagline: 'מערכת הזמנות מבוססת בינה מלאכותית',
 
         dashboard: {
             welcome: 'ברוך הבא, מנהל SaaS',
@@ -254,6 +257,12 @@ export default {
         confirm: 'אישור',
         reject: 'דחייה',
         searchPlaceholder: 'חיפוש לפי שם לקוח או טלפון',
+        detailsEyebrow: 'פרטי התור',
+        appointmentSection: 'תור',
+        timeline: 'ציר זמן',
+        bookedAt: 'תאריך הזמנה',
+        confirmedAt: 'תאריך אישור',
+        cancelledAt: 'תאריך ביטול',
 
         filters: {
         all: 'הכל',
@@ -304,6 +313,25 @@ pagination: {
         halfDayAM: 'חצי יום',
         previousMonth: 'החודש הקודם',
         nextMonth: 'החודש הבא',
+
+        weeklyScheduleDescription: 'הגדר את שעות העבודה השבועיות שלך כברירת מחדל.',
+        selectedWeeklyDayHint: 'עריכת {day}. שינויים כאן חלים על כל {day} אלא אם נדרס בתאריך מיוחד.',
+        weeklyEditorDescription: 'השעות הללו חוזרות על עצמן בכל שבוע ביום זה.',
+        selectDayToEdit: 'בחר יום לעריכה',
+        calendarExceptions: 'חריגות יומן',
+        calendarExceptionsDescription: 'דרוס את הלוח השבועי לתאריכים ספציפיים.',
+        override: 'דריסה',
+        selectedDate: 'התאריך הנבחר',
+        usesWeeklySchedule: 'פועל לפי הלוח השבועי',
+        addOverrideDescription: 'תאריך זה פועל כרגע לפי הלוח השבועי כברירת מחדל.',
+        overrideThisDate: 'דרוס תאריך זה',
+        removeOverride: 'הסר דריסה',
+        selectDate: 'בחר תאריך',
+        selectDateDescription: 'בחר תאריך מהיומן כדי לנהל את זמינותו.',
+        bookingWindow: 'חלון הזמנות',
+        bookingWindowDescription: 'בחר עד כמה מראש לקוחות יכולים לקבוע תורים.',
+        daysAhead: 'ימים מראש',
+        bookingWindowNote: 'לקוחות יראו רק תאריכים זמינים בטווח של {days} הימים הקרובים.',
     },
 
     dashboard: {
@@ -315,6 +343,8 @@ pagination: {
         publicBookingLink: 'קישור הזמנה ציבורי',
         bookingLinkDescription: 'שתף קישור זה עם הלקוחות שלך כדי שיוכלו לקבוע תורים.',
         copyLink: 'העתק קישור',
+        copied: 'הועתק!',
+        copyFailed: 'לא ניתן להעתיק את הקישור',
         quickActions: 'פעולות מהירות',
         quickActionsDescription: 'התחל להגדיר את העסק שלך.',
         createServices: 'יצירת שירותים',
@@ -360,11 +390,14 @@ pagination: {
         noServicesDescription: 'עסק זה טרם פרסם שירותים לקביעת תורים.',
         subtitle: 'בחר שירות, תאריך ושעה פנויה.',
         selectServiceDescription: 'בחר את השירות שברצונך להזמין.',
-        stepOne: 'שלב 1 מתוך 3',
+        stepOne: 'שלב 1 מתוך 4',
         chooseDateDescription: 'בחר את היום שבו תרצה להגיע.',
-        stepTwo: 'שלב 2 מתוך 3',
+        stepTwo: 'שלב 2 מתוך 4',
         availableTimesDescription: 'בחר אחת מהשעות הפנויות לתור.',
-        stepThree: 'שלב 3 מתוך 3',
+        stepThree: 'שלב 3 מתוך 4',
+        stepFour: 'שלב 4 מתוך 4',
+        verification: 'אימות',
+        progress: 'התקדמות ההזמנה',
         selectServiceAndDate: 'בחר שירות ותאריך',
         timesWillAppear: 'השעות הזמינות יופיעו כאן.',
         selectTimeToContinue: 'בחר שעת תור כדי להמשיך.',
@@ -461,6 +494,7 @@ pagination: {
         tue: 'ג׳',
         wed: 'ד׳',
       },
+      month: 'יולי',
 
       stats: {
         todayAppointments: 'תורים היום',
@@ -607,6 +641,11 @@ pagination: {
         consulting: 'ייעוץ',
         other: 'אחר',
       },
+
+      success: {
+        title: 'הבקשה התקבלה בהצלחה',
+        description: 'תודה. הצוות שלנו ייצור איתך קשר בקרוב כדי לעזור לך להתחיל עם IRestTOR.',
+      },
     },
 
     mockupShowcase: {
@@ -688,17 +727,6 @@ pagination: {
 
     subtitle:
       'צמצום אי-הגעה ושליטה מלאה על אישור התורים.',
-
-    features: [
-      'תורים ללא הגבלה',
-      'אימות SMS באמצעות OTP',
-      'תזכורות WhatsApp',
-      'התראות WhatsApp',
-      'מערכת אישור תורים',
-      'אישור או דחיית תורים',
-      'דאשבורד עסקי',
-      'התראות ללקוחות',
-    ],
   },
 
   business: {
@@ -770,6 +798,94 @@ pagination: {
         linkSent: 'קישור אימות חדש נשלח לכתובת האימייל שסיפקת בעת ההרשמה.',
         resend: 'שלח שוב אימייל אימות',
         logout: 'התנתקות',
+    },
+
+    auth: {
+        login: {
+            title: 'התחברות',
+            emailLabel: 'אימייל',
+            passwordLabel: 'סיסמה',
+            rememberMe: 'זכור אותי',
+            forgotPassword: 'שכחת את הסיסמה?',
+            submit: 'התחברות',
+        },
+        forgotPassword: {
+            title: 'שכחתי סיסמה',
+            description: 'שכחת את הסיסמה? אין בעיה. פשוט ספר/י לנו מהי כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה שיאפשר לך לבחור סיסמה חדשה.',
+            emailLabel: 'אימייל',
+            submit: 'שלח קישור לאיפוס סיסמה',
+        },
+        resetPassword: {
+            title: 'איפוס סיסמה',
+            emailLabel: 'אימייל',
+            passwordLabel: 'סיסמה',
+            confirmPasswordLabel: 'אימות סיסמה',
+            submit: 'איפוס סיסמה',
+        },
+        confirmPassword: {
+            title: 'אימות סיסמה',
+            description: 'זהו אזור מאובטח באפליקציה. אנא אמת/י את הסיסמה שלך לפני שתמשיך/י.',
+            passwordLabel: 'סיסמה',
+            submit: 'אישור',
+        },
+    },
+
+    profile: {
+        title: 'פרופיל',
+        information: {
+            heading: 'פרטי הפרופיל',
+            description: 'עדכן/י את פרטי הפרופיל וכתובת האימייל של החשבון שלך.',
+            nameLabel: 'שם',
+            emailLabel: 'אימייל',
+            unverified: 'כתובת האימייל שלך אינה מאומתת.',
+            resendVerification: 'לחץ/י כאן כדי לשלוח שוב את קישור האימות.',
+            verificationSent: 'קישור אימות חדש נשלח לכתובת האימייל שלך.',
+            saved: 'נשמר.',
+        },
+        password: {
+            heading: 'עדכון סיסמה',
+            description: 'ודא/י שהחשבון שלך משתמש בסיסמה ארוכה ואקראית כדי לשמור על האבטחה.',
+            currentPasswordLabel: 'סיסמה נוכחית',
+            newPasswordLabel: 'סיסמה חדשה',
+            confirmPasswordLabel: 'אימות סיסמה',
+            saved: 'נשמר.',
+        },
+        deleteAccount: {
+            heading: 'מחיקת חשבון',
+            description: 'לאחר מחיקת החשבון שלך, כל המשאבים והנתונים שלו יימחקו לצמיתות. לפני מחיקת החשבון, אנא הורד/י את כל הנתונים או המידע שברצונך לשמור.',
+            button: 'מחיקת חשבון',
+            confirmTitle: 'האם את/ה בטוח/ה שברצונך למחוק את חשבונך?',
+            confirmDescription: 'לאחר מחיקת החשבון שלך, כל המשאבים והנתונים שלו יימחקו לצמיתות. אנא הזן/הזיני את הסיסמה שלך כדי לאשר שברצונך למחוק את החשבון שלך לצמיתות.',
+            passwordLabel: 'סיסמה',
+        },
+    },
+
+    businessBranding: {
+        heading: 'הגדרות מיתוג',
+        publicTitleLabel: 'כותרת ציבורית',
+        publicSubtitleLabel: 'כותרת משנה ציבורית',
+        logoLabel: 'לוגו',
+        uploadLogo: 'העלאת לוגו',
+        logoHint: 'PNG או JPG עד 2MB',
+        coverImageLabel: 'תמונת נושא',
+        uploadCover: 'העלאת תמונת נושא',
+        coverHint: 'מומלץ 1600×500',
+        publicDescriptionLabel: 'תיאור ציבורי',
+        primaryColorLabel: 'צבע ראשי',
+        secondaryColorLabel: 'צבע משני',
+        accentColorLabel: 'צבע הדגשה',
+        previewTitle: 'תצוגה מקדימה חיה של עמוד ההזמנה',
+        previewDescription: 'תצוגה מקדימה כיצד ייראה עמוד ההזמנה הציבורי עבור לקוחות.',
+        businessLogoAlt: 'לוגו העסק',
+        mockConsultationName: 'ייעוץ',
+        mockConsultationDescription: 'שירות תור מקצועי',
+        mockFollowUpName: 'פגישת המשך',
+        mockFollowUpDescription: 'מפגש המשך קצר',
+        livePreviewBadge: 'תצוגה מקדימה חיה',
+        businessNamePlaceholder: 'שם-העסק',
+        businessNameFallback: 'שם העסק',
+        defaultSubtitle: 'חוויית הזמנת תורים חכמה באינטרנט',
+        defaultDescription: 'לקוחות יכולים לבחור שירות, לבחור תאריך, לבחור שעה פנויה ולאשר את התור בקלות.',
     },
 
 };

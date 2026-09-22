@@ -24,6 +24,7 @@ export default {
                     tint: 'var(--brand-tint)',
                 },
                 navy: 'var(--brand-navy)',
+                canvas: 'var(--color-bg)',
                 surface: 'var(--color-surface)',
                 border: 'var(--color-border)',
                 text: 'var(--color-text)',
@@ -42,6 +43,11 @@ export default {
                     DEFAULT: 'var(--color-danger)',
                     bg: 'var(--color-danger-bg)',
                     text: 'var(--color-danger-text)',
+                },
+                info: {
+                    DEFAULT: 'var(--color-info)',
+                    bg: 'var(--color-info-bg)',
+                    text: 'var(--color-info-text)',
                 },
             },
             // Namespaced under `ds-` (design-system) instead of overriding

@@ -13,26 +13,26 @@
 .business-preview-header h5 {
     margin: 0;
     font-weight: 900;
-    color: #071533;
+    color: var(--brand-navy);
 }
 
 .business-preview-header p {
     margin: 6px 0 0;
-    color: #6b7890;
+    color: var(--color-muted);
 }
 
 .business-preview-badge {
     border-radius: 999px;
     padding: 8px 14px;
-    background: #eef4ff;
-    color: #2563ff;
+    background: var(--brand-tint);
+    color: var(--brand-blue);
     font-size: 12px;
     font-weight: 800;
     white-space: nowrap;
 }
 
 .business-preview-frame {
-    border: 1px solid #e5ecf6;
+    border: 1px solid var(--color-border);
     border-radius: 28px;
     padding: 22px;
     background:
@@ -46,7 +46,7 @@
             color-mix(in srgb, var(--preview-secondary) 18%, transparent),
             transparent 45%
         ),
-        #f8fbff;
+        var(--color-bg);
     overflow: hidden;
 }
 
@@ -54,8 +54,8 @@
     max-width: 760px;
     margin: 0 auto;
     border-radius: 24px;
-    background: #ffffff;
-    border: 1px solid #e5ecf6;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     box-shadow: 0 24px 60px rgba(7, 21, 51, 0.14);
     overflow: hidden;
 }
@@ -66,15 +66,15 @@
     align-items: center;
     gap: 8px;
     padding: 0 16px;
-    border-bottom: 1px solid #e5ecf6;
-    background: #fbfdff;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
 }
 
 .business-preview-browser-top > span {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #cbd5e1;
+    background: var(--brand-border);
 }
 
 .business-preview-url {
@@ -82,8 +82,8 @@
     margin-inline-start: 12px;
     padding: 8px 14px;
     border-radius: 999px;
-    background: #eef2f7;
-    color: #64748b;
+    background: var(--color-border);
+    color: var(--color-muted);
     font-size: 12px;
     font-weight: 700;
     text-align: center;
@@ -100,13 +100,13 @@
             color-mix(in srgb, var(--preview-primary) 22%, transparent),
             transparent 42%
         ),
-        linear-gradient(135deg, #fbfcff 0%, #f3f6fb 100%);
+        linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg) 100%);
 }
 
 .preview-hero,
 .preview-card {
-    background: #ffffff;
-    border: 1px solid #e5ecf6;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 24px;
     padding: 18px;
     margin-bottom: 18px;
@@ -132,7 +132,7 @@
             var(--preview-primary),
             var(--preview-secondary)
         );
-    color: #ffffff;
+    color: var(--color-surface);
     font-weight: 800;
     gap: 8px;
 }
@@ -151,8 +151,8 @@
     width: 64px;
     height: 64px;
     border-radius: 20px;
-    border: 1px solid #e5ecf6;
-    background: #ffffff;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     box-shadow: 0 12px 28px rgba(7, 21, 51, 0.08);
     display: flex;
     align-items: center;
@@ -183,18 +183,18 @@
 .preview-brand-row h3 {
     margin: 0;
     font-weight: 900;
-    color: #071533;
+    color: var(--brand-navy);
 }
 
 .preview-subtitle {
     margin: 6px 0 0;
-    color: #6b7890;
+    color: var(--color-muted);
     font-weight: 700;
 }
 
 .preview-description {
     margin: 6px 0 0;
-    color: #071533;
+    color: var(--brand-navy);
     font-size: 13px;
     line-height: 1.5;
 }
@@ -209,13 +209,13 @@
 
 .preview-card-header h4 {
     margin: 0;
-    color: #071533;
+    color: var(--brand-navy);
     font-weight: 900;
 }
 
 .preview-card-header p {
     margin: 4px 0 0;
-    color: #6b7890;
+    color: var(--color-muted);
     font-size: 13px;
 }
 
@@ -231,7 +231,7 @@
 }
 
 .preview-service {
-    border: 1.5px solid #e5ecf6;
+    border: 1.5px solid var(--color-border);
     border-radius: 18px;
     padding: 14px;
     display: flex;
@@ -246,13 +246,13 @@
 }
 
 .preview-service strong {
-    color: #071533;
+    color: var(--brand-navy);
 }
 
 .preview-service p,
 .preview-service small {
     margin: 4px 0 0;
-    color: #6b7890;
+    color: var(--color-muted);
 }
 
 .preview-dates {
@@ -263,11 +263,11 @@
 
 .preview-dates button,
 .preview-times button {
-    border: 1.5px solid #e5ecf6;
-    background: #ffffff;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
     border-radius: 16px;
     padding: 12px;
-    color: #071533;
+    color: var(--brand-navy);
     font-weight: 800;
 }
 
@@ -281,7 +281,7 @@
 .preview-dates span,
 .preview-dates small {
     display: block;
-    color: #6b7890;
+    color: var(--color-muted);
     font-size: 11px;
 }
 
@@ -313,7 +313,7 @@
         var(--preview-primary),
         var(--preview-secondary)
     );
-    color: #ffffff;
+    color: var(--color-surface);
     font-weight: 900;
     display: inline-flex;
     justify-content: center;

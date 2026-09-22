@@ -91,6 +91,15 @@ const formattedTime = computed(() => {
 
 const isExpired = computed(() => secondsLeft.value <= 0);
 
+// Requirement 11.6: on a verification failure, move focus to the first
+// field in error so assistive-technology users land on the (re-associated)
+// input group immediately, without clearing what they already entered.
+watch(() => props.error, (value) => {
+    if (value) {
+        boxRefs.value[0]?.focus();
+    }
+});
+
 const verifyDescriptionKey = computed(() =>
     props.channel === 'whatsapp' ? 'booking.verifyDescriptionWhatsapp' : 'booking.verifyDescriptionSms'
 );
@@ -125,7 +134,7 @@ const handleResend = () => {
                 {{ t(verifyDescriptionKey, { phone: customerPhone ?? '' }) }}
             </p>
 
-            <div class="booking-otp-boxes">
+            <div class="booking-otp-boxes" role="group" :aria-label="t('booking.verifyPhone')">
                 <input
                     v-for="(digit, index) in digits"
                     :key="index"
@@ -136,6 +145,8 @@ const handleResend = () => {
                     maxlength="1"
                     class="booking-otp-box"
                     :class="{ 'booking-otp-box--filled': digit }"
+                    :aria-invalid="Boolean(error)"
+                    :aria-describedby="error ? 'booking-otp-error' : undefined"
                     @input="onDigitInput(index, $event)"
                     @keydown="onDigitKeydown(index, $event)"
                     @paste="onDigitPaste(index, $event)"
@@ -146,7 +157,12 @@ const handleResend = () => {
                 {{ isExpired ? t('booking.codeExpired') : t('booking.codeExpiresIn', { time: formattedTime }) }}
             </p>
 
-            <p v-if="error" class="text-danger fw-semibold booking-otp-error">
+            <p
+                v-if="error"
+                id="booking-otp-error"
+                class="booking-otp-error"
+                role="alert"
+            >
                 {{ error }}
             </p>
 

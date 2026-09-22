@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import '../../../css/admin/business-booking-preview.css'
 
 type Props = {
@@ -19,10 +20,12 @@ type Props = {
 
 const props = defineProps<Props>();
 
+const { t } = useI18n();
+
 const fakeDates = [
-    { day: 'Mon', date: '24' },
-    { day: 'Tue', date: '25' },
-    { day: 'Wed', date: '26' },
+    { dayKey: 'mon', date: '24' },
+    { dayKey: 'tue', date: '25' },
+    { dayKey: 'wed', date: '26' },
 ];
 
 const fakeTimes = ['09:00', '10:30', '12:00'];
@@ -41,21 +44,21 @@ const displayCover = computed(() => {
     <section class="business-preview-section">
         <div class="business-preview-header">
             <div>
-                <h5>Live Booking Page Preview</h5>
-                <p>Preview how the public booking page will look for customers.</p>
+                <h5>{{ t('businessBranding.previewTitle') }}</h5>
+                <p>{{ t('businessBranding.previewDescription') }}</p>
             </div>
 
             <span class="business-preview-badge">
-                Live Preview
+                {{ t('businessBranding.livePreviewBadge') }}
             </span>
         </div>
 
         <div
             class="business-preview-frame"
             :style="{
-                '--preview-primary': props.primaryColor || '#2563ff',
-                '--preview-secondary': props.secondaryColor || '#3b82f6',
-                '--preview-accent': props.accentColor || '#16a34a',
+                '--preview-primary': props.primaryColor || 'var(--brand-blue)',
+                '--preview-secondary': props.secondaryColor || 'var(--brand-blue-soft)',
+                '--preview-accent': props.accentColor || 'var(--color-success)',
             }"
         >
             <div class="business-preview-browser">
@@ -65,7 +68,7 @@ const displayCover = computed(() => {
                     <span></span>
 
                     <div class="business-preview-url">
-                        /book/{{ props.businessName || 'business-name' }}
+                        /book/{{ props.businessName || t('businessBranding.businessNamePlaceholder') }}
                     </div>
                 </div>
 
@@ -78,7 +81,7 @@ const displayCover = computed(() => {
                         </div>
                         <div v-else class="preview-cover preview-cover-placeholder">
                             <i class="bi bi-image"></i>
-                            <span>Cover Image</span>
+                            <span>{{ t('businessBranding.coverImageLabel') }}</span>
                         </div>
 
                         <div class="preview-brand-row">
@@ -86,38 +89,38 @@ const displayCover = computed(() => {
                                 <img
                                     v-if="displayLogo"
                                     :src="displayLogo"
-                                    alt="Business logo"
+                                    :alt="t('businessBranding.businessLogoAlt')"
                                 />
 
                                 <span v-else>
-                                    {{ (props.businessName || 'B').charAt(0) }}
+                                    {{ (props.businessName || t('businessBranding.businessNameFallback')).charAt(0) }}
                                 </span>
                             </div>
 
                             <div>
                                 <p class="preview-eyebrow">
-                                    Online Booking
+                                    {{ t('booking.onlineBooking') }}
                                 </p>
 
                                 <h3>
                                     {{
                                         props.publicTitle
                                         || props.businessName
-                                        || 'Business Name'
+                                        || t('businessBranding.businessNameFallback')
                                     }}
                                 </h3>
 
                                 <p class="preview-subtitle">
                                     {{
                                         props.publicSubtitle
-                                        || 'Smart online appointment booking experience'
+                                        || t('businessBranding.defaultSubtitle')
                                     }}
                                 </p>
 
                                 <p class="preview-description">
                                     {{
                                         props.publicDescription
-                                        || 'Customers can choose a service, pick a date, select an available time, and confirm their appointment easily.'
+                                        || t('businessBranding.defaultDescription')
                                     }}
                                 </p>
                             </div>
@@ -127,40 +130,40 @@ const displayCover = computed(() => {
                     <div class="preview-card">
                         <div class="preview-card-header">
                             <div>
-                                <h4>Select a Service</h4>
-                                <p>Pick the service you want to book.</p>
+                                <h4>{{ t('booking.selectService') }}</h4>
+                                <p>{{ t('booking.selectServiceDescription') }}</p>
                             </div>
 
-                            <span>Step 1 of 3</span>
+                            <span>{{ t('booking.stepOne') }}</span>
                         </div>
 
                         <div class="preview-service selected">
                             <div>
-                                <strong>Consultation</strong>
-                                <p>Professional appointment service</p>
+                                <strong>{{ t('businessBranding.mockConsultationName') }}</strong>
+                                <p>{{ t('businessBranding.mockConsultationDescription') }}</p>
                             </div>
 
-                            <small>30 min</small>
+                            <small>30 {{ t('common.min') }}</small>
                         </div>
 
                         <div class="preview-service">
                             <div>
-                                <strong>Follow-up Meeting</strong>
-                                <p>Quick follow-up session</p>
+                                <strong>{{ t('businessBranding.mockFollowUpName') }}</strong>
+                                <p>{{ t('businessBranding.mockFollowUpDescription') }}</p>
                             </div>
 
-                            <small>45 min</small>
+                            <small>45 {{ t('common.min') }}</small>
                         </div>
                     </div>
 
                     <div class="preview-card">
                         <div class="preview-card-header">
                             <div>
-                                <h4>Choose Date</h4>
-                                <p>Select an available date.</p>
+                                <h4>{{ t('booking.chooseDate') }}</h4>
+                                <p>{{ t('booking.chooseDateDescription') }}</p>
                             </div>
 
-                            <span>Step 2 of 3</span>
+                            <span>{{ t('booking.stepTwo') }}</span>
                         </div>
 
                         <div class="preview-dates">
@@ -169,9 +172,9 @@ const displayCover = computed(() => {
                                 :key="date.date"
                                 type="button"
                             >
-                                <span>{{ date.day }}</span>
+                                <span>{{ t(`landing.mockup.days.${date.dayKey}`) }}</span>
                                 <strong>{{ date.date }}</strong>
-                                <small>Available</small>
+                                <small>{{ t('common.available') }}</small>
                             </button>
                         </div>
                     </div>
@@ -179,11 +182,11 @@ const displayCover = computed(() => {
                     <div class="preview-card">
                         <div class="preview-card-header">
                             <div>
-                                <h4>Available Times</h4>
-                                <p>Select a time to continue.</p>
+                                <h4>{{ t('booking.availableTimes') }}</h4>
+                                <p>{{ t('booking.availableTimesDescription') }}</p>
                             </div>
 
-                            <span>Step 3 of 3</span>
+                            <span>{{ t('booking.stepThree') }}</span>
                         </div>
 
                         <div class="preview-times">
@@ -198,7 +201,7 @@ const displayCover = computed(() => {
                         </div>
 
                         <button type="button" class="preview-cta">
-                            Continue
+                            {{ t('common.continue') }}
                             <i class="bi bi-arrow-right"></i>
                         </button>
                     </div>

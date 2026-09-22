@@ -281,7 +281,7 @@ const dayStatus = (cell: CalendarCell) => {
   margin-top: 26px;
   border: 1.5px solid var(--slot-border);
   border-radius: 22px;
-  background: #f8fbff;
+  background: var(--color-bg);
   padding: 22px;
 }
 
@@ -333,7 +333,7 @@ const dayStatus = (cell: CalendarCell) => {
   padding: 0 14px;
   font-weight: 800;
   color: var(--slot-text);
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .calendar-exceptions-add,
@@ -351,14 +351,14 @@ const dayStatus = (cell: CalendarCell) => {
 
 .calendar-exceptions-add {
   border: 0;
-  color: #fff;
+  color: var(--color-surface);
   background: linear-gradient(135deg, var(--slot-blue), var(--slot-blue-2));
 }
 
 .calendar-exceptions-remove {
   border: 0;
-  color: #e11d48;
-  background: #fff1f2;
+  color: var(--slot-danger);
+  background: var(--slot-danger-soft);
 }
 
 .calendar-exceptions-empty {
@@ -391,20 +391,20 @@ const dayStatus = (cell: CalendarCell) => {
 }
 
 .availability-day--override {
-  border-color: #f59e0b;
-  background: #fffbeb;
+  border-color: var(--slot-amber);
+  background: var(--slot-amber-soft);
   opacity: 1;
 }
 
 .availability-day--override-closed {
-  border-color: #f59e0b;
+  border-color: var(--slot-amber);
   background: #fff7ed;
   opacity: 0.65;
 }
 
 .availability-day-dot--override,
 .calendar-exceptions-dot {
-  background: #f59e0b !important;
+  background: var(--slot-amber) !important;
   border-radius: 2px !important;
   transform: translateX(-50%) rotate(45deg) !important;
 }

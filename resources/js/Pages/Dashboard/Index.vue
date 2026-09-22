@@ -28,10 +28,10 @@ const { t } = useI18n();
 const copyBookingLink = async () => {
     try {
         await navigator.clipboard.writeText(props.bookingLink);
-        alert('Copied!');
+        alert(t('dashboard.copied'));
     } catch (error) {
         console.error(error);
-        alert('Could not copy the link');
+        alert(t('dashboard.copyFailed'));
     }
 }
 
@@ -105,8 +105,7 @@ const formatTime = (time: string) => time.slice(0, 5);
                 <div
                     v-for="appointment in todayAppointmentsList"
                     :key="appointment.id"
-                    class="p-3 rounded-4 d-flex justify-content-between align-items-center"
-                    style="background: #f8fbff; border: 1px solid #e5ecf6;"
+                    class="dashboard-list-item p-3 rounded-4 d-flex justify-content-between align-items-center"
                 >
                     <div>
                         <strong>{{ appointment.customer_name }}</strong>
@@ -148,10 +147,7 @@ const formatTime = (time: string) => time.slice(0, 5);
                 </button>
             </div>
 
-            <div
-                class="p-3 rounded-4"
-                style="background: #f3f6fb; border: 1px solid #e5ecf6;"
-            >
+            <div class="dashboard-list-item p-3 rounded-4">
                 <strong>{{ bookingLink }}</strong>
             </div>
         </div>
@@ -170,11 +166,10 @@ const formatTime = (time: string) => time.slice(0, 5);
             <div class="row g-3">
                 <div class="col-md-4">
                     <div
-                        class="p-4 rounded-4 h-100"
-                        style="border: 1px solid #e5ecf6;"
+                        class="admin-overview-link p-4 rounded-4 h-100"
                     >
                         <div class="mb-3">
-                            <i class="bi bi-briefcase fs-3 text-primary"></i>
+                            <i class="bi bi-briefcase fs-3 admin-text-brand"></i>
                         </div>
 
                         <h5 class="fw-bold">{{ t('dashboard.createServices') }}</h5>
@@ -187,11 +182,10 @@ const formatTime = (time: string) => time.slice(0, 5);
 
                 <div class="col-md-4">
                     <div
-                        class="p-4 rounded-4 h-100"
-                        style="border: 1px solid #e5ecf6;"
+                        class="admin-overview-link p-4 rounded-4 h-100"
                     >
                         <div class="mb-3">
-                            <i class="bi bi-clock fs-3 text-primary"></i>
+                            <i class="bi bi-clock fs-3 admin-text-brand"></i>
                         </div>
 
                         <h5 class="fw-bold">{{ t('dashboard.setAvailability') }}</h5>
@@ -204,11 +198,10 @@ const formatTime = (time: string) => time.slice(0, 5);
 
                 <div class="col-md-4">
                     <div
-                        class="p-4 rounded-4 h-100"
-                        style="border: 1px solid #e5ecf6;"
+                        class="admin-overview-link p-4 rounded-4 h-100"
                     >
                         <div class="mb-3">
-                            <i class="bi bi-whatsapp fs-3 text-primary"></i>
+                            <i class="bi bi-whatsapp fs-3 admin-text-brand"></i>
                         </div>
 
                         <h5 class="fw-bold">{{ t('dashboard.whatsappAutomation') }}</h5>

@@ -25,7 +25,7 @@
     height: 38px;
     border: 1px solid var(--slot-border);
     border-radius: 12px;
-    background: #ffffff;
+    background: var(--color-surface);
     color: var(--slot-muted);
 }
 
@@ -71,7 +71,7 @@
 
 .availability-day--selected {
     background: linear-gradient(135deg, var(--slot-blue), var(--slot-blue-2));
-    color: #ffffff;
+    color: var(--color-surface);
     border-color: var(--slot-blue);
     box-shadow: 0 12px 28px rgba(37, 99, 255, 0.25);
 }
@@ -92,7 +92,7 @@
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
-    background: #cbd5e1;
+    background: var(--brand-border);
 }
 
 .availability-day-dot--open {
@@ -100,7 +100,7 @@
 }
 
 .availability-day--selected .availability-day-dot {
-    background: #ffffff;
+    background: var(--color-surface);
 }
 
 .availability-legend {
@@ -123,7 +123,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #cbd5e1;
+    background: var(--brand-border);
 }
 
 .availability-legend-dot--open {
@@ -180,7 +180,7 @@
     top: 3px;
     left: 3px;
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--color-surface);
     box-shadow: 0 2px 6px rgba(7, 21, 51, 0.18);
     transition: 0.18s ease;
 }
@@ -223,7 +223,7 @@
 .availability-time-row input {
     width: 100%;
     border: 1px solid var(--slot-border);
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 16px;
     padding: 14px 16px;
     color: var(--slot-text);
@@ -256,7 +256,7 @@
 
 .availability-presets button {
     border: 1px solid var(--slot-border);
-    background: #ffffff;
+    background: var(--color-surface);
     color: var(--slot-muted);
     border-radius: 999px;
     padding: 7px 13px;
@@ -322,7 +322,7 @@
     border-radius: 16px;
     padding: 14px 26px;
     background: linear-gradient(135deg, var(--slot-blue), var(--slot-blue-2));
-    color: #ffffff;
+    color: var(--color-surface);
     font-weight: 800;
     box-shadow: 0 16px 34px rgba(37, 99, 255, 0.26);
 }
@@ -402,7 +402,7 @@
 
 .availability-breaks-header button {
     border: 1px solid var(--slot-border);
-    background: #ffffff;
+    background: var(--color-surface);
     color: var(--slot-blue);
     border-radius: 999px;
     padding: 7px 12px;
@@ -425,7 +425,7 @@
 .availability-break-item input {
     width: 100%;
     border: 1px solid var(--slot-border);
-    background: #ffffff;
+    background: var(--color-surface);
     border-radius: 14px;
     padding: 11px 12px;
     color: var(--slot-text);
@@ -442,8 +442,8 @@
     height: 38px;
     border: 1px solid var(--slot-border);
     border-radius: 12px;
-    background: #ffffff;
-    color: #dc2626;
+    background: var(--color-surface);
+    color: var(--color-danger);
 }
 
 .availability-break-empty {
@@ -454,7 +454,7 @@
 
 .availability-break-error {
     margin-top: 8px;
-    color: #dc2626;
+    color: var(--color-danger);
     font-size: 12px;
     font-weight: 700;
     display: flex;
@@ -463,22 +463,22 @@
 }
 
 .availability-input-error {
-    border-color: #dc2626 !important;
+    border-color: var(--color-danger) !important;
     background: rgba(220, 38, 38, 0.04) !important;
 }
 
 .availability-page {
-    --slot-navy: #071533;
-    --slot-blue: #2563ff;
-    --slot-blue-2: #3b82f6;
-    --slot-blue-soft: rgba(37, 99, 255, 0.08);
-    --slot-bg: #f4f7fb;
-    --slot-card: #ffffff;
-    --slot-border: #e5ecf6;
-    --slot-text: #071533;
-    --slot-muted: #6b7890;
-    --slot-success: #16a34a;
-    --slot-success-soft: rgba(34, 197, 94, 0.13);
+    --slot-navy: var(--brand-navy);
+    --slot-blue: var(--brand-blue);
+    --slot-blue-2: var(--brand-blue-soft);
+    --slot-blue-soft: var(--brand-tint);
+    --slot-bg: var(--color-bg);
+    --slot-card: var(--color-surface);
+    --slot-border: var(--color-border);
+    --slot-text: var(--brand-navy);
+    --slot-muted: var(--color-muted);
+    --slot-success: var(--color-success);
+    --slot-success-soft: var(--color-success-bg);
     --slot-amber: #f59e0b;
     --slot-amber-soft: #fffbeb;
     --slot-danger: #e11d48;
@@ -648,7 +648,7 @@
     .availability-mobile-tabs {
         display: flex;
         gap: 6px;
-        background: #eef2f9;
+        background: var(--color-bg);
         border-radius: 16px;
         padding: 5px;
         margin-bottom: 18px;
@@ -667,7 +667,7 @@
     }
 
     .availability-mobile-tab.active {
-        color: #ffffff;
+        color: var(--color-surface);
         font-weight: 900;
         background: linear-gradient(135deg, var(--slot-blue), var(--slot-blue-2));
         box-shadow: 0 8px 18px rgba(37, 99, 255, 0.28);
@@ -711,7 +711,7 @@
         justify-content: center;
         border: 1px solid var(--slot-border);
         border-radius: 12px;
-        background: #ffffff;
+        background: var(--color-surface);
         color: var(--slot-muted);
         margin-bottom: 12px;
     }

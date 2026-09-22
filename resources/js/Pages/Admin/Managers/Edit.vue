@@ -44,7 +44,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.name" class="text-danger small mt-1">
+                    <div v-if="form.errors.name" class="admin-error-text">
                         {{ form.errors.name }}
                     </div>
                 </div>
@@ -60,7 +60,7 @@ const submit = () => {
                         class="admin-input"
                     />
 
-                    <div v-if="form.errors.email" class="text-danger small mt-1">
+                    <div v-if="form.errors.email" class="admin-error-text">
                         {{ form.errors.email }}
                     </div>
                 </div>
@@ -80,7 +80,7 @@ const submit = () => {
                         {{ t('admin.managers.keepPasswordHint') }}
                     </small>
 
-                    <div v-if="form.errors.password" class="text-danger small mt-1">
+                    <div v-if="form.errors.password" class="admin-error-text">
                         {{ form.errors.password }}
                     </div>
                 </div>
@@ -103,7 +103,7 @@ const submit = () => {
                         </option>
                     </select>
 
-                    <div v-if="form.errors.business_id" class="text-danger small mt-1">
+                    <div v-if="form.errors.business_id" class="admin-error-text">
                         {{ form.errors.business_id }}
                     </div>
                 </div>
@@ -118,7 +118,7 @@ const submit = () => {
 
                     <Link
                         :href="route('admin.managers.index')"
-                        class="btn btn-light"
+                        class="admin-secondary-btn"
                     >
                         {{ t('common.cancel') }}
                     </Link>
