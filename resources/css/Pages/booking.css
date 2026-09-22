@@ -423,7 +423,6 @@
     max-height: 90vh;
     overflow-y: auto;
     background: #ffffff;
-    border: 1px solid #e5ecf6;
     border-radius: 30px;
     padding: 32px;
     box-shadow: 0 30px 80px rgba(7, 21, 51, 0.25);
@@ -552,7 +551,7 @@
     width: 15%;
     max-width: 56px;
     min-height: 44px;
-    aspect-ratio: 1 / 1.15;
+    aspect-ratio: 1;
     text-align: center;
     border: 1.5px solid var(--color-border);
     border-radius: 16px;
